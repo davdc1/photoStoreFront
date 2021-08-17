@@ -1,7 +1,7 @@
 
 function Footer(){
     return(
-        <div style={style1} className="bg-light py-20">
+        <div style={style1} className="bg-light py-20 text-gray-700">
             <div style={style2}>
                 <div>
                     <p>contact us:</p>
@@ -25,7 +25,7 @@ function Footer(){
                 </div>
             </div>
             <div className="mt-6">
-                <p>all rights reserved C</p>
+                <p>all rights reserved ©</p>
             </div>
         </div>
         

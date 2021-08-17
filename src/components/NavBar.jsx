@@ -1,7 +1,7 @@
 
 function NavBar(){
     return (
-        <div  className="flex flex-row justify-between mx-6 mt-10">
+        <div  className="flex flex-row justify-between mx-6">
             <div>
                 <img src="" alt="logo" />
             </div>

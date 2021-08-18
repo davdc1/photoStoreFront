@@ -1,19 +1,24 @@
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
 function NavBar(){
     return (
         <div  className="flex flex-row justify-between mx-6">
             <div>
-                <img src="" alt="logo" />
+                {/* <img src="" alt="logo" /> */}
+                Logo
             </div>
-            <div>
-                <button className={catBtn}>category</button>
-                <button className={catBtn}>category</button>
-                <button className={catBtn}>category</button>
-                <button className={catBtn}>category</button>
+            <div className="flex items-center">
+                <div className="mx-2">
+                    <button className={catBtn}>Home</button>
+                    <button className={catBtn}>Gallery</button>
+                </div>
+                <input className="h-6 p-1.5 rounded" type="text" placeholder="Search"></input>
             </div>
-            <div>
+            <div className="">
                 <button className="mx-2">sign in</button>
-                <button className="mx-2">cart</button>
+                <button className="mx-2"><FontAwesomeIcon icon={faShoppingCart}/></button>
             </div>
         </div>
     )

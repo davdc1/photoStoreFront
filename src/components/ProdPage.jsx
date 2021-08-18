@@ -42,7 +42,7 @@ class ProdPage extends React.Component{
             <div className="text-gray-600 ">
                 <div className="h-600 flex flex-row justify-center items-center mt-20 mb-32 mx-auto w-10/12">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img className="max-h-70vh" src="https://i.ibb.co/LCGKvc5/city.jpg" alt="image" />
+                        <img className="max-h-70vh shadow-2xl" src="https://i.ibb.co/LCGKvc5/city.jpg" alt="image" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">

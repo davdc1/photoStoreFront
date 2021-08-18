@@ -3,6 +3,8 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import ProdPage from "./ProdPage";
+import Catalog from "./Catalog";
+
 
 class MainPage extends React.Component{
     constructor(){
@@ -16,7 +18,8 @@ class MainPage extends React.Component{
         return (
             <div>
                 <Header />
-                <ProdPage />
+                {/* <ProdPage /> */}
+                <Catalog />
                 <Footer />
             </div>
         )

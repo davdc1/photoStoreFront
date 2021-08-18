@@ -1,4 +1,11 @@
 
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faFacebook} from '@fortawesome/free-brands-svg-icons'
+import {faTwitter} from '@fortawesome/free-brands-svg-icons'
+import {faInstagram} from '@fortawesome/free-brands-svg-icons'
+
+
 function Footer(){
     return(
         <div style={style1} className="bg-light py-20 text-gray-700">
@@ -17,11 +24,14 @@ function Footer(){
                     <br/>
                     <a href="">that</a>
                 </div>
-                <div>
-                    <p>social media:</p>
-                    <a href="">facebook</a>
+                <div className="mt-5">
+                    {/* <p>social media:</p>
+                    <a className="" href="">Facebook</a>
                     <br />
-                    <a href="">tweeter</a>
+                    <a className="" href="">Tweeter</a> */}
+                    <FontAwesomeIcon className="mx-1" icon={faFacebook}/>
+                    <FontAwesomeIcon className="mx-1" icon={faTwitter}/>
+                    <FontAwesomeIcon className="mx-1" icon={faInstagram}/>
                 </div>
             </div>
             <div className="mt-6">

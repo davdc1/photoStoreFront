@@ -15,8 +15,14 @@ class Catalog extends React.Component{
                 {id: 7, prodName: "seventh", price: 200, rank: 4, theme: "nature", imageStr: "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"},
                 {id: 7, prodName: "eighth", price: 120, rank: 3, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
             ],
-            filterBy: ""
+            filterBy: "",
+            searchStr: ""
         }
+    }
+
+    searchCat = (event) => {
+        let str = event.target.value;
+        this.setState({searchStr: str});
     }
 
     sortCat = (event) => {
@@ -61,30 +67,34 @@ class Catalog extends React.Component{
                         <option value="high">price: High to low</option>
                         <option value="rank">Rank</option>
                     </select>
-                    <span>Filter: </span>
+                    <span className="ml-2">Filter: </span>
                     <select className="p-0.5 border-light border-2" name="" id="" onChange={this.filterCat}>
                         <option value="" selected="selected"></option>
                         <option value="city">Theme: City</option>
                         <option value="nature">Theme: Nature</option>
                         <option value="architecture">Theme: Architecture</option>
                     </select>
+                    <span className="ml-2">Search: </span>
+                    <input className="border-light border-2 p-0.5" type="text"  onChange={this.searchCat}/>
                 </div>
                 <div className="flex flex-wrap justify-around 2xl:mx-96">
                     
                     {this.state.prodArray.map((product)=>{
-                        if(this.state.filterBy === ""){
-                            return <CatCard product={product} />
-                        }else if(this.state.filterBy === "city"){
-                            if(product.theme === "city"){
+                        if(product.prodName.includes(this.state.searchStr) ||product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
+                            if(this.state.filterBy === ""){
                                 return <CatCard product={product} />
-                            }
-                        }else if(this.state.filterBy === "nature"){
-                            if(product.theme === "nature"){
-                                return <CatCard product={product} />
-                            }
-                        }else if(this.state.filterBy === "architecture"){
-                            if(product.theme === "architecture"){
-                                return <CatCard product={product} />
+                            }else if(this.state.filterBy === "city"){
+                                if(product.theme === "city"){
+                                    return <CatCard product={product} />
+                                }
+                            }else if(this.state.filterBy === "nature"){
+                                if(product.theme === "nature"){
+                                    return <CatCard product={product} />
+                                }
+                            }else if(this.state.filterBy === "architecture"){
+                                if(product.theme === "architecture"){
+                                    return <CatCard product={product} />
+                                }
                             }
                         }
                     })}

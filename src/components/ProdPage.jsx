@@ -7,7 +7,7 @@ class ProdPage extends React.Component{
         this.state = {
             price: null,
             size: 0,
-            priceTag: "",
+            priceTag: "$100",
             quant: "1"
         }
     }
@@ -15,32 +15,19 @@ class ProdPage extends React.Component{
     setPrice = (event) => {
         let obj = {...this.state};
         obj.size = parseInt(event.target.value[0]);
-        if(obj.size === 0){
-            obj.priceTag ="";
-            obj.price = 0;
-            this.setState(obj);
-            return;
-        }
-        obj.price = (parseInt(event.target.value[0]) * parseInt(obj.quant) * 100);
-        obj.priceTag = "$" + ((parseInt(event.target.value[0]) * parseInt(obj.quant) * 100));
+        obj.price = (parseInt(event.target.value[0]) * 100);
+        obj.priceTag = "$" + obj.price;
         this.setState(obj);
     }
 
     getQuant = (event) => {
-        let obj = {...this.state};
-        obj.quant = event.target.value;
-        obj.price = obj.size * 100 * parseInt(obj.quant);
-        if(obj.size !== 0){
-            obj.priceTag = "$" + obj.price;
-        }else{
-            obj.priceTag = "";
-        }
-        this.setState(obj);
+        this.setState({quant:  event.target.value});
     }
+
     render(){
         return (
             <div className="text-gray-600 ">
-                <div className="h-600 flex flex-row justify-center items-center mt-20 mb-32 mx-auto w-10/12">
+                <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
                         <img className="max-h-70vh shadow-2xl" src="https://i.ibb.co/LCGKvc5/city.jpg" alt="image" />
                     </div>
@@ -58,7 +45,7 @@ class ProdPage extends React.Component{
                             <div className="mb-4 flex flex-row items-center">
                                 <span className="mr-3">Print size</span>
                                 <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>
-                                    <option value="0-none">Choose size</option>
+                                    {/* <option value="0-none">Choose size</option> */}
                                     <option value="1-A3">A3 (31X25cm)</option>
                                     <option value="2-A2">A2 (45X36)</option>
                                     <option value="3-A1">A1 (67X54cm)</option>

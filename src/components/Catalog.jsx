@@ -15,11 +15,12 @@ class Catalog extends React.Component{
                 {id: 7, prodName: "seventh", price: 200, rank: 4, theme: "nature", imageStr: "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"},
                 {id: 7, prodName: "eighth", price: 120, rank: 3, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
             ],
-            filterBy: "",
+            filterBy: "all",
+            filterByArr: [],
             searchStr: ""
         }
     }
-
+    
     searchCat = (event) => {
         let str = event.target.value;
         this.setState({searchStr: str});
@@ -52,36 +53,61 @@ class Catalog extends React.Component{
     }
 
     filterCat = (event) => {
+        console.log("event: ", event.target.id);
         this.setState({
-            filterBy: event.target.value
-        })
+            filterBy: event.target.id
+        });
+    }
+
+    filter3 = (event) => {
+        let temp = [];
+        if(event.target.checked == true){
+            temp.push(event.target.name)
+            this.setState({filterBy: temp})
+        }else{  }
     }
     render(){
         return (
             <div>
                 <div className="my-2">
-                    <span className="mr-2">Sort by: </span>
+                <span className="mx-2">Search: </span>
+                    <input className="border-light border-2 p-0.5" type="text"  onChange={this.searchCat}/>
+                    <span className="mx-2">Sort by: </span>
                     <select className="p-0.5 border-light border-2" name="" id="" onChange={this.sortCat}>
                         <option value="default" selected="selected"></option>
                         <option value="low">price: Low to High</option>
                         <option value="high">price: High to low</option>
                         <option value="rank">Rank</option>
                     </select>
-                    <span className="ml-2">Filter: </span>
-                    <select className="p-0.5 border-light border-2" name="" id="" onChange={this.filterCat}>
-                        <option value="" selected="selected"></option>
-                        <option value="city">Theme: City</option>
-                        <option value="nature">Theme: Nature</option>
-                        <option value="architecture">Theme: Architecture</option>
-                    </select>
-                    <span className="ml-2">Search: </span>
-                    <input className="border-light border-2 p-0.5" type="text"  onChange={this.searchCat}/>
                 </div>
-                <div className="flex flex-wrap justify-around 2xl:mx-96">
+                <div className="flex items-start">
+                    <div className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
+                        <div className="flex flex-col">
+                            <p className="w-52 text-left">Filter by:</p>
+                            <div className="flex justify-between items-center my-2">
+                                <span htmlFor="city">All</span>
+                                <input onClick={this.filterCat} type="radio" name="filter" id="all" />
+                            </div>
+                            <div className="flex justify-between items-center my-2">
+                                <span htmlFor="city">Theme: City</span>
+                                <input onClick={this.filterCat} type="radio" name="filter" id="city" />
+                            </div>
+                            <div className="flex justify-between items-center my-2">
+                                <span htmlFor="architecture">Theme: architecture</span>
+                                <input onClick={this.filterCat}  type="radio" name="filter" id="architecture" />
+                            </div>
+                            <div className="flex justify-between items-center my-2">
+                                <span htmlFor="nature">Theme: Nature</span>
+                                <input onClick={this.filterCat}  type="radio" name="filter" id="nature" />
+                            </div>
+                        </div>
+                    </div>
+                    {/* 2xl:mx-96 */}
+                <div className="flex flex-wrap justify-around 2xl:mx-72">
                     
                     {this.state.prodArray.map((product)=>{
                         if(product.prodName.includes(this.state.searchStr) ||product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
-                            if(this.state.filterBy === ""){
+                            if(this.state.filterBy === "all"){
                                 return <CatCard product={product} />
                             }else if(this.state.filterBy === "city"){
                                 if(product.theme === "city"){
@@ -98,6 +124,7 @@ class Catalog extends React.Component{
                             }
                         }
                     })}
+                </div>
                 </div>
             </div>
         )

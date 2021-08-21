@@ -4,12 +4,14 @@ import {faFacebook} from '@fortawesome/free-brands-svg-icons'
 import {faTwitter} from '@fortawesome/free-brands-svg-icons'
 import {faInstagram} from '@fortawesome/free-brands-svg-icons'
 
+import { Link } from 'react-router-dom'
+
 function Footer(){
     return(
         <div style={style1} className="bg-light py-20 text-gray-700">
             <div style={style2}>
                 <div>
-                    <p>contact us:</p>
+                    <p><Link to="/contactUs">contact us:</Link></p>
                     <address>
                     <span>1-222-333-444</span>
                     <br />

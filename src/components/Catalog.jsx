@@ -48,6 +48,16 @@ class Catalog extends React.Component{
                     return 0;
                 }
             });
+        }else if(event.target.value === "rank"){
+            array.sort((a, b) => {
+                if(a.rank > b.rank){
+                    return -1;
+                }else if(a.rank < b.rank){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            });
         }
         this.setState({prodArray: array});
     }
@@ -60,11 +70,14 @@ class Catalog extends React.Component{
     }
 
     filter3 = (event) => {
-        let temp = [];
+        let temp = this.state.filterByArr;
         if(event.target.checked == true){
-            temp.push(event.target.name)
-            this.setState({filterBy: temp})
-        }else{  }
+            temp.push(event.target.id)
+            this.setState({filterByArr: temp})
+        }else{  
+            temp.splice(temp.indexOf(event.target.id),1)
+        }
+        console.log("filter array: ", this.state.filterByArr);
     }
     render(){
         return (
@@ -81,50 +94,72 @@ class Catalog extends React.Component{
                     </select>
                 </div>
                 <div className="flex items-start">
-                    <div className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
-                        <div className="flex flex-col">
-                            <p className="w-52 text-left">Filter by:</p>
-                            <div className="flex justify-between items-center my-2">
-                                <span htmlFor="city">All</span>
-                                <input onClick={this.filterCat} type="radio" name="filter" id="all" />
+                    <div>
+                        <div className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
+                            <div className="flex flex-col">
+                                <p className="w-52 text-left">Filter by:</p>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="city">All</span>
+                                    <input onClick={this.filterCat} type="radio" name="filter" id="all" />
+                                </div>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="city">Theme: City</span>
+                                    <input onClick={this.filterCat} type="radio" name="filter" id="city" />
+                                </div>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="architecture">Theme: architecture</span>
+                                    <input onClick={this.filterCat}  type="radio" name="filter" id="architecture" />
+                                </div>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="nature">Theme: Nature</span>
+                                    <input onClick={this.filterCat}  type="radio" name="filter" id="nature" />
+                                </div>
                             </div>
-                            <div className="flex justify-between items-center my-2">
-                                <span htmlFor="city">Theme: City</span>
-                                <input onClick={this.filterCat} type="radio" name="filter" id="city" />
-                            </div>
-                            <div className="flex justify-between items-center my-2">
-                                <span htmlFor="architecture">Theme: architecture</span>
-                                <input onClick={this.filterCat}  type="radio" name="filter" id="architecture" />
-                            </div>
-                            <div className="flex justify-between items-center my-2">
-                                <span htmlFor="nature">Theme: Nature</span>
-                                <input onClick={this.filterCat}  type="radio" name="filter" id="nature" />
+                            
+                        </div>
+                        <div  className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
+                            <div className="flex flex-col">
+                                <span className="mx-2">Filter by: </span>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="city">Theme: City</span>
+                                    <input onClick={this.filter3} type="checkbox" name="filter" id="city" />
+                                </div>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="architecture">Theme: architecture</span>
+                                    <input onClick={this.filter3}  type="checkbox" name="filter" id="architecture" />
+                                </div>
+                                <div className="flex justify-between items-center my-2">
+                                    <span htmlFor="nature">Theme: Nature</span>
+                                    <input onClick={this.filter3}  type="checkbox" name="filter" id="nature" />
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     {/* 2xl:mx-96 */}
-                <div className="flex flex-wrap justify-around 2xl:mx-72">
+                    <div className="flex flex-wrap justify-around 2xl:mx-72">
                     
-                    {this.state.prodArray.map((product)=>{
-                        if(product.prodName.includes(this.state.searchStr) ||product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
-                            if(this.state.filterBy === "all"){
-                                return <CatCard product={product} />
-                            }else if(this.state.filterBy === "city"){
-                                if(product.theme === "city"){
-                                    return <CatCard product={product} />
-                                }
-                            }else if(this.state.filterBy === "nature"){
-                                if(product.theme === "nature"){
-                                    return <CatCard product={product} />
-                                }
-                            }else if(this.state.filterBy === "architecture"){
-                                if(product.theme === "architecture"){
-                                    return <CatCard product={product} />
+                        {this.state.prodArray.map((product, index)=>{
+                            console.log("index: ", index);
+                            if(product.prodName.includes(this.state.searchStr) ||product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
+                                if(this.state.filterBy === "all"){
+                                    return <CatCard product={product} key={index} />
+                                }else if(this.state.filterBy === "city"){
+                                    if(product.theme === "city"){
+                                        return <CatCard product={product} key={index} />
+                                    }
+                                }else if(this.state.filterBy === "nature"){
+                                    if(product.theme === "nature"){
+                                        return <CatCard product={product} key={index} />
+                                    }
+                                }else if(this.state.filterBy === "architecture"){
+                                    if(product.theme === "architecture"){
+                                        return <CatCard product={product} key={index} />
+                                    }
                                 }
                             }
-                        }
-                    })}
-                </div>
+                        })}
+                    </div>
                 </div>
             </div>
         )

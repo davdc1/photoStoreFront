@@ -20,6 +20,7 @@ class Catalog extends React.Component{
             filterByArr: [],
             searchStr: ""
         }
+        console.log(JSON.stringify(this.state.prodArray));
     }
     
     searchCat = (event) => {

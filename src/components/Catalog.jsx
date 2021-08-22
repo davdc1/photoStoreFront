@@ -1,5 +1,6 @@
 import React from "react"
 import CatCard from "./CatCard";
+import CatCard2 from "./CatCard2";
 
 class Catalog extends React.Component{
     constructor(){
@@ -13,7 +14,7 @@ class Catalog extends React.Component{
                 {id: 5, prodName: "fifth", price: 90, rank: 4, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
                 {id: 6, prodName: "sixth", price: 300, rank: 4.5, theme: "architecture", imageStr: "https://i.ibb.co/qJFGd2W/2.jpg"},
                 {id: 7, prodName: "seventh", price: 200, rank: 4, theme: "nature", imageStr: "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"},
-                {id: 7, prodName: "eighth", price: 120, rank: 3, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
+                {id: 8, prodName: "eighth", price: 120, rank: 3, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
             ],
             filterBy: "all",
             filterByArr: [],
@@ -141,20 +142,20 @@ class Catalog extends React.Component{
                     
                         {this.state.prodArray.map((product, index)=>{
                             console.log("index: ", index);
-                            if(product.prodName.includes(this.state.searchStr) ||product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
+                            if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
                                 if(this.state.filterBy === "all"){
-                                    return <CatCard product={product} key={index} />
+                                    return <CatCard2 product={product} key={index} />
                                 }else if(this.state.filterBy === "city"){
                                     if(product.theme === "city"){
-                                        return <CatCard product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} />
                                     }
                                 }else if(this.state.filterBy === "nature"){
                                     if(product.theme === "nature"){
-                                        return <CatCard product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} />
                                     }
                                 }else if(this.state.filterBy === "architecture"){
                                     if(product.theme === "architecture"){
-                                        return <CatCard product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} />
                                     }
                                 }
                             }

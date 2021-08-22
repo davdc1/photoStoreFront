@@ -11,6 +11,9 @@ import ContactUs from './components/ContactUs';
 import About from './components/About';
 import Blog from './components/Blog';
 import SignUp from './components/SignUp';
+import Cart from './components/Cart';
+import Gallery from './components/Gallery';
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -39,6 +42,15 @@ function App() {
           </Route>
           <Route exact path="/prodPage">
             <ProdPage />
+          </Route>
+          <Route exact path="/Cart">
+            <Cart />
+          </Route>
+          <Route exact path="/Gallery">
+            <Gallery />
+          </Route>
+          <Route exact path="">
+            <NotFound />
           </Route>
         </Switch>
         <Footer />

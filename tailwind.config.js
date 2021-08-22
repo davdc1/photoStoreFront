@@ -39,6 +39,14 @@ module.exports = {
       'dark': '#393E46',
       'darker': '#222831',
       'turq2': '#41AEA9'
+     }),
+
+     borderColor: theme => ({
+      ...theme('colors'),
+       DEFAULT: theme('colors.gray.300', 'currentColor'),
+      'turq': '#00ADB5',
+      'secondary': '#ffed4a',
+      'danger': '#e3342f',
      })
   },
   variants: {

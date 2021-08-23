@@ -1,15 +1,19 @@
 
 import React from "react";
+import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
 
 
 class ProdPage extends React.Component{
     constructor(props){
         super(props);
-        console.log("params: ", props.match.params);
+        //console.log("params.id: ", props.match.params.id);
+        //console.log("that: ", productJson.prodArray[props.match.params.id].price);
+        this.product = productJson.prodArray[props.match.params.id - 1];
+        console.log("product: ", this.product);
         this.state = {
-            price: null,
-            size: 0,
-            priceTag: "$100",
+            price: this.product.sizes[0].price,
+            size: this.product.sizes[0].size,
+            priceTag: '$' + this.product.sizes[0].price,
             quant: "1"
         }
     }
@@ -17,8 +21,8 @@ class ProdPage extends React.Component{
 
     setPrice = (event) => {
         let obj = {...this.state};
-        obj.size = parseInt(event.target.value[0]);
-        obj.price = (parseInt(event.target.value[0]) * 100);
+        obj.size = this.product.sizes[parseInt(event.target.value)].size ;
+        obj.price = this.product.sizes[parseInt(event.target.value)].price;
         obj.priceTag = "$" + obj.price;
         this.setState(obj);
     }
@@ -32,7 +36,7 @@ class ProdPage extends React.Component{
             <div className="text-gray-600 ">
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img className="max-h-70vh shadow-2xl" src="https://i.ibb.co/LCGKvc5/city.jpg" alt="image" />
+                        <img className="max-h-70vh shadow-2xl" src={this.product.imageStr} alt="image" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">
@@ -49,10 +53,9 @@ class ProdPage extends React.Component{
                             <div className="mb-4 flex flex-row items-center">
                                 <span className="mr-3">Print size</span>
                                 <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>
-                                    {/* <option value="0-none">Choose size</option> */}
-                                    <option value="1-A3">A3 (31X25cm)</option>
-                                    <option value="2-A2">A2 (45X36)</option>
-                                    <option value="3-A1">A1 (67X54cm)</option>
+                                    {this.product.sizes.map((obj, index) => {
+                                        return <option value={obj.val} key={index} >{obj.size}</option>
+                                    })}
                                 </select>
                                 <span className="text-xl font-semibold">{this.state.priceTag}</span>
                             </div>

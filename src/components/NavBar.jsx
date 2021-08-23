@@ -8,7 +8,7 @@ function NavBar(){
     return (
         <div  className="flex flex-row justify-between mx-6">
             <div>
-                <img src="src\images\logo.png" alt="Logo" />
+                <Link to="/"><img src="src\images\logo.png" alt="Logo" /></Link>
             </div>
             <div className="flex items-center">
                 <div className="mx-2">
@@ -17,7 +17,7 @@ function NavBar(){
                     <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
                     <button className={catBtn}><Link to="/about">About</Link></button>
                 </div>
-                <input className="h-6 p-1.5 rounded" type="text" placeholder="Search"></input>
+                <input className="border border-light border-2 p-0.5 rounded" type="text" placeholder="Search"></input>
             </div>
             <div className="">
                 <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>

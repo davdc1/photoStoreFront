@@ -14,7 +14,7 @@ import SignUp from './components/SignUp';
 import Cart from './components/Cart';
 import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
-
+import Carousel from './components/Carousel';
 
 function App() {
   return (
@@ -52,9 +52,16 @@ function App() {
           <Route exact path="/Gallery">
             <Gallery />
           </Route>
+          
+          {/* <Route path="/carousel" component={Carousel}>
+            
+          </Route> */}
+
           <Route exact path="">
             <NotFound />
           </Route>
+
+
         </Switch>
         <Footer />
       </div>

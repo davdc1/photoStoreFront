@@ -1,0 +1,77 @@
+
+{
+    "prodArray": [
+      {
+        "id": 1,
+        "prodName": "first",
+        "price": 100,
+        "rank": 4.5,
+        "theme": "architecture",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "100", "val": "0"}, {"size":"A2 (45X36)", "price": "180", "val": "1"},{"size": "A1 (67X54cm)", "price": "350", "val": "2"}],
+        "imageStr": "https://i.ibb.co/qJFGd2W/2.jpg"
+      },
+      {
+        "id": 2,
+        "prodName": "second",
+        "price": 150,
+        "rank": 4,
+        "theme": "city",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "150", "val": "0"}, {"size":"A2 (45X36)", "price": "300", "val": "1"},{"size": "A1 (67X54cm)", "price": "600", "val": "2"}],
+        "imageStr": "https://i.ibb.co/LCGKvc5/city.jpg"
+      },
+      {
+        "id": 3,
+        "prodName": "third",
+        "price": 260,
+        "rank": 5,
+        "theme": "nature",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "260", "val": "0"}, {"size":"A2 (45X36)", "price": "480", "val": "1"},{"size": "A1 (67X54cm)", "price": "720", "val": "2"}],
+        "imageStr": "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"
+      },
+      {
+        "id": 4,
+        "prodName": "fourth",
+        "price": 250,
+        "rank": 3.5,
+        "theme": "architecture",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "250", "val": "0"}, {"size":"A2 (45X36)", "price": "450", "val": "1"},{"size": "A1 (67X54cm)", "price": "650", "val": "2"}],
+        "imageStr": "https://i.ibb.co/qJFGd2W/2.jpg"
+      },
+      {
+        "id": 5,
+        "prodName": "fifth",
+        "price": 90,
+        "rank": 4,
+        "theme": "city",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "90", "val": "0"}, {"size":"A2 (45X36)", "price": "150", "val": "1"},{"size": "A1 (67X54cm)", "price": "250", "val": "2"}],
+        "imageStr": "https://i.ibb.co/LCGKvc5/city.jpg"
+      },
+      {
+        "id": 6,
+        "prodName": "sixth",
+        "price": 300,
+        "rank": 4.5,
+        "theme": "architecture",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "300", "val": "0"}, {"size":"A2 (45X36)", "price": "540", "val": "1"},{"size": "A1 (67X54cm)", "price": "680", "val": "2"}],
+        "imageStr": "https://i.ibb.co/qJFGd2W/2.jpg"
+      },
+      {
+        "id": 7,
+        "prodName": "seventh",
+        "price": 200,
+        "rank": 4,
+        "theme": "nature",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "200", "val": "0"}, {"size":"A2 (45X36)", "price": "380", "val": "1"},{"size": "A1 (67X54cm)", "price": "450", "val": "2"}],
+        "imageStr": "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"
+      },
+      {
+        "id": 8,
+        "prodName": "eighth",
+        "price": 120,
+        "rank": 3,
+        "theme": "city",
+        "sizes": [{"size":"A3 (31X25cm)", "price": "120", "val": "0"}, {"size":"A2 (45X36)", "price": "200", "val": "1"},{"size": "A1 (67X54cm)", "price": "400", "val": "2"}],
+        "imageStr": "https://i.ibb.co/LCGKvc5/city.jpg"
+      }
+    ]
+  }

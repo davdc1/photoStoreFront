@@ -2,25 +2,17 @@ import React from "react"
 import CatCard from "./CatCard";
 import CatCard2 from "./CatCard2";
 
+import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
+
 class Catalog extends React.Component{
     constructor(){
         super();
         this.state = {
-            prodArray: [
-                {id: 1, prodName: "first", price: 100, rank: 4.5, theme: "architecture", imageStr: "https://i.ibb.co/qJFGd2W/2.jpg"},
-                {id: 2, prodName: "second", price: 150, rank: 4, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
-                {id: 3, prodName: "third", price: 260, rank: 5, theme: "nature", imageStr: "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"},
-                {id: 4, prodName: "fourth", price: 250, rank: 3.5, theme: "architecture", imageStr: "https://i.ibb.co/qJFGd2W/2.jpg"},
-                {id: 5, prodName: "fifth", price: 90, rank: 4, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
-                {id: 6, prodName: "sixth", price: 300, rank: 4.5, theme: "architecture", imageStr: "https://i.ibb.co/qJFGd2W/2.jpg"},
-                {id: 7, prodName: "seventh", price: 200, rank: 4, theme: "nature", imageStr: "https://i.ibb.co/zGPSsXJ/E054093-D-ED10-4667-B82-B-DFF1507-DAA5-E.jpg"},
-                {id: 8, prodName: "eighth", price: 120, rank: 3, theme: "city", imageStr: "https://i.ibb.co/LCGKvc5/city.jpg"},
-            ],
+            prodArray: productJson.prodArray,
             filterBy: "all",
             filterByArr: [],
             searchStr: ""
         }
-        console.log(JSON.stringify(this.state.prodArray));
     }
     
     searchCat = (event) => {
@@ -71,7 +63,7 @@ class Catalog extends React.Component{
         });
     }
 
-    filter3 = (event) => {
+    filter2 = (event) => {
         let temp = this.state.filterByArr;
         if(event.target.checked == true){
             temp.push(event.target.id)
@@ -85,11 +77,11 @@ class Catalog extends React.Component{
         return (
             <div>
                 <div className="my-2">
-                <span className="mx-2">Search: </span>
-                    <input className="border-light border-2 p-0.5" type="text"  onChange={this.searchCat}/>
-                    <span className="mx-2">Sort by: </span>
-                    <select className="p-0.5 border-light border-2" name="" id="" onChange={this.sortCat}>
-                        <option value="default" selected="selected"></option>
+                {/* <span className="mx-2">Search: </span> */}
+                    <input className="mr-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
+                    {/* <span className="mx-2">Sort by: </span> */}
+                    <select className="ml-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
+                        <option value="default" defaultValue>Sort by:</option>
                         <option value="low">price: Low to High</option>
                         <option value="high">price: High to low</option>
                         <option value="rank">Rank</option>
@@ -124,15 +116,15 @@ class Catalog extends React.Component{
                                 <span className="mx-2">Filter by: </span>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="city">Theme: City</span>
-                                    <input onClick={this.filter3} type="checkbox" name="filter" id="city" />
+                                    <input onClick={this.filter2} type="checkbox" name="filter" id="city" />
                                 </div>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="architecture">Theme: architecture</span>
-                                    <input onClick={this.filter3}  type="checkbox" name="filter" id="architecture" />
+                                    <input onClick={this.filter2}  type="checkbox" name="filter" id="architecture" />
                                 </div>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="nature">Theme: Nature</span>
-                                    <input onClick={this.filter3}  type="checkbox" name="filter" id="nature" />
+                                    <input onClick={this.filter2}  type="checkbox" name="filter" id="nature" />
                                 </div>
                             </div>
                         </div>

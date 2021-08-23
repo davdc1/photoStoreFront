@@ -20,7 +20,7 @@ function NavBar(){
                 <input className="h-6 p-1.5 rounded" type="text" placeholder="Search"></input>
             </div>
             <div className="">
-                <button className="mx-2"><Link to="/signUp">sign in</Link></button>
+                <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
                 <button className="mx-2"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
             </div>
         </div>

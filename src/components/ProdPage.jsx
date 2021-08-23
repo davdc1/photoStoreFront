@@ -38,7 +38,8 @@ class ProdPage extends React.Component{
                         <div className="flex flex-col  mx-3 text-left">
                             <div className="mb-4 flex flex-col justify-between">
                                 <h1 className="text-2xl mb-2 align-top">a product</h1>
-                                <p>here: {this.props.match.params.id} Lorem ipsum dolor sit amet consectetur, adipisicing elit., tempore, corrupti quisquam magnam.</p>
+                                <p>product id: {this.props.match.params.id}</p>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit., tempore, corrupti quisquam magnam.</p>
                             </div>
                             <hr />
                             <div className="my-4"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.  perspiciatis architecto odio, reprehenderit amet maiores aliquid alias mollitia eum similique</p></div>

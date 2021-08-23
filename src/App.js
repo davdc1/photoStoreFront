@@ -40,9 +40,12 @@ function App() {
           <Route exact path="/signUp">
             <SignUp />
           </Route>
+
           <Route exact path ="/prodPage/:id" component={ProdPage}/>
+
           {/* <Route exact path="/prodPage/:id"
           render={({match}) => <ProdPage match={match} id={this.state.id}/>} /> */}
+         
           <Route exact path="/Cart">
             <Cart />
           </Route>

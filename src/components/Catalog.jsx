@@ -4,6 +4,7 @@ import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
 
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
+//import productJson from 'C:/experis/project/clone/src/stuff/products.json'
 
 class Catalog extends React.Component{
     constructor(){

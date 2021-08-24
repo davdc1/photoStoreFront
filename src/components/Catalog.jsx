@@ -14,12 +14,17 @@ class Catalog extends React.Component{
             filterBy: "all",
             filterByArr: [],
             searchStr: "",
-            quickV: false
+            quickV: false,
+            quickProduct: ""
         }
     }
     
-    showQuick = () => {
-        this.setState({quickV: !this.state.quickV});
+    showQuick = (product) => {
+        this.setState({
+            quickV: !this.state.quickV,
+            quickProduct: product
+        });
+        
         console.log("click: ", this.state.quickV);
     }
 
@@ -94,7 +99,7 @@ class Catalog extends React.Component{
                         <option value="high">price: High to low</option>
                         <option value="rank">Rank</option>
                     </select>
-                    <QuickView show={this.state.quickV} showQuick={this.showQuick} />
+                    <QuickView product={this.state.quickProduct} show={this.state.quickV} showQuick={this.showQuick} />
                 </div>
                 <div className="flex items-start">
                     <div>

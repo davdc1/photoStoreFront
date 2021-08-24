@@ -15,7 +15,7 @@ function CatCard({product, showQuick}){
                         <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
                         <span className="mx-3 font-medium text-xl">${product.price}</span>
                     </div>
-                    <button className="" onClick={showQuick}>Quick view</button>
+                    <button className="" onClick={() => showQuick(product)}>Quick view</button>
                 </div>
             </div>
         </div>

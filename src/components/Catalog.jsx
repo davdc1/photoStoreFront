@@ -1,6 +1,7 @@
 import React from "react"
 import CatCard from "./CatCard";
 import CatCard2 from "./CatCard2";
+import QuickView from "./QuickView";
 
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
 
@@ -11,10 +12,16 @@ class Catalog extends React.Component{
             prodArray: productJson.prodArray,
             filterBy: "all",
             filterByArr: [],
-            searchStr: ""
+            searchStr: "",
+            quickV: false
         }
     }
     
+    showQuick = () => {
+        this.setState({quickV: !this.state.quickV});
+        console.log("click: ", this.state.quickV);
+    }
+
     searchCat = (event) => {
         let str = event.target.value;
         this.setState({searchStr: str});
@@ -86,6 +93,7 @@ class Catalog extends React.Component{
                         <option value="high">price: High to low</option>
                         <option value="rank">Rank</option>
                     </select>
+                    <QuickView show={this.state.quickV} showQuick={this.showQuick} />
                 </div>
                 <div className="flex items-start">
                     <div>
@@ -137,18 +145,18 @@ class Catalog extends React.Component{
                             console.log("index: ", index);
                             if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
                                 if(this.state.filterBy === "all"){
-                                    return <CatCard2 product={product} key={index} />
+                                    return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
                                 }else if(this.state.filterBy === "city"){
                                     if(product.theme === "city"){
-                                        return <CatCard2 product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
                                     }
                                 }else if(this.state.filterBy === "nature"){
                                     if(product.theme === "nature"){
-                                        return <CatCard2 product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
                                     }
                                 }else if(this.state.filterBy === "architecture"){
                                     if(product.theme === "architecture"){
-                                        return <CatCard2 product={product} key={index} />
+                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
                                     }
                                 }
                             }

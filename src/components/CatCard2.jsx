@@ -1,7 +1,7 @@
 
 import {Link} from "react-router-dom"
 
-function CatCard({product}){
+function CatCard({product, showQuick}){
     return(
         <div className='flex h-96 my-14 mx-4 items-center px-8 border-2 border-light'>
             <div className="">
@@ -15,7 +15,7 @@ function CatCard({product}){
                         <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
                         <span className="mx-3 font-medium text-xl">${product.price}</span>
                     </div>
-                    <button className="">Quick view</button>
+                    <button className="" onClick={showQuick}>Quick view</button>
                 </div>
             </div>
         </div>

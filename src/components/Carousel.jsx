@@ -1,5 +1,6 @@
 import React from "react"
 
+
 class Carousel extends React.Component{
 
     constructor(props){
@@ -50,9 +51,9 @@ class Carousel extends React.Component{
                     })} */}
                     {this.state.images.map((str, index) => {
                         if(index === (this.state.images.length / 2) - 0.5){
-                            return <div className="rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  this.state.images[index]}}></div>
+                            return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  str}}></div>
                         }
-                        return <div className="rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  this.state.images[index]}}></div>
+                        return <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  this.state.images[index]}}></div>
                     })}
                     <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>
                 </div>

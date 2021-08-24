@@ -1,7 +1,5 @@
 
 import NavBar from "./NavBar";
-import NavBar2 from "./NavBar2";
-
 
 function Header(){
     return(

@@ -1,19 +1,24 @@
 import React from "react"
-import CatCard from "./CatCard";
 import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
-
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
-//import productJson from 'C:/experis/project/clone/src/stuff/products.json'
+
 
 class Catalog extends React.Component{
-    constructor(){
-        super();
+    
+    constructor(props){
+        
+        super(props);
+        
+        let urlSearchParams = new URLSearchParams(window.location.search);
+        let params = Object.fromEntries(urlSearchParams.entries());
+        console.log("at catalog: params.q: ", params.q);
+        
         this.state = {
             prodArray: productJson.prodArray,
             filterBy: "all",
             filterByArr: [],
-            searchStr: "",
+            searchStr: params.q,
             quickV: false,
             quickProduct: ""
         }
@@ -24,8 +29,6 @@ class Catalog extends React.Component{
             quickV: !this.state.quickV,
             quickProduct: product
         });
-        
-        console.log("click: ", this.state.quickV);
     }
 
     searchCat = (event) => {
@@ -90,9 +93,7 @@ class Catalog extends React.Component{
         return (
             <div>
                 <div className="my-2">
-                {/* <span className="mx-2">Search: </span> */}
                     <input className="mr-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
-                    {/* <span className="mx-2">Sort by: </span> */}
                     <select className="ml-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
                         <option value="default" defaultValue>Sort by:</option>
                         <option value="low">price: Low to High</option>
@@ -144,14 +145,13 @@ class Catalog extends React.Component{
                         </div>
 
                     </div>
-                    {/* 2xl:mx-96 */}
-                    <div className="flex flex-wrap justify-around 2xl:mx-72">
+                    <div className="flex flex-wrap justify-around 2xl:mx-52">
                     
                         {this.state.prodArray.map((product, index)=>{
                             console.log("index: ", index);
-                            if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === ""){
+                            if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === "" || !this.state.searchStr){
                                 if(this.state.filterBy === "all"){
-                                    return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
+                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
                                 }else if(this.state.filterBy === "city"){
                                     if(product.theme === "city"){
                                         return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
@@ -173,5 +173,6 @@ class Catalog extends React.Component{
         )
     }
 }
+
 
 export default Catalog

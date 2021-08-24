@@ -6,8 +6,6 @@ import productJson from 'C:/experis/project/clone/src/components/stuff/products.
 class ProdPage extends React.Component{
     constructor(props){
         super(props);
-        //console.log("params.id: ", props.match.params.id);
-        //console.log("that: ", productJson.prodArray[props.match.params.id].price);
         this.product = productJson.prodArray[props.match.params.id - 1];
         console.log("product: ", this.product);
         this.state = {
@@ -20,11 +18,11 @@ class ProdPage extends React.Component{
 
 
     setPrice = (event) => {
-        let obj = {...this.state};
-        obj.size = this.product.sizes[parseInt(event.target.value)].size ;
-        obj.price = this.product.sizes[parseInt(event.target.value)].price;
-        obj.priceTag = "$" + obj.price;
-        this.setState(obj);
+        this.setState({
+            price: this.product.sizes[parseInt(event.target.value)].price,
+            size: this.product.sizes[parseInt(event.target.value)].size,
+            priceTag: "$" + this.product.sizes[parseInt(event.target.value)].price
+        })
     }
 
     getQuant = (event) => {
@@ -41,7 +39,7 @@ class ProdPage extends React.Component{
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">
                             <div className="mb-4 flex flex-col justify-between">
-                                <h1 className="text-2xl mb-2 align-top">a product</h1>
+                                <h1 className="text-2xl mb-2 align-top">{this.product.prodName}</h1>
                                 <p>product id: {this.props.match.params.id}</p>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit., tempore, corrupti quisquam magnam.</p>
                             </div>

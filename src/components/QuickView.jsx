@@ -8,47 +8,28 @@ function QuickView({show, showQuick, product}){
         return null
     }
     return (
-        <div className="flex  justify-center items-center w-screen h-screen z-10 fixed">
-            <div className=" flex border border-1 bg-light h-96 p-8 mb-72">
-                <div className="">
-                    <Link to={{pathname:`/prodpage/${product.id}`}}><img className="w-52 shadow-xl" src={product.imageStr} alt="ProdImage" /></Link>
-                </div>
-                <div className="flex flex-col justify-center h-full">
-                    <div className="flex flex-col justify-around h-4/6 ml-4 w-64">
-                        <span className="mx-3 font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${product.id}`}}>product name (id: {product.id})</Link></span>
-                        <br />
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam similique Voluptatibus necessitatibus, perspiciatis quibusdam  sapien.</p>
-                        <br />
-                        <span className="mx-3">rank: {product.rank}</span>
-                        <div className="flex items-center justify-around">
-                            <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
-                            <span className="mx-3 font-medium text-xl">${product.price}</span>
-                        </div>
-                        <button onClick={showQuick} className="border border-1 rounded py-0.5 px-1.5 mt-6">close</button>
+        <div className="flex justify-center items-center w-screen h-screen z-10 fixed top-0 bg-gray-500 bg-opacity-60">
+            <div className=" flex flex-col justify-between items-center border border-1 rounded bg-white h-p500 w-p600 p-12 pt-6 my-auto">
+                <button onClick={showQuick} className="border border-1 rounded px-1.5 mb-4 self-end">X</button>
+                <div className="flex justify-between items-center w-full">
+                    <div className="">
+                        <Link to={{pathname:`/prodpage/${product.id}`}}><img className="w-p250 shadow-xl" src={product.imageStr} alt="ProdImage" /></Link>
                     </div>
+                        <div className="flex flex-col justify-between self-stretch w-p200">
+                            <span className="mx-3 font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${product.id}`}}>product name: {product.prodName}</Link></span>
+                            <hr />
+                            <p className="text-left my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam similique Voluptatibus necessitatibus, perspiciatis quibusdam  sapien.</p>
+                            <hr />
+                            <span className="my-3">rank: {product.rank}</span>
+                            <div className="flex items-center justify-around">
+                                <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
+                                <span className="mx-3 font-medium text-xl">${product.price}</span>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     ) 
-
-    return (
-        <div className='flex h-96 my-14 mx-4 items-center px-8 border-2 border-light'>
-            <div className="">
-                <Link to={{pathname:`/prodpage/${product.id}`}}><img className="w-52 shadow-xl" src={product.imageStr} alt="ProdImage" /></Link>
-            </div>
-            <div className="flex flex-col justify-center h-full">
-                <div className="flex flex-col justify-around h-4/6 ml-4">
-                    <span className="mx-3 font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${product.id}`}}>product name (id: {product.id})</Link></span>
-                    <span className="mx-3">rank: {product.rank}</span>
-                    <div className="flex items-center justify-around">
-                        <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
-                        <span className="mx-3 font-medium text-xl">${product.price}</span>
-                    </div>
-                    <button onClick={showQuick} className="border border-1 rounded py-0.5 px-1.5">close</button>
-                </div>
-            </div>
-        </div>
-    )
 }
 
 export default QuickView

@@ -13,7 +13,8 @@ class NavBar extends React.Component{
         this.state = {
             searchStr: "",
             searchRedirect: false,
-            toggle: true
+            toggle: true,
+            inCart: 2
         }
     }
 
@@ -28,7 +29,7 @@ class NavBar extends React.Component{
     
     render(){
         return (
-            <div  className="flex flex-row justify-between mx-6">
+            <div  className="flex flex-row justify-between items-center mx-6">
                 {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
                 <div>
                     <Link to="/"><img className="w-16 my-2" src="images\logo.png" alt="Logo" /></Link>
@@ -43,9 +44,14 @@ class NavBar extends React.Component{
                     <input onChange={this.getSearchInput} className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
                     <button onClick={this.search} className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light">Search</button>
                 </div>
-                <div className="">
+                <div className="flex items-center">
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
-                    <button className="mx-2"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                    <div>
+                        {this.state.inCart > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
+                            {this.state.inCart}
+                        </div>}
+                        <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                    </div>
                 </div>
             </div>
         )

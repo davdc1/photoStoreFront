@@ -25,32 +25,30 @@ function App() {
           <Route exact path="/">
             <Welcome />
           </Route>
-          <Route  path="/catalog">
-            <Catalog />
-          </Route>
-          <Route exact path="/contactUs">
+          <Route  path="/catalog" component={props => <Catalog {...props}/>} />
+          <Route  path="/contactUs">
             <ContactUs />
           </Route>
-          <Route exact path="/about">
+          <Route  path="/about">
             <About />
           </Route>
-          <Route exact path="/blog">
+          <Route  path="/blog">
             <Blog />
           </Route>
-          <Route exact path="/signUp">
+          <Route  path="/signUp">
             <SignUp />
           </Route>
 
-          <Route exact path ="/prodPage/:id" component={ProdPage}/>
+          <Route  path ="/prodPage/:id" component={ProdPage}/>
          
-          <Route exact path="/Cart">
+          <Route  path="/Cart">
             <Cart />
           </Route>
-          <Route exact path="/Gallery">
+          <Route  path="/Gallery">
             <Gallery />
           </Route>
           
-          <Route exact path="">
+          <Route  path="">
             <NotFound />
           </Route>
 

@@ -6,13 +6,13 @@ import productJson from 'C:/experis/project/clone/src/components/stuff/products.
 
 class Catalog extends React.Component{
     
-    constructor(props){
+    constructor(){
         
-        super(props);
+        super();
         
         let urlSearchParams = new URLSearchParams(window.location.search);
         let params = Object.fromEntries(urlSearchParams.entries());
-        console.log("at catalog: params.q: ", params.q);
+        console.log("at catalog: search params.q: ", params.q);
         
         this.state = {
             prodArray: productJson.prodArray,
@@ -24,6 +24,7 @@ class Catalog extends React.Component{
         }
     }
     
+
     showQuick = (product) => {
         this.setState({
             quickV: !this.state.quickV,
@@ -90,6 +91,7 @@ class Catalog extends React.Component{
         console.log("filter array: ", this.state.filterByArr);
     }
     render(){
+        console.log(this.props)
         return (
             <div>
                 <div className="my-2">

@@ -3,7 +3,7 @@
     "prodArray": [
       {
         "id": 1,
-        "prodName": "\"first\"",
+        "prodName": "first",
         "price": 100,
         "rank": 4.5,
         "theme": "architecture",
@@ -12,10 +12,10 @@
       },
       {
         "id": 2,
-        "prodName": "second",
+        "prodName": "second time and",
         "price": 150,
         "rank": 4,
-        "theme": "\"city\"",
+        "theme": "city",
         "sizes": [{"size":"A3 (31X25cm)", "price": "150", "val": "0"}, {"size":"A2 (45X36)", "price": "300", "val": "1"},{"size": "A1 (67X54cm)", "price": "600", "val": "2"}],
         "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
       },

@@ -6,15 +6,18 @@ class Carousel extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            images:  [
-                "url(https://i.ibb.co/YkTt4JD/2.jpg)",
-                "url(https://i.ibb.co/D7FfSgc/city.jpg)",
-                "url(https://i.ibb.co/kQKH4m7/IMG-4547.jpg)",
-                "url(https://i.ibb.co/xfPpJw1/bridge.jpg)",
-                "url(https://i.ibb.co/hyVKDZ4/dwntwn.jpg)"
-            ]
+            // images:  [
+            //     "url(https://i.ibb.co/YkTt4JD/2.jpg)",
+            //     "url(https://i.ibb.co/D7FfSgc/city.jpg)",
+            //     "url(https://i.ibb.co/kQKH4m7/IMG-4547.jpg)",
+            //     "url(https://i.ibb.co/xfPpJw1/bridge.jpg)",
+            //     "url(https://i.ibb.co/hyVKDZ4/dwntwn.jpg)"
+            // ],
+            images: this.props.imagesArray
         }
     }
+
+    //pass images as props. try to use array.map on first state asignement
 
     rotateRight = () => {
         let array = this.state.images;
@@ -39,15 +42,16 @@ class Carousel extends React.Component{
 
     render(){
         return(
-            <div className="pt-5 mt-20 mb-24 bg-green-50 border-t-2 border-b-2 border-turq">
-                <p className="text-2xl mb-10">it's a headline!</p>
+            <div >
                 <div className="flex justify-center items-center pb-12">
                     <button onClick={this.rotateLeft} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{"<"}</button>
                     {this.state.images.map((str, index) => {
-                        if(index === (this.state.images.length / 2) - 0.5){
-                            return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  str}}></div>
+                        if(index <= 4){
+                            if(index === 2){
+                                return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  `url(${str})`}}></div>
+                            }
+                            return <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(${str})`}}></div>
                         }
-                        return <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  this.state.images[index]}}></div>
                     })}
                     <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>
                 </div>

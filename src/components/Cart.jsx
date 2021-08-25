@@ -15,6 +15,13 @@ class Cart extends React.Component{
             ]
         }
     }
+
+    itemCountTotal = () => {
+        let sum = 0;
+        this.state.items.map((item) => {
+            sum += item.quantity
+        })
+    }
     
 
     render(){

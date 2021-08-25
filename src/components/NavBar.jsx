@@ -13,16 +13,22 @@ class NavBar extends React.Component{
         this.state = {
             searchStr: "",
             searchRedirect: false,
-            inCart: 2
+            inCart: 2,
+            noMatch: false
         }
     }
 
     search = (e) => {
+        this.setState({noMatch: false})
         e.preventDefault();
         console.log("searchStr: ", e.target[0].value);
-        this.setState({searchRedirect: true, searchStr: e.target[0].value})
+        if(e.target[0].value !== ""){
+            this.setState({searchRedirect: true, searchStr: e.target[0].value})
+        }else{
+            this.setState({noMatch: true})
+        }
     }
-    
+
     render(){
         return (
             <div  className="flex flex-row justify-between items-center mx-6">
@@ -37,10 +43,13 @@ class NavBar extends React.Component{
                         <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
                         <button className={catBtn}><Link to="/about">About</Link></button>
                     </div>
-                    <form onSubmit={this.search} action="">
-                        <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
-                        <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light">Search</button>
-                    </form>
+                    <div className="flex flex-col">
+                        <form onSubmit={this.search} action="">
+                            <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
+                            <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
+                        </form>
+                        {this.state.noMatch && <span className="text-black">enter a valid term</span>}
+                    </div>
                 </div>
                 <div className="flex items-center">
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>

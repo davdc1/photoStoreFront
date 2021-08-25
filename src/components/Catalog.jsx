@@ -33,8 +33,7 @@ class Catalog extends React.Component{
     }
 
     searchCat = (event) => {
-        let str = event.target.value;
-        this.setState({searchStr: str});
+        this.setState({searchStr: event.target.value});
     }
 
     sortCat = (event) => {

@@ -43,12 +43,6 @@ class Carousel extends React.Component{
                 <p className="text-2xl mb-10">it's a headline!</p>
                 <div className="flex justify-center items-center pb-12">
                     <button onClick={this.rotateLeft} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{"<"}</button>
-                    {/* {this.state.images.map((str, index) => {
-                        if(index === 0 || index === (this.state.images.length - 1)){
-                            return <div className="rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  this.state.images[index]}}></div>
-                        }
-                        return <div className="rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  this.state.images[index]}}></div>
-                    })} */}
                     {this.state.images.map((str, index) => {
                         if(index === (this.state.images.length / 2) - 0.5){
                             return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  str}}></div>

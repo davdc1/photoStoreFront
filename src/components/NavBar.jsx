@@ -2,8 +2,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
-import {Link, Redirect} from 'react-router-dom'
-import { render } from '@testing-library/react'
+import { Link, Redirect } from 'react-router-dom'
+
 
 class NavBar extends React.Component{
     
@@ -13,18 +13,14 @@ class NavBar extends React.Component{
         this.state = {
             searchStr: "",
             searchRedirect: false,
-            toggle: true,
             inCart: 2
         }
     }
 
-    getSearchInput = (event) => {
-        this.str = event.target.value
-    }
-
-    search = () => {
-        console.log("here: ", this.str);
-        this.setState({searchRedirect: true, searchStr: this.str, toggle: !this.state.toggle}, () => {console.log("go: ", this.state.searchStr)})
+    search = (e) => {
+        e.preventDefault();
+        console.log("searchStr: ", e.target[0].value);
+        this.setState({searchRedirect: true, searchStr: e.target[0].value})
     }
     
     render(){
@@ -41,8 +37,10 @@ class NavBar extends React.Component{
                         <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
                         <button className={catBtn}><Link to="/about">About</Link></button>
                     </div>
-                    <input onChange={this.getSearchInput} className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
-                    <button onClick={this.search} className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light">Search</button>
+                    <form onSubmit={this.search} action="">
+                        <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
+                        <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light">Search</button>
+                    </form>
                 </div>
                 <div className="flex items-center">
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>

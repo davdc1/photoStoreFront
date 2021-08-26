@@ -8,11 +8,11 @@
         "rank": 4.5,
         "theme": "architecture",
         "sizes": [{"size":"A3 (31X25cm)", "price": "100", "val": "0"}, {"size":"A2 (45X36)", "price": "180", "val": "1"},{"size": "A1 (67X54cm)", "price": "350", "val": "2"}],
-        "imageStr": "https://i.ibb.co/YkTt4JD/2.jpg"
+        "imageStr": "https://i.ibb.co/xfPpJw1/bridge.jpg"
       },
       {
         "id": 2,
-        "prodName": "second time and",
+        "prodName": "second",
         "price": 150,
         "rank": 4,
         "theme": "city",
@@ -44,7 +44,7 @@
         "rank": 4,
         "theme": "city",
         "sizes": [{"size":"A3 (31X25cm)", "price": "90", "val": "0"}, {"size":"A2 (45X36)", "price": "150", "val": "1"},{"size": "A1 (67X54cm)", "price": "250", "val": "2"}],
-        "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
+        "imageStr": "https://i.ibb.co/hyVKDZ4/dwntwn.jpg"
       },
       {
         "id": 6,

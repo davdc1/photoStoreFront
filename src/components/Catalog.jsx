@@ -2,13 +2,13 @@ import React from "react"
 import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
-
+import PropTypes from 'prop-types';
 
 class Catalog extends React.Component{
     
-    constructor(){
+    constructor(props){
         
-        super();
+        super(props);
         
         let urlSearchParams = new URLSearchParams(window.location.search);
         let params = Object.fromEntries(urlSearchParams.entries());
@@ -16,7 +16,7 @@ class Catalog extends React.Component{
         
         this.state = {
             prodArray: productJson.prodArray,
-            filterBy: "all",
+            filterBy: this.props.location.filterString,
             filterByArr: [],
             searchStr: params.q,
             quickV: false,
@@ -24,7 +24,6 @@ class Catalog extends React.Component{
         }
     }
     
-
     showQuick = (product) => {
         this.setState({
             quickV: !this.state.quickV,
@@ -90,7 +89,8 @@ class Catalog extends React.Component{
         console.log("filter array: ", this.state.filterByArr);
     }
     render(){
-        console.log(this.props)
+        console.log("props at catalog: ", this.props);
+        console.log("this.filterString: ", this.props.filterString);
         return (
             <div>
                 <div className="my-2">
@@ -151,7 +151,7 @@ class Catalog extends React.Component{
                         {this.state.prodArray.map((product, index)=>{
                             console.log("index: ", index);
                             if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === "" || !this.state.searchStr){
-                                if(this.state.filterBy === "all"){
+                                if(!this.state.filterBy || this.state.filterBy === "all"){
                                         return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
                                 }else if(this.state.filterBy === "city"){
                                     if(product.theme === "city"){
@@ -175,5 +175,13 @@ class Catalog extends React.Component{
     }
 }
 
+
+Catalog.propTypes = {
+    filterString: PropTypes.string
+  };
+  
+Catalog.defaultProps = {
+    filterString: "all"
+  };
 
 export default Catalog

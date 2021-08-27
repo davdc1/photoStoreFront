@@ -20,12 +20,23 @@ class ProdPage extends React.Component{
 
     addToCart = () => {
         let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+        //handle duplicates:
+        let sum = 0;
+        for(let i = 0; i < items.length; i++){
+            if(items[i].id === this.props.match.params.id && items[i].size === this.state.size){
+                sum += parseInt(items[i].quantity);
+                items.splice(i, 1);
+                //not sure about that:
+                i--;
+            }
+        }
+
         items.push({
             id: this.props.match.params.id,
             prodName: this.product.prodName,
             price: this.state.price,
             size: this.state.size,
-            quantity: this.state.quant,
+            quantity: parseInt(this.state.quant) + sum,
             image: this.product.imageStr
         })
         localStorage.setItem("cartItems", JSON.stringify(items));

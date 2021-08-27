@@ -1,21 +1,35 @@
 
 import React from "react";
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
-
+import LargeImage from "./LargeImage";
 
 class ProdPage extends React.Component{
     constructor(props){
         super(props);
         this.product = productJson.prodArray[props.match.params.id - 1];
+        console.log("prod: ", props.match.params);
         console.log("product: ", this.product);
         this.state = {
             price: this.product.sizes[0].price,
             size: this.product.sizes[0].size,
             priceTag: '$' + this.product.sizes[0].price,
-            quant: "1"
+            quant: "1",
+            largeImage: false
         }
     }
 
+    addToCart = () => {
+        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+        items.push({id: this.props.match.params.id, size: this.state.size, quantity: this.state.quant})
+        localStorage.setItem("cartItems", JSON.stringify(items));
+    }
+
+    showLarge = (product) => {
+        this.setState({
+            largeImage: !this.state.largeImage,
+            //quickProduct: product
+        });
+    }
 
     setPrice = (event) => {
         this.setState({
@@ -32,9 +46,10 @@ class ProdPage extends React.Component{
     render(){
         return (
             <div className="text-gray-600 ">
+                <LargeImage  product={this.product} largeImage={this.state.largeImage} showLarge={this.showLarge} />
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img className="max-h-70vh shadow-2xl" src={this.product.imageStr} alt="image" />
+                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={this.product.imageStr} alt="image" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">
@@ -59,7 +74,7 @@ class ProdPage extends React.Component{
                             </div>
                             <div className="flex flex-row justify-start">
                                 <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1" type="number" min="1" value={this.state.quant} name="" id="" />
-                                <button className={catBtn}>Add to basket</button>
+                                <button onClick={this.addToCart} className={catBtn}>Add to basket</button>
                             </div>
                         </div>
                     </div>

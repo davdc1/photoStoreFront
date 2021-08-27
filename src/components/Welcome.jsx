@@ -13,11 +13,11 @@ function Welcome(){
             <h1 className="text-3xl my-8">Welcome</h1>
             <div>
                 <div className="pt-5 mt-20 mb-24 bg-green-50 border-t-2 border-b-2 border-turq">
-                    <p className="text-2xl mb-10"><Link to={{pathname:"/catalog", filterString: "city"}}>Best-selling products!</Link></p>
+                    <p className="text-2xl mb-10"><Link to={{pathname: `/catalog`, search: "?q=theme%20city", state: {notFromSearch: true}}}>Best-selling products!</Link></p>
                     <Carousel productArray={products}/>
                 </div>
                 <div className="pt-5 mt-20 mb-24 bg-green-50 border-t-2 border-b-2 border-turq">
-                    <p className="text-2xl mb-10"><Link to={{pathname:"/catalog", filterString: "architecture"}}>Another Category products!</Link></p>
+                    <p className="text-2xl mb-10"><Link to={{pathname: `/catalog`, search: "?q=theme%20architecture", state: {notFromSearch: true}}}>Another Category products!</Link></p>
                     <CarouselLine productArray={products}/>
                 </div>
                 {/* <div className="pt-5 mt-20 mb-24 bg-green-50 border-t-2 border-b-2 border-turq">

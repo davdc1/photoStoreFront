@@ -25,7 +25,8 @@ function App() {
           <Route exact path="/">
             <Welcome />
           </Route>
-          <Route  path="/catalog" component={props => <Catalog {...props}/>} />
+          <Route  path="/catalog/" component={props => <Catalog {...props}/>} />
+          <Route  path="/catalog/:category" component={props => <Catalog {...props}/>} />
           <Route  path="/contactUs">
             <ContactUs />
           </Route>

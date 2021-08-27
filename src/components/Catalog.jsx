@@ -7,22 +7,60 @@ import PropTypes from 'prop-types';
 class Catalog extends React.Component{
     
     constructor(props){
-        
         super(props);
         
-        let urlSearchParams = new URLSearchParams(window.location.search);
-        let params = Object.fromEntries(urlSearchParams.entries());
-        console.log("at catalog: search params.q: ", params.q);
+        let params = this.parseQuery();
+        let urlFilter;
+
+        if(params.q){
+            urlFilter = [{key: params.q.split(" ")[0], value: params.q.split(" ")[1]}];
+        }else{
+            urlFilter = [];
+        }
         
+        let searchFor = params.q;
+        if(props.location.state){
+            if(props.location.state.notFromSearch == true)
+                searchFor = ""
+        }
+
+        console.log("props: ", props.location);
         this.state = {
             prodArray: productJson.prodArray,
-            filterBy: this.props.location.filterString,
-            filterByArr: [],
-            searchStr: params.q,
+            filterByArr: urlFilter,
+            searchStr: searchFor,
             quickV: false,
             quickProduct: ""
         }
     }
+
+    parseQuery(){
+        let urlSearchParams = new URLSearchParams(this.props.location.search);
+        return Object.fromEntries(urlSearchParams.entries());
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.location.search !== this.props.location.search){
+           
+            let params = this.parseQuery();
+
+            this.setState({          
+                searchStr: params.q
+            });
+        }
+    }
+
+    // componentWillReceiveProps(prevProps){
+    //     if(prevProps.location.search !== this.props.location.search){
+    //         console.log("prop change true");
+            
+    //         let params = this.parseQuery();
+
+    //         this.setState({          
+    //             searchStr: params.q
+    //         }, console.log("state after didMount: ", this.state.searchStr));
+    //     }
+    // }
     
     showQuick = (product) => {
         this.setState({
@@ -78,19 +116,34 @@ class Catalog extends React.Component{
         });
     }
 
-    filter2 = (event) => {
-        let temp = this.state.filterByArr;
+    getFilters = (event) => {
+        let temp = JSON.parse(JSON.stringify(this.state.filterByArr));
         if(event.target.checked == true){
-            temp.push(event.target.id)
-            this.setState({filterByArr: temp})
+            temp.push({key: event.target.id.split(" ")[0], value: event.target.id.split(" ")[1]})
         }else{  
-            temp.splice(temp.indexOf(event.target.id),1)
+            for(let i = 0; i < temp.length; i++){
+                if(temp[i].key === event.target.id.split(" ")[0] && temp[i].value === event.target.id.split(" ")[1]){
+                    temp.splice(i, 1);
+                    break;
+                }
+            }
         }
-        console.log("filter array: ", this.state.filterByArr);
+
+        this.setState({filterByArr: temp});
     }
+
+    filter2(product, index){
+        let temp = this.state.filterByArr
+        for(let i = 0; i < temp.length; i++){
+            if(product[temp[i].key] !== temp[i].value){
+                console.log("here");
+                return null
+            }
+        }
+        return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
+    }
+
     render(){
-        console.log("props at catalog: ", this.props);
-        console.log("this.filterString: ", this.props.filterString);
         return (
             <div>
                 <div className="my-2">
@@ -125,47 +178,34 @@ class Catalog extends React.Component{
                                     <input onClick={this.filterCat}  type="radio" name="filter" id="nature" />
                                 </div>
                             </div>
-                            
                         </div>
                         <div  className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
                             <div className="flex flex-col">
                                 <span className="mx-2">Filter by: </span>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="city">Theme: City</span>
-                                    <input onClick={this.filter2} type="checkbox" name="filter" id="city" />
+                                    <input onClick={this.getFilters} type="checkbox" name="filter" id="theme city" />
                                 </div>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="architecture">Theme: architecture</span>
-                                    <input onClick={this.filter2}  type="checkbox" name="filter" id="architecture" />
+                                    <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme architecture" />
                                 </div>
                                 <div className="flex justify-between items-center my-2">
                                     <span htmlFor="nature">Theme: Nature</span>
-                                    <input onClick={this.filter2}  type="checkbox" name="filter" id="nature" />
+                                    <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme nature" />
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div className="flex flex-wrap justify-around 2xl:mx-52">
                     
                         {this.state.prodArray.map((product, index)=>{
-                            console.log("index: ", index);
-                            if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr) || this.state.searchStr === "" || !this.state.searchStr){
-                                if(!this.state.filterBy || this.state.filterBy === "all"){
-                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
-                                }else if(this.state.filterBy === "city"){
-                                    if(product.theme === "city"){
-                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
-                                    }
-                                }else if(this.state.filterBy === "nature"){
-                                    if(product.theme === "nature"){
-                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
-                                    }
-                                }else if(this.state.filterBy === "architecture"){
-                                    if(product.theme === "architecture"){
-                                        return <CatCard2 product={product} key={index} showQuick={this.showQuick}  />
-                                    }
+                            if(this.state.searchStr !== "" && this.state.searchStr){
+                                if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr)){
+                                    return this.filter2(product, index)
                                 }
+                            }else{
+                                return this.filter2(product, index)
                             }
                         })}
                     </div>
@@ -176,12 +216,12 @@ class Catalog extends React.Component{
 }
 
 
-Catalog.propTypes = {
-    filterString: PropTypes.string
-  };
+// Catalog.propTypes = {
+//     filterString: PropTypes.string
+//   };
   
-Catalog.defaultProps = {
-    filterString: "all"
-  };
+// Catalog.defaultProps = {
+//     filterString: "all"
+//   };
 
 export default Catalog

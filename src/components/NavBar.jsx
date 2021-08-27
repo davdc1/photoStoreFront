@@ -14,7 +14,8 @@ class NavBar extends React.Component{
             searchStr: "",
             searchRedirect: false,
             inCart: 2,
-            noMatch: false
+            noMatch: false,
+            toggle: false
         }
     }
 
@@ -22,8 +23,11 @@ class NavBar extends React.Component{
         this.setState({noMatch: false})
         e.preventDefault();
         console.log("searchStr: ", e.target[0].value);
+        
+        //validation. propTypes?
+        
         if(e.target[0].value !== ""){
-            this.setState({searchRedirect: true, searchStr: e.target[0].value})
+            this.setState({searchRedirect: true, searchStr: e.target[0].value, toggle: !this.state.toggle})
         }else{
             this.setState({noMatch: true})
         }
@@ -33,7 +37,7 @@ class NavBar extends React.Component{
         return (
             <div  className="flex flex-row justify-between items-center mx-6">
                 {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
-                <div>
+                <div>   
                     <Link to="/"><img className="w-16 my-2" src="images\logo.png" alt="Logo" /></Link>
                 </div>
                 <div className="flex items-center">
@@ -55,7 +59,7 @@ class NavBar extends React.Component{
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
                     <div>
                         {this.state.inCart > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
-                            {this.state.inCart}
+                            <span>{this.state.inCart}</span>
                         </div>}
                         <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
                     </div>

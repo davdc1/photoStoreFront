@@ -20,9 +20,17 @@ class ProdPage extends React.Component{
 
     addToCart = () => {
         let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-        items.push({id: this.props.match.params.id, size: this.state.size, quantity: this.state.quant})
+        items.push({
+            id: this.props.match.params.id,
+            prodName: this.product.prodName,
+            price: this.state.price,
+            size: this.state.size,
+            quantity: this.state.quant,
+            image: this.product.imageStr
+        })
         localStorage.setItem("cartItems", JSON.stringify(items));
     }
+
 
     showLarge = (product) => {
         this.setState({

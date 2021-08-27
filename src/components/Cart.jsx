@@ -1,6 +1,6 @@
 
 import React from "react"
-
+import { Link } from 'react-router-dom'
 
 class Cart extends React.Component{
     constructor(props){
@@ -8,12 +8,17 @@ class Cart extends React.Component{
         super(props)
         
         this.state = {
-            items: [
-                {id: 1, prodName: "name1", price: 100, size: "A1", quantity: 1, image: "https://i.ibb.co/YkTt4JD/2.jpg"},
-                {id: 4, prodName: "name2", price: 200, size: "A2", quantity: 2, image: "https://i.ibb.co/D7FfSgc/city.jpg"},
-                {id: 7, prodName: "name3", price: 340, size: "A3", quantity: 1, image: "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"}
-            ]
+            // itemsTemp: [
+            //     {id: 1, prodName: "name1", price: 100, size: "A1", quantity: 1, image: "https://i.ibb.co/YkTt4JD/2.jpg"},
+            //     {id: 4, prodName: "name2", price: 200, size: "A2", quantity: 2, image: "https://i.ibb.co/D7FfSgc/city.jpg"},
+            //     {id: 7, prodName: "name3", price: 340, size: "A3", quantity: 1, image: "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"}
+            // ],
+            items: []
         }
+    }
+
+    componentDidMount(){
+        this.getItemList();
     }
 
     itemCountTotal = () => {
@@ -23,6 +28,10 @@ class Cart extends React.Component{
         })
     }
     
+    getItemList = () => {
+        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+        this.setState({items: items})
+    }
 
     render(){
         return (
@@ -39,7 +48,7 @@ class Cart extends React.Component{
                     </div> */}
                     {this.state.items.map((item) =>{
                         return <div className="flex justify-around items-center h-24 border-t-2">
-                                    <span>{item.prodName}</span>
+                                    <Link to={{pathname:`/prodpage/${item.id}`}}><span>{item.prodName}</span></Link>
                                     <span><img src={item.image} alt="" className="h-20" /></span>
                                     <span>size: {item.size}</span>
                                     <span>price: {item.price}</span>

@@ -2,6 +2,8 @@ import React from "react"
 import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
+import ItemAdded from "./ItemAdded";
+import CartPrev from "./CartPrev";
 import PropTypes from 'prop-types';
 
 class Catalog extends React.Component{
@@ -13,7 +15,10 @@ class Catalog extends React.Component{
         let urlFilter;
 
         if(params.q){
-            urlFilter = [{key: params.q.split(" ")[0], value: params.q.split(" ")[1]}];
+            urlFilter = [{
+                key: params.q.split(" ")[0],
+                value: params.q.split(" ")[1]
+            }];
         }else{
             urlFilter = [];
         }
@@ -30,8 +35,20 @@ class Catalog extends React.Component{
             filterByArr: urlFilter,
             searchStr: searchFor,
             quickV: false,
-            quickProduct: ""
+            quickProduct: "",
+            inCart: this.getCartItems(),
+            added: false,
+            addedProduct: "",
+            chosenProdProps: ""
         }
+    }
+
+    updateCartPrev = () => {
+        this.setState({inCart: this.getCartItems()});
+    }
+
+    getCartItems(){
+       return JSON.parse(localStorage.getItem("cartItems"));
     }
 
     parseQuery(){
@@ -50,6 +67,8 @@ class Catalog extends React.Component{
         }
     }
 
+    //read about this function:
+
     // componentWillReceiveProps(prevProps){
     //     if(prevProps.location.search !== this.props.location.search){
     //         console.log("prop change true");
@@ -66,6 +85,14 @@ class Catalog extends React.Component{
         this.setState({
             quickV: !this.state.quickV,
             quickProduct: product
+        });
+    }
+    
+    showAdded = (product, chosenProdProps) => {
+        this.setState({
+            added: !this.state.added,
+            addedProduct: product,
+            chosenProdProps: chosenProdProps
         });
     }
 
@@ -109,13 +136,6 @@ class Catalog extends React.Component{
         this.setState({prodArray: array});
     }
 
-    filterCat = (event) => {
-        console.log("event: ", event.target.id);
-        this.setState({
-            filterBy: event.target.id
-        });
-    }
-
     getFilters = (event) => {
         let temp = JSON.parse(JSON.stringify(this.state.filterByArr));
         if(event.target.checked == true){
@@ -136,78 +156,60 @@ class Catalog extends React.Component{
         let temp = this.state.filterByArr
         for(let i = 0; i < temp.length; i++){
             if(product[temp[i].key] !== temp[i].value){
-                console.log("here");
                 return null
             }
         }
-        return <CatCard2 product={product} key={index} showQuick={this.showQuick} />
+        //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
+        return <CatCard2 product={product} key={index} showAdded={this.showAdded} showQuick={this.showQuick} updateCartPrev={this.updateCartPrev} />
     }
 
     render(){
         return (
-            <div>
-                <div className="my-2">
-                    <input className="mr-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
-                    <select className="ml-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
-                        <option value="default" defaultValue>Sort by:</option>
-                        <option value="low">price: Low to High</option>
-                        <option value="high">price: High to low</option>
-                        <option value="rank">Rank</option>
-                    </select>
-                    <QuickView product={this.state.quickProduct} show={this.state.quickV} showQuick={this.showQuick} />
-                </div>
-                <div className="flex items-start">
-                    <div>
-                        <div className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
-                            <div className="flex flex-col">
-                                <p className="w-52 text-left">Filter by:</p>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="city">All</span>
-                                    <input onClick={this.filterCat} type="radio" name="filter" id="all" />
-                                </div>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="city">Theme: City</span>
-                                    <input onClick={this.filterCat} type="radio" name="filter" id="city" />
-                                </div>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="architecture">Theme: architecture</span>
-                                    <input onClick={this.filterCat}  type="radio" name="filter" id="architecture" />
-                                </div>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="nature">Theme: Nature</span>
-                                    <input onClick={this.filterCat}  type="radio" name="filter" id="nature" />
-                                </div>
-                            </div>
-                        </div>
-                        <div  className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
-                            <div className="flex flex-col">
-                                <span className="mx-2">Filter by: </span>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="city">Theme: City</span>
-                                    <input onClick={this.getFilters} type="checkbox" name="filter" id="theme city" />
-                                </div>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="architecture">Theme: architecture</span>
-                                    <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme architecture" />
-                                </div>
-                                <div className="flex justify-between items-center my-2">
-                                    <span htmlFor="nature">Theme: Nature</span>
-                                    <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme nature" />
-                                </div>
-                            </div>
-                        </div>
+            <div className="flex">
+                <div>
+                    <div className="my-2">
+                        <input className="mr-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
+                        <select className="ml-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
+                            <option value="default" defaultValue>Sort by:</option>
+                            <option value="low">price: Low to High</option>
+                            <option value="high">price: High to low</option>
+                            <option value="rank">Rank</option>
+                        </select>
+                        <QuickView product={this.state.quickProduct} show={this.state.quickV} showQuick={this.showQuick} />
+                        <ItemAdded product={this.state.addedProduct} chosenProdProps={this.state.chosenProdProps} show={this.state.added} showAdded={this.showAdded}  />
                     </div>
-                    <div className="flex flex-wrap justify-around 2xl:mx-52">
-                    
-                        {this.state.prodArray.map((product, index)=>{
-                            if(this.state.searchStr !== "" && this.state.searchStr){
-                                if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr)){
+                    <div className="flex items-start">
+                        <div>
+                            <div  className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
+                                <div className="flex flex-col">
+                                    <span className="mx-2">Filter by: </span>
+                                    <div className="flex justify-between items-center my-2">
+                                        <span htmlFor="city">Theme: City</span>
+                                        <input onClick={this.getFilters} type="checkbox" name="filter" id="theme city" />
+                                    </div>
+                                    <div className="flex justify-between items-center my-2">
+                                        <span htmlFor="architecture">Theme: architecture</span>
+                                        <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme architecture" />
+                                    </div>
+                                    <div className="flex justify-between items-center my-2">
+                                        <span htmlFor="nature">Theme: Nature</span>
+                                        <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme nature" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap justify-around 2xl:mx-48">
+                        
+                            {this.state.prodArray.map((product, index)=>{
+                                if(this.state.searchStr !== "" && this.state.searchStr){
+                                    if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr)){
+                                        return this.filter2(product, index)
+                                    }
+                                }else{
                                     return this.filter2(product, index)
                                 }
-                            }else{
-                                return this.filter2(product, index)
-                            }
-                        })}
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,13 +217,5 @@ class Catalog extends React.Component{
     }
 }
 
-
-// Catalog.propTypes = {
-//     filterString: PropTypes.string
-//   };
-  
-// Catalog.defaultProps = {
-//     filterString: "all"
-//   };
 
 export default Catalog

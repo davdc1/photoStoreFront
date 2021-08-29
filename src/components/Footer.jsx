@@ -11,7 +11,7 @@ function Footer(){
         <div style={style1} className="bg-light py-20 text-gray-700">
             <div style={style2}>
                 <div>
-                    <p className="border border-1 rounded"><Link to="/contactUs">contact us:</Link></p>
+                    <p className="border border-1 rounded border-turq"><Link to="/contactUs">contact us:</Link></p>
                     <address>
                     <span>1-222-333-444</span>
                     <br />

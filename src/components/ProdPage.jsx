@@ -12,6 +12,7 @@ class ProdPage extends React.Component{
         this.state = {
             price: this.product.sizes[0].price,
             size: this.product.sizes[0].size,
+            idSize: this.product.sizes[0].idSize,
             priceTag: '$' + this.product.sizes[0].price,
             quant: "1",
             largeImage: false
@@ -26,7 +27,6 @@ class ProdPage extends React.Component{
             if(items[i].id === this.props.match.params.id && items[i].size === this.state.size){
                 sum += parseInt(items[i].quantity);
                 items.splice(i, 1);
-                //not sure about that:
                 i--;
             }
         }
@@ -36,6 +36,7 @@ class ProdPage extends React.Component{
             prodName: this.product.prodName,
             price: this.state.price,
             size: this.state.size,
+            idSize: this.state.idSize,
             quantity: parseInt(this.state.quant) + sum,
             image: this.product.imageStr
         })
@@ -46,7 +47,6 @@ class ProdPage extends React.Component{
     showLarge = (product) => {
         this.setState({
             largeImage: !this.state.largeImage,
-            //quickProduct: product
         });
     }
 
@@ -54,6 +54,7 @@ class ProdPage extends React.Component{
         this.setState({
             price: this.product.sizes[parseInt(event.target.value)].price,
             size: this.product.sizes[parseInt(event.target.value)].size,
+            idSize: this.product.sizes[parseInt(event.target.value)].idSize,
             priceTag: "$" + this.product.sizes[parseInt(event.target.value)].price
         })
     }
@@ -86,7 +87,7 @@ class ProdPage extends React.Component{
                                 <span className="mr-3">Print size</span>
                                 <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>
                                     {this.product.sizes.map((obj, index) => {
-                                        return <option value={obj.val} key={index} >{obj.size}</option>
+                                        return <option value={index} key={index} >{obj.size}</option>
                                     })}
                                 </select>
                                 <span className="text-xl font-semibold">{this.state.priceTag}</span>

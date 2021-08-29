@@ -7,7 +7,11 @@
         "price": 100,
         "rank": 4.5,
         "theme": "architecture",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "100", "val": "0"}, {"size":"A2 (45X36)", "price": "180", "val": "1"},{"size": "A1 (67X54cm)", "price": "350", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "100", "idSize": "1-A3"},
+          {"size": "A2 (45X36cm)", "price": "180", "idSize": "1-A2"},
+          {"size": "A1 (67X54cm)", "price": "350", "idSize": "1-A1"}
+        ],
         "imageStr": "https://i.ibb.co/xfPpJw1/bridge.jpg"
       },
       {
@@ -16,7 +20,11 @@
         "price": 150,
         "rank": 4,
         "theme": "city",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "150", "val": "0"}, {"size":"A2 (45X36)", "price": "300", "val": "1"},{"size": "A1 (67X54cm)", "price": "600", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "150", "idSize": "2-A3"},
+          {"size": "A2 (45X36cm)", "price": "300", "idSize": "2-A2"},
+          {"size": "A1 (67X54cm)", "price": "600", "idSize": "2-A1"}
+        ],
         "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
       },
       {
@@ -25,7 +33,11 @@
         "price": 260,
         "rank": 5,
         "theme": "nature",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "260", "val": "0"}, {"size":"A2 (45X36)", "price": "480", "val": "1"},{"size": "A1 (67X54cm)", "price": "720", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "260", "idSize": "3-A3"},
+          {"size": "A2 (45X36cm)", "price": "480", "idSize": "3-A2"},
+          {"size": "A1 (67X54cm)", "price": "720", "idSize": "3-A1"}
+        ],
         "imageStr": "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"
       },
       {
@@ -34,7 +46,11 @@
         "price": 250,
         "rank": 3.5,
         "theme": "architecture",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "250", "val": "0"}, {"size":"A2 (45X36)", "price": "450", "val": "1"},{"size": "A1 (67X54cm)", "price": "650", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "250", "idSize": "4-A3"},
+          {"size": "A2 (45X36cm)", "price": "450", "idSize": "4-A2"},
+          {"size": "A1 (67X54cm)", "price": "650", "idSize": "4-A1"}
+        ],
         "imageStr": "https://i.ibb.co/YkTt4JD/2.jpg"
       },
       {
@@ -43,7 +59,12 @@
         "price": 90,
         "rank": 4,
         "theme": "city",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "90", "val": "0"}, {"size":"A2 (45X36)", "price": "150", "val": "1"},{"size": "A1 (67X54cm)", "price": "250", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "90", "idSize": "5-A3"}, 
+          {"size": "A2 (45X36cm)", "price": "150", "idSize": "5-A2"},
+          {"size": "A1 (67X54cm)", "price": "250", "idSize": "5-A1"}
+        ]
+            ,
         "imageStr": "https://i.ibb.co/hyVKDZ4/dwntwn.jpg"
       },
       {
@@ -52,7 +73,11 @@
         "price": 300,
         "rank": 4.5,
         "theme": "architecture",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "300", "val": "0"}, {"size":"A2 (45X36)", "price": "540", "val": "1"},{"size": "A1 (67X54cm)", "price": "680", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "300", "idSize": "6-A3"},
+          {"size": "A2 (45X36cm)", "price": "540", "idSize": "6-A2"},
+          {"size": "A1 (67X54cm)", "price": "680", "idSize": "6-A1"}
+        ],
         "imageStr": "https://i.ibb.co/YkTt4JD/2.jpg"
       },
       {
@@ -61,7 +86,11 @@
         "price": 200,
         "rank": 4,
         "theme": "nature",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "200", "val": "0"}, {"size":"A2 (45X36)", "price": "380", "val": "1"},{"size": "A1 (67X54cm)", "price": "450", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "200", "idSize": "7-A3"},
+          {"size": "A2 (45X36cm)", "price": "380", "idSize": "7-A2"},
+          {"size": "A1 (67X54cm)", "price": "450", "idSize": "7-A1"}
+        ],
         "imageStr": "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"
       },
       {
@@ -70,7 +99,11 @@
         "price": 120,
         "rank": 3,
         "theme": "city",
-        "sizes": [{"size":"A3 (31X25cm)", "price": "120", "val": "0"}, {"size":"A2 (45X36)", "price": "200", "val": "1"},{"size": "A1 (67X54cm)", "price": "400", "val": "2"}],
+        "sizes": [
+          {"size": "A3 (31X25cm)", "price": "120", "idSize": "8-A3"},
+          {"size": "A2 (45X36cm)", "price": "200", "idSize": "8-A2"},
+          {"size": "A1 (67X54cm)", "price": "400", "idSize": "8-A1"}
+        ],
         "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
       }
     ]

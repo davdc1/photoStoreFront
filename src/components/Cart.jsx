@@ -97,11 +97,11 @@ class Cart extends React.Component{
                                         <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="" className="h-20 mx-3" /></Link>
                                         <span className="mx-3">size: {item.size}</span>
                                         <span className="mx-3">price: {item.price}</span>
-                                        <div className="mx-3 flex">
+                                        <div className="mx-3 flex items-strech ">
                                             <span>quantity: {item.quantity}</span>
-                                            <div className="mx-3">
+                                            <div className="flex items-strech mx-3">
                                                 <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">-</button>
-                                                <span className="w-6 border border-1 ">{item.quantity}</span>
+                                                <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
                                                 <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">+</button>
                                             </div>
                                         </div>

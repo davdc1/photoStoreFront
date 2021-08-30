@@ -128,7 +128,7 @@ class Cart extends React.Component{
                             <input placeholder="Coupon code" className="border border-1 rounded-l px-2" type="text" />
                             <button className="border border-1 border-turq rounded-r px-2">apply</button>
                         </form>
-                        <Link to="/checkout1">
+                        <Link to="/checkout">
                             <button className="border border-1 border-turq rounded px-2">Proceed to checkout</button>
                         </Link>
                     </div>

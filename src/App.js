@@ -14,7 +14,7 @@ import SignUp from './components/SignUp';
 import Cart from './components/Cart';
 import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
-import Checkout1 from './components/Checkout1';
+import Checkout from './components/Checkout';
 
 class App extends React.Component{
   
@@ -75,7 +75,7 @@ class App extends React.Component{
             <Gallery />
           </Route>
 
-          <Route path="/Checkout1" component={Checkout1} />
+          <Route path="/Checkout" component={Checkout} />
           
           <Route  path="">
             <NotFound />

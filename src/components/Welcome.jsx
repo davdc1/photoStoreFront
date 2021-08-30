@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import Carousel from "./Carousel"
 import CarouselLarge from "./CarouselLarge"
 import CarouselLine from "./CarouselLine"
-import productJson from "C:/experis/project/clone/src/components/stuff/products.json"
+import productJson from "./stuff/products.json"
 
 function Welcome(){
 

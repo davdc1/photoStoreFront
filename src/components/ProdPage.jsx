@@ -1,6 +1,6 @@
 
 import React from "react";
-import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
+import productJson from './stuff/products.json'
 import LargeImage from "./LargeImage";
 import ItemAdded from "./ItemAdded";
 

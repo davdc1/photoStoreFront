@@ -62,7 +62,7 @@ class NavBar extends React.Component{
             <div  className="flex flex-row justify-between items-center mx-6">
                 {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
                 <div>   
-                    <Link to="/"><img className="w-16 my-2" src="images\logo.png" alt="Logo" /></Link>
+                    <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
                 </div>
                 <div className="flex items-center">
                     <div className="mx-2">

@@ -2,6 +2,7 @@
 import React from "react";
 import productJson from 'C:/experis/project/clone/src/components/stuff/products.json'
 import LargeImage from "./LargeImage";
+import ItemAdded from "./ItemAdded";
 
 class ProdPage extends React.Component{
     constructor(props){
@@ -15,8 +16,15 @@ class ProdPage extends React.Component{
             idSize: this.product.sizes[0].idSize,
             priceTag: '$' + this.product.sizes[0].price,
             quant: "1",
-            largeImage: false
+            largeImage: false,
+            added: false
         }
+    }
+
+    showAdded = () => {
+        this.setState({
+            added: !this.state.added
+        })
     }
 
     addToCart = () => {
@@ -67,6 +75,7 @@ class ProdPage extends React.Component{
         return (
             <div className="text-gray-600 ">
                 <LargeImage  product={this.product} largeImage={this.state.largeImage} showLarge={this.showLarge} />
+                {this.state.added && <ItemAdded product={this.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
                         <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={this.product.imageStr} alt="image" />
@@ -94,7 +103,7 @@ class ProdPage extends React.Component{
                             </div>
                             <div className="flex flex-row justify-start">
                                 <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1" type="number" min="1" value={this.state.quant} name="" id="" />
-                                <button onClick={this.addToCart} className={catBtn}>Add to basket</button>
+                                <button onClick={()=>{this.addToCart(); this.showAdded()}}  className={catBtn}>Add to basket</button>
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ class CarouselLine extends React.Component{
                 <div className="flex justify-center items-center pb-12  overflow-hidden">
                     {this.state.products.map((product, index) => {
                         //return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-auto bg-center bg-cover mx-8 overflow-hidden" style={{backgroundImage:  product}}></div>
-                        return <Link to={{pathname:`/prodpage/${product.id}`}} key={index} ><img src={product.imageStr} alt="thing" className="border border-1 rounded h-p300 w-auto mx-8" /></Link>
+                        return index < 4 ? <Link to={{pathname:`/prodpage/${product.id}`}} key={index} ><img src={product.imageStr} alt="thing" className="border border-1 rounded h-p300 w-auto mx-8" /></Link> : null
                     })}
                 </div>
                 <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>

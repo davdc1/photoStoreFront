@@ -1,5 +1,5 @@
 import './App.css';
-
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from "./components/Header";
@@ -16,7 +16,26 @@ import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
 import Checkout1 from './components/Checkout1';
 
-function App() {
+class App extends React.Component{
+  
+  constructor(props){
+    super(props)
+    this.state = {
+      inCart: [],
+      toggleAdded: false
+    }
+  }
+
+  getCartItems(){
+
+  }
+
+  itemAdded = () => {
+    this.setState({toggleAdded: !this.state.toggleAdded})
+  }
+
+
+  render(){
   return (
     <Router>
       <div className="App">
@@ -66,7 +85,8 @@ function App() {
         <Footer />
       </div>
     </Router>
-  );
+  )
+  }
 }
 
 export default App;

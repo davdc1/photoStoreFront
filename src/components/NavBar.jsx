@@ -40,7 +40,7 @@ class NavBar extends React.Component{
     }
 
     getCartItems(){
-       return JSON.parse(localStorage.getItem("cartItems"));
+       return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
     }
 
     search = (e) => {

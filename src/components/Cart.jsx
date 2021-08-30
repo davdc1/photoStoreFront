@@ -83,30 +83,32 @@ class Cart extends React.Component{
                 <h1>Cart</h1>
 
                 <div className="flex flex-col justify-center border border-2 rounded m-10">
-                    {/* <div className="flex justify-around">
-                        <span>item:</span>
-                        <span>image</span>
-                        <span>quantity</span>
-                        <span>size/additional info</span>
-                        <span>price</span>
-                    </div> */}
-                    {this.state.items.map((item, index) =>{
+                    <div className="flex justify-around">
+                        <div className="flex-1"></div>
+                        <div className="flex-1"></div>
+                        <span className="flex-1">unit price</span>
+                        <span className="flex-1">quantity</span>
+                        <span className="flex-1">total</span>
+                    </div>
+                    {this.state.items.map((item) =>{
                         if(item.quantity){
-                            return <div key={index} className="flex justify-between items-center h-24 border-t-2">
-                                        <Link to={{pathname:`/prodpage/${item.id}`}}><span>{item.prodName}</span></Link>
+                            return (<div key={item.idSize.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
                                         <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="" className="h-20 mx-3" /></Link>
-                                        <span className="mx-3">size: {item.size}</span>
-                                        <span className="mx-3">price: {item.price}</span>
+                                        <div className="flex flex-col">
+                                            <Link to={{pathname:`/prodpage/${item.id}`}}><span className="font-semibold">{item.prodName}</span></Link>
+                                            <span className="mx-3">{item.size}</span>
+                                        </div>
+                                        <span className="mx-3">${item.price}</span>
                                         <div className="mx-3 flex items-strech ">
-                                            <span>quantity: {item.quantity}</span>
+                                            {/* <span>quantity: {item.quantity}</span> */}
                                             <div className="flex items-strech mx-3">
                                                 <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">-</button>
                                                 <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
                                                 <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">+</button>
                                             </div>
                                         </div>
-                                        <span className="mx-3">total: {item.price * item.quantity}</span>
-                                </div>
+                                        <span className="mx-3">${item.price * item.quantity}</span>
+                                </div>)
                         }
                     })}
                 </div>
@@ -114,9 +116,9 @@ class Cart extends React.Component{
                     <div className="flex flex-col items-start">
                         <span>Sub-total: ${this.state.total}</span>
                         <span>Shipping: $0 </span>
-                        <span>Tax: ${this.state.total * 0.17}</span>
+                        <span>Tax: ${(this.state.total * 0.17).toFixed(2)}</span>
                         {this.state.couponOk && <span className="font-semibold">Coupon approved</span>}
-                        <span>Total: ${this.state.total * 1.17}</span>
+                        <span>Total: ${(this.state.total * 1.17).toFixed(2)}</span>
                     </div>
                     <div className="self-stretch flex flex-col justify-between items-end px-4">
                         <Link to="/catalog">

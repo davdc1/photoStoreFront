@@ -167,19 +167,41 @@ class Catalog extends React.Component{
         return (
             <div className="flex">
                 <div>
-                    <div className="my-2">
-                        <input className="mr-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
-                        <select className="ml-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
+                    <div className="my-2 flex flex-col sm:flex-row justify-center">
+                        <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
+                        <select className="sm:mx-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
                             <option value="default" defaultValue>Sort by:</option>
                             <option value="low">price: Low to High</option>
                             <option value="high">price: High to low</option>
                             <option value="rank">Rank</option>
                         </select>
+                        
+                        {/* <details> displays only on small screens: */}
+                        <div className="sm:mx-1 flex justify-center xl:hidden">
+                            <details className="border-light border-1 rounded">
+                                <summary>Filters</summary>
+                                    <div className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-0 border-4 border-t-0 h-auto">
+                                        <span className="mx-2">Filter by: </span>
+                                        <div className="flex justify-between items-center my-2">
+                                            <span htmlFor="city">Theme: City</span>
+                                            <input onClick={this.getFilters} type="checkbox" name="filter" id="theme city" />
+                                        </div>
+                                        <div className="flex justify-between items-center my-2">
+                                            <span htmlFor="architecture">Theme: architecture</span>
+                                            <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme architecture" />
+                                        </div>
+                                        <div className="flex justify-between items-center my-2">
+                                            <span htmlFor="nature">Theme: Nature</span>
+                                            <input onClick={this.getFilters}  type="checkbox" name="filter" id="theme nature" />
+                                        </div>
+                                    </div>
+                            </details>
+                        </div>
                         <QuickView product={this.state.quickProduct} show={this.state.quickV} showQuick={this.showQuick} />
                         <ItemAdded product={this.state.addedProduct} chosenProdProps={this.state.chosenProdProps} show={this.state.added} showAdded={this.showAdded}  />
                     </div>
                     <div className="flex items-start">
-                        <div>
+                        <div className="hidden xl:inline-block">
                             <div  className="flex flex-col justify-center w-52 pb-4 px-4 ml-4 mt-14 border-4 h-80">
                                 <div className="flex flex-col">
                                     <span className="mx-2">Filter by: </span>

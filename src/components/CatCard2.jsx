@@ -55,16 +55,16 @@ class CatCard extends React.Component{
 
     render(){
         return(
-            <div className='flex h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-light rounded'>
+            <div className='flex flex-col sm:flex-row min-h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-light rounded'>
                 <div className="">
-                    <Link to={{pathname:`/prodpage/${this.product.id}`}}><img className="w-52 shadow-xl" src={this.product.imageStr} alt="ProdImage" /></Link>
+                    <Link to={{pathname:`/prodpage/${this.product.id}`}}><img className="w-full sm:w-52 shadow-xl" src={this.product.imageStr} alt="ProdImage" /></Link>
                 </div>
-                    <div className="flex flex-col justify-between ml-4 self-stretch">
+                    <div className="flex flex-col justify-between sm:ml-4 self-stretch mt-10 sm:mt-0">
                         <span className="font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${this.product.id}`}}>name: {this.product.prodName}</Link></span>
                         <span className="mt-3 ">rank: {this.product.rank}</span>
                         <div>
-                            <div className=" h-24  mx-3 mt-4">   
-                                <div className="mb-4 flex flex-row items-center">
+                            <div className="flex flex-row-reverse sm:flex-col justify-center h-24  mx-3 mt-4">   
+                                <div className="mb-4 flex flex-row items-center ">
                                     <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>
                                         {this.product.sizes.map((obj, index) => {
                                             return <option value={index} key={index} >{obj.size}</option>
@@ -72,12 +72,12 @@ class CatCard extends React.Component{
                                     </select>
                                     <span className="text-xl font-semibold">{this.state.priceTag}</span>
                                 </div>
-                                <div className="flex flex-row justify-start">
+                                <div className="mb-4 sm:mb-0 flex flex-row justify-start items-center">
                                     <button onClick={()=>{this.addToCart(); this.props.updateCartPrev(); this.props.showAdded(this.product, this.state)}} className={catBtn}>Add to basket</button>
-                                    <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1" type="number" min="1" value={this.state.quant} name="" id="" />
+                                    <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1 mr-4 sm:mr-0" type="number" min="1" value={this.state.quant} name="" id="" />
                                 </div>
                             </div>
-                            <button className="" onClick={() => this.props.showQuick(this.product)}>Quick view</button>
+                            <button className="hidden sm:inline" onClick={() => this.props.showQuick(this.product)}>Quick view</button>
                         </div>
                     </div>
             </div>
@@ -85,7 +85,7 @@ class CatCard extends React.Component{
     }
 }
 
-let catBtn = "mx-2 px-2 pb-1 h-8 bg-turq2 rounded font-medium text-gray-200"
+let catBtn = "mx-2 px-2 pb-1 sm:h-8 bg-turq2 rounded sm:font-medium font-lg text-gray-200"
 
 
 export default CatCard

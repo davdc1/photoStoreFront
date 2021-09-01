@@ -90,9 +90,9 @@ class Cart extends React.Component{
                         <span className="flex-1">quantity</span>
                         <span className="flex-1">total</span>
                     </div>
-                    {this.state.items.map((item) =>{
+                    {this.state.items.map((item, index) =>{
                         if(item.quantity){
-                            return (<div key={item.idSize.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
+                            return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
                                         <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="" className="h-20 mx-3" /></Link>
                                         <div className="flex flex-col">
                                             <Link to={{pathname:`/prodpage/${item.id}`}}><span className="font-semibold">{item.prodName}</span></Link>
@@ -128,7 +128,7 @@ class Cart extends React.Component{
                             <input placeholder="Coupon code" className="border border-1 rounded-l px-2" type="text" />
                             <button className="border border-1 border-turq rounded-r px-2">apply</button>
                         </form>
-                        <Link to="/checkout">
+                        <Link to="/checkout/form1">
                             <button className="border border-1 border-turq rounded px-2">Proceed to checkout</button>
                         </Link>
                     </div>

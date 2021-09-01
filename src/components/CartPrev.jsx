@@ -10,7 +10,7 @@ function CartPrev({items}){
     }
 
     return(
-        <div className="flex flex-col justify-center items-center absolute max-w-sm top-24 right-6 border border-1 border-turq bg-white px-2">
+        <div className="z-20 flex flex-col justify-center items-center absolute max-w-sm top-24 right-6 border border-1 border-turq bg-white px-2">
             <div>
                 {total && <span className="text-xl">total: ${total}</span>}
                 <hr className="w-32 border-2 border-turq" />

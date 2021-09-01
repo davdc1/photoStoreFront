@@ -26,6 +26,7 @@ class Form3 extends React.Component{
                         <option value="">free shipping for orders above 200$</option>
                     </select>
                 </div>
+                <button className="border border-turq border-1 rounded px-2 py-1 my-4">Place Order</button>
             </div> 
         )
     }

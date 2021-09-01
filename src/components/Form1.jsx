@@ -1,72 +1,153 @@
 import React from 'react'
+import { nameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
 import { Link } from 'react-router-dom'
 
 class Form1 extends React.Component{
     constructor(props){
         super(props)
 
-        this.costumerDet = {
+        this.billingDet = {
             fName: "",
             lName: "",
             phone: "",
             email: "",
+            street: "",
+            building: "",
+            city: "",
+            country: "",
             subscribe: false
         }
         this.state = {
-            fNameOk: false,
-            lNameOk: false,
-            phoneOk: false,
-            emailOk: false
+            fNameOk: "",
+            lNameOk: "",
+            //phoneOk: "",
+            //emailOk: "",
+            streetOk: "",
+            buildingOk: "",
+            cityOk: "",
+            countryOk: "",
         }
     }
 
-    valFName = (event) => {
-        if(event.target.value){
+    checkFName = (event) => {
+        if(nameVal(event.target.value)){
             console.log("fName");
             this.setState({
                 fNameOk: true
             });
-            this.costumerDet.fName = event.target.value;
+            this.billingDet.fName = event.target.value;
+        }else{
+            this.setState({
+                fNameOk: false
+            });
         }
     }
 
-    valLName = (event) => {
-        if(event.target.value){
+    checkLName = (event) => {
+        if(nameVal(event.target.value)){
             console.log("lName");
             this.setState({
                 lNameOk: true,
             });
-            this.costumerDet.lName = event.target.value;
+            this.billingDet.lName = event.target.value;
+        }else{
+            this.setState({
+                lNameOk: false
+            });
         }
     }
 
-    valPhone = (event) => {
-        if(event.target.value){
+    checkPhone = (event) => {
+        if(phoneVal(event.target.value)){
             console.log("phone");
-            this.setState({
-                phoneOk: true,
-            });
-            this.costumerDet.phone = event.target.value;
+            // this.setState({
+            //     phoneOk: true,
+            // });
+            this.billingDet.phone = event.target.value;
+        }else{
+            // this.setState({
+            //     phoneOk: false
+            // });
         }
     }
 
-    valEmail = (event) => {
-        if(event.target.value){
+    checkEmail = (event) => {
+        if(emailVal(event.target.value)){
             console.log("email");
+            // this.setState({
+            //     emailOk: true,
+            // });
+            this.billingDet.email = event.target.value;
+        }else{
+            // this.setState({
+            //     emailOk: false
+            // });
+        }
+    }
+
+    checkStreet = (event) => {
+        if(streetVal(event.target.value)){
+            console.log("street");
             this.setState({
-                emailOk: true,
+                streetOk: true,
             });
-            this.costumerDet.email = event.target.value;
+            this.billingDet.street = event.target.value;
+        }else{
+            this.setState({
+                streetOk: false
+            });
+        }
+    }
+
+    checkBuildingNumber = (event) => {
+        if(buildingNumVal(event.target.value)){
+            console.log("address");
+            this.setState({
+                buildingOk: true,
+            });
+            this.billingDet.building = event.target.value;
+        }else{
+            this.setState({
+                buildingOk: false
+            });
+        }
+    }
+    
+    checkCity = (event) => {
+        if(cityVal(event.target.value)){
+            console.log("city");
+            this.setState({
+                cityOk: true,
+            });
+            this.billingDet.city = event.target.value;
+        }else{
+            this.setState({
+                cityOk: false
+            });
+        }
+    }
+    
+    checkCountry = (event) => {
+        if(countryVal(event.target.value)){
+            console.log("country");
+            this.setState({
+                countryOk: true,
+            });
+            this.billingDet.country = event.target.value;
+        }else{
+            this.setState({
+                countryOk: false
+            });
         }
     }
 
     getSubscribe = (event) => {
         if(event.target.checked == true){
             console.log("subscribe true");
-            this.costumerDet.subscribe = true;
+            this.billingDet.subscribe = true;
         }else{
             console.log("subscribe false");
-            this.costumerDet.subscribe = false;
+            this.billingDet.subscribe = false;
         }
     }
 
@@ -89,30 +170,46 @@ class Form1 extends React.Component{
     render(){
         return(
             <div className="flex flex-col items-center justify-center">
-            <span>form1</span>
+            <span>Billing Address</span>
             <form className="flex flex-col items-center w-72" action="">
                 <div className="self-stretch flex justify-between">
-                    <span>First name</span>
-                    <input onBlur={this.valFName} className="border border-1 rounded" type="text" placeholder="" />
+                    <span>* First name</span>
+                    <input onBlur={this.checkFName} className="border border-1 rounded my-2" type="text" placeholder="" />
                 </div>
                 <div className="self-stretch flex flex-row justify-between">
-                    <span>Last name</span>
-                    <input onBlur={this.valLName} className="border border-1 rounded" type="text" placeholder="" />
+                    <span>* Last name</span>
+                    <input onBlur={this.checkLName} className="border border-1 rounded my-2" type="text" placeholder="" />
+                </div>
+                <div className="self-stretch flex justify-between">
+                    <span>* Street</span>
+                    <input onBlur={this.checkStreet} className="border border-1 rounded my-2" type="text" placeholder="" />
+                </div>
+                <div className="self-stretch flex justify-between">
+                    <span>* building number</span>
+                    <input onBlur={this.checkBuildingNumber} className="border border-1 rounded my-2" type="text" placeholder="" />
+                </div>
+                <div className="self-stretch flex justify-between">
+                    <span>* City</span>
+                    <input onBlur={this.checkCity} className="border border-1 rounded my-2" type="text" placeholder="" />
+                </div>
+                <div className="self-stretch flex justify-between">
+                    <span>* Country</span>
+                    <input onBlur={this.checkCountry} className="border border-1 rounded my-2" type="text" placeholder="" />
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Phone</span>
-                    <input onBlur={this.valPhone} className="border border-1 rounded" type="text" placeholder="" />
+                    <input onBlur={this.checkPhone} className="border border-1 rounded my-2" type="text" placeholder="" />
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Email</span>
-                    <input onBlur={this.valEmail} className="border border-1 rounded" type="text" placeholder="" />
+                    <input onBlur={this.checkEmail} className="border border-1 rounded my-2" type="text" placeholder="" />
                 </div>
                 <div className="self-stretch flex justify-between items-center">
                     <label htmlFor="subscribe">i wish to recieve... </label>
-                    <input onChange={this.getSubscribe} className="border border-1 rounded" type="checkbox" name="subscribe" id="" />
+                    <input onChange={this.getSubscribe} className="border border-1 rounded my-2" type="checkbox" name="subscribe" id="" />
                 </div>
             </form>
-            <button onClick={() => {this.navigate(); console.log("costumerDet:", this.costumerDet);}}>next</button>
+            <button className="border border-turq border-1 rounded px-2 py-1 my-2" onClick={() => {this.navigate(); console.log("billingDet:", this.billingDet);}}>next</button>
         </div> 
         )
     }

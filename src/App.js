@@ -15,6 +15,8 @@ import Cart from './components/Cart';
 import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
 import Checkout from './components/Checkout';
+import Profile from './components/Profile';
+
 
 class App extends React.Component{
   
@@ -22,17 +24,43 @@ class App extends React.Component{
     super(props)
     this.state = {
       inCart: [],
-      toggleAdded: false
+      toggleAdded: false,
+      userLogged: false,
+      userName: ""
     }
   }
 
-  getCartItems(){
+  // getCartItems(){
 
-  }
+  // }
 
-  itemAdded = () => {
-    this.setState({toggleAdded: !this.state.toggleAdded})
-  }
+  // itemAdded = () => {
+  //   this.setState({toggleAdded: !this.state.toggleAdded})
+  // }
+
+  getUserList(){
+    return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
+}
+
+  handleLogIn = (event) => {
+    event.preventDefault();
+    console.log("event:", event.target[0].value, event.target[1].value);
+
+    let users = this.getUserList();
+    for(let i = 0; i < users.length; i++){
+        if(users[i].userName === event.target[0].value && event.target[1].value === users[i].password){
+            console.log("logIn successfull");
+            
+            this.setState({
+              userLogged: true,
+              userName: users[i].userName
+            })
+            //this.props.history.push("/profile")
+        }else{
+            console.log("incorrect userName/password");
+        }
+    }
+}
 
 
   render(){
@@ -61,8 +89,8 @@ class App extends React.Component{
             <Blog />
           </Route>
           
-          <Route  path="/signUp">
-            <SignUp />
+          <Route  path="/signUp" >
+            <SignUp  handleLogIn={this.handleLogIn} userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />
           </Route>
 
           <Route  path ="/prodPage/:id" component={ProdPage}/>
@@ -76,6 +104,10 @@ class App extends React.Component{
           </Route>
 
           <Route path="/Checkout" component={Checkout} />
+
+          <Route path="/profile">
+            <Profile userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />
+          </Route>
           
           <Route  path="">
             <NotFound />

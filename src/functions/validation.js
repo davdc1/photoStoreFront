@@ -1,5 +1,5 @@
 
-export function nameVal(exp){
+export function fNameVal(exp){
     return /^[a-z ,.'-]+$/.test(exp.toLowerCase())
 }
 
@@ -26,6 +26,7 @@ export function postCodeVal(exp){
     return /[A-Za-z0-9]+/.test(exp)
 }
 
+//should allow for numbers. needs FIx.
 export function streetVal(exp){
     return /^[a-z ,.'-]+$/.test(exp)
 }

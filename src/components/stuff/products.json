@@ -12,7 +12,7 @@
           {"size": "A2 (45X36cm)", "price": "180", "idSize": "1-A2"},
           {"size": "A1 (67X54cm)", "price": "350", "idSize": "1-A1"}
         ],
-        "imageStr": "https://i.ibb.co/xfPpJw1/bridge.jpg"
+        "imageStr": "./images/bridge.jpg"
       },
       {
         "id": 2,
@@ -25,7 +25,7 @@
           {"size": "A2 (45X36cm)", "price": "300", "idSize": "2-A2"},
           {"size": "A1 (67X54cm)", "price": "600", "idSize": "2-A1"}
         ],
-        "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
+        "imageStr": "./images/city.jpg"
       },
       {
         "id": 3,
@@ -38,7 +38,7 @@
           {"size": "A2 (45X36cm)", "price": "480", "idSize": "3-A2"},
           {"size": "A1 (67X54cm)", "price": "720", "idSize": "3-A1"}
         ],
-        "imageStr": "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"
+        "imageStr": "./images/IMG_4547.JPG"
       },
       {
         "id": 4,
@@ -51,7 +51,7 @@
           {"size": "A2 (45X36cm)", "price": "450", "idSize": "4-A2"},
           {"size": "A1 (67X54cm)", "price": "650", "idSize": "4-A1"}
         ],
-        "imageStr": "https://i.ibb.co/YkTt4JD/2.jpg"
+        "imageStr": "./images/2.jpg"
       },
       {
         "id": 5,
@@ -65,7 +65,7 @@
           {"size": "A1 (67X54cm)", "price": "250", "idSize": "5-A1"}
         ]
             ,
-        "imageStr": "https://i.ibb.co/hyVKDZ4/dwntwn.jpg"
+        "imageStr": "./images/dwntwn.jpg"
       },
       {
         "id": 6,
@@ -78,7 +78,7 @@
           {"size": "A2 (45X36cm)", "price": "540", "idSize": "6-A2"},
           {"size": "A1 (67X54cm)", "price": "680", "idSize": "6-A1"}
         ],
-        "imageStr": "https://i.ibb.co/YkTt4JD/2.jpg"
+        "imageStr": "./images/2.jpg"
       },
       {
         "id": 7,
@@ -91,7 +91,7 @@
           {"size": "A2 (45X36cm)", "price": "380", "idSize": "7-A2"},
           {"size": "A1 (67X54cm)", "price": "450", "idSize": "7-A1"}
         ],
-        "imageStr": "https://i.ibb.co/kQKH4m7/IMG-4547.jpg"
+        "imageStr": "./images/IMG_4547.JPG"
       },
       {
         "id": 8,
@@ -104,7 +104,7 @@
           {"size": "A2 (45X36cm)", "price": "200", "idSize": "8-A2"},
           {"size": "A1 (67X54cm)", "price": "400", "idSize": "8-A1"}
         ],
-        "imageStr": "https://i.ibb.co/D7FfSgc/city.jpg"
+        "imageStr": "./images/city.jpg"
       }
     ]
   }

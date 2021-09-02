@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Form1 from './Form1';
 import Form2 from './Form2';
 import Form3 from './Form3';
-
+import CheckoutCart from './CheckoutCart';
 
 class Checkout extends React.Component{
     constructor(props){
@@ -53,7 +53,9 @@ class Checkout extends React.Component{
                 <div className="flex flex-row-reverse justify-evenly">
                     <div className="">
                         <span>cart</span>
-                        <div className="border border-1"></div>
+                        <div className="border border-1">
+                            <CheckoutCart />
+                        </div>
                     </div>
                     <div className="flex flex-col items-center">
                     <Switch>

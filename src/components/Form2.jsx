@@ -1,23 +1,25 @@
 import React from 'react'
-import { nameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
+import { fNameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
 import { Link } from 'react-router-dom'
 
 class Form2 extends React.Component{
     constructor(props){
         super(props)
-        this.shippingDet = {
-            fName: "",
-            lName: "",
-            phone: "",
-            email: "",
-            street: "",
-            building: "",
-            city: "",
-            country: "",
-            state: "",
-            postCode: "",
-            message: ""
-        }
+        
+        // this.shippingDet = {
+        //     fName: "",
+        //     lName: "",
+        //     phone: "",
+        //     email: "",
+        //     street: "",
+        //     building: "",
+        //     city: "",
+        //     country: "",
+        //     state: "",
+        //     postCode: "",
+        //     message: ""
+        // }
+        
         this.state = {
             fNameOk: "",
             lNameOk: "",
@@ -112,7 +114,7 @@ class Form2 extends React.Component{
     // }
 
     checkFName = (event) => {
-        if(nameVal(event.target.value)){
+        if(fNameVal(event.target.value)){
             console.log("fName");
             this.setState({
                 fNameOk: true
@@ -126,7 +128,7 @@ class Form2 extends React.Component{
     }
 
     checkLName = (event) => {
-        if(nameVal(event.target.value)){
+        if(fNameVal(event.target.value)){
             console.log("lName");
             this.setState({
                 lNameOk: true,

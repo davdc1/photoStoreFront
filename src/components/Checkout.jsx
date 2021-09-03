@@ -54,6 +54,8 @@ class Checkout extends React.Component{
                     <div className="">
                         <span>cart</span>
                         <div className="border border-1">
+                            {/* in order for the cart to re-render when moving through forms
+                            try to setState on url props change. might solve the issue with images not showing */}
                             <CheckoutCart />
                         </div>
                     </div>

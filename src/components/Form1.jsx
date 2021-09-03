@@ -225,6 +225,7 @@ class Form1 extends React.Component{
             //this.setState({[str + "Ok"]: false, messages: {[str]: this.unvalidMessage[str]}}, console.log("mes:", this.state.messages[str]))
         }else{
             console.log("3:");
+            messages[str] = "";
             this.setState({[str + "Ok"]: true})
         }
     }
@@ -265,42 +266,48 @@ class Form1 extends React.Component{
                     <span>* First name</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "fName")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {this.state.firstSubmit && !this.state.fNameOk && <span>{this.state.messages.fName}</span>}
+                        {/* {this.state.firstSubmit && !this.state.fNameOk && <span>{this.state.messages.fName}</span>} */}
+                        {this.state.firstSubmit && <span>{this.state.messages.fName}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex flex-row justify-between">
                     <span>* Last name</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "lName")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {this.state.firstSubmit && !this.state.lNameOk && <span>{this.state.messages.lName}</span>}
+                        {/* {this.state.firstSubmit && !this.state.lNameOk && <span>{this.state.messages.lName}</span>} */}
+                        {this.state.firstSubmit && <span>{this.state.messages.lName}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* Street</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "street")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                         {this.state.firstSubmit && !this.state.streetOk && <span>{this.state.messages.street}</span>}
+                         {/* {this.state.firstSubmit && !this.state.streetOk && <span>{this.state.messages.street}</span>} */}
+                         {this.state.firstSubmit && <span>{this.state.messages.street}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* building number</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "buildingNum")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {this.state.firstSubmit && !this.state.buildingNumOk && <span>{this.state.messages.buildingNum}</span>}
+                        {/* {this.state.firstSubmit && !this.state.buildingNumOk && <span>{this.state.messages.buildingNum}</span>} */}
+                        {this.state.firstSubmit && <span>{this.state.messages.buildingNum}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* City</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "city")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {this.state.firstSubmit && !this.state.cityOk && <span>{this.state.messages.city}</span>}
+                        {/* {this.state.firstSubmit && !this.state.cityOk && <span>{this.state.messages.city}</span>} */}
+                        {this.state.firstSubmit && <span>{this.state.messages.city}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* Country</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "country")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {this.state.firstSubmit && !this.state.countryOk && <span>{this.state.messages.country}</span>}
+                        {/* {this.state.firstSubmit && !this.state.countryOk && <span>{this.state.messages.country}</span>} */}
+                        {this.state.firstSubmit && <span>{this.state.messages.country}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">

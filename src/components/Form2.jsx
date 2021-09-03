@@ -6,303 +6,182 @@ class Form2 extends React.Component{
     constructor(props){
         super(props)
         
-        // this.shippingDet = {
-        //     fName: "",
-        //     lName: "",
-        //     phone: "",
-        //     email: "",
-        //     street: "",
-        //     building: "",
-        //     city: "",
-        //     country: "",
-        //     state: "",
-        //     postCode: "",
-        //     message: ""
-        // }
-        
+        this.unvalidMessage = {
+            fName: "enter a valid name",
+            lName: "enter a valid last name",
+            street: "enter a valid street",
+            buildingNum: "enter a valid number",
+            city: "enter a valid city",
+            country: "enter a valid country",
+            postCode: "enter a valid post code",
+            email: "enter a valid email address",
+            phone: "enter a vlaid phone"
+        }
+
         this.state = {
-            fNameOk: "",
-            lNameOk: "",
-            //phoneOk: "",
-            //emailOk: "",
-            streetOk: "",
-            buildingOk: "",
-            cityOk: "",
-            countryOk: "",
-            postCodeOk: ""
-        }
-    }
-
-    // valFName = (event) => {
-    //     if(event.target.value){
-    //         console.log("fName");
-    //         this.setState({
-    //             fNameOk: true
-    //         });
-    //         this.shippingDet.fName = event.target.value;
-    //     }
-    // }
-
-    // valLName = (event) => {
-    //     if(event.target.value){
-    //         console.log("lName");
-    //         this.setState({
-    //             lNameOk: true,
-    //         });
-    //         this.shippingDet.lName = event.target.value;
-    //     }
-    // }
-
-    // valPhone = (event) => {
-    //     if(event.target.value){
-    //         console.log("phone");
-    //         this.setState({
-    //             phoneOk: true,
-    //         });
-    //         this.shippingDet.phone = event.target.value;
-    //     }
-    // }
-
-    // valEmail = (event) => {
-    //     if(event.target.value){
-    //         console.log("email");
-    //         this.setState({
-    //             emailOk: true,
-    //         });
-    //         this.shippingDet.email = event.target.value;
-    //     }
-    // }
-
-    // valAddress = (event) => {
-    //     if(event.target.value){
-    //         console.log("email");
-    //         this.setState({
-    //             addressOk: true,
-    //         });
-    //         this.shippingDet.address = event.target.value;
-    //     }
-    // }
-
-    // valPostCode = (event) => {
-    //     if(event.target.value){
-    //         console.log("postCode");
-    //         this.setState({
-    //             postCodeOk: true,
-    //         });
-    //         this.shippingDet.postCode = event.target.value;
-    //     }
-    // }
-
-    // valCity = (event) => {
-    //     if(event.target.value){
-    //         console.log("city");
-    //         this.setState({
-    //             cityOk: true,
-    //         });
-    //         this.shippingDet.city = event.target.value;
-    //     }
-    // }
-
-    // valCountry = (event) => {
-    //     if(event.target.value){
-    //         console.log("country");
-    //         this.setState({
-    //             countryOk: true,
-    //         });
-    //         this.shippingDet.country = event.target.value;
-    //     }
-    // }
-
-    checkFName = (event) => {
-        if(fNameVal(event.target.value)){
-            console.log("fName");
-            this.setState({
-                fNameOk: true
-            });
-            this.shippingDet.fName = event.target.value;
-        }else{
-            this.setState({
-                fNameOk: false
-            });
-        }
-    }
-
-    checkLName = (event) => {
-        if(fNameVal(event.target.value)){
-            console.log("lName");
-            this.setState({
-                lNameOk: true,
-            });
-            this.shippingDet.lName = event.target.value;
-        }else{
-            this.setState({
-                lNameOk: false
-            });
-        }
-    }
-
-    checkPhone = (event) => {
-        if(phoneVal(event.target.value)){
-            console.log("phone");
-            // this.setState({
-            //     phoneOk: true,
-            // });
-            this.shippingDet.phone = event.target.value;
-        }else{
-            // this.setState({
-            //     phoneOk: false
-            // });
-        }
-    }
-
-    checkEmail = (event) => {
-        if(emailVal(event.target.value)){
-            console.log("email");
-            // this.setState({
-            //     emailOk: true,
-            // });
-            this.shippingDet.email = event.target.value;
-        }else{
-            // this.setState({
-            //     emailOk: false
-            // });
-        }
-    }
-
-    checkStreet = (event) => {
-        if(streetVal(event.target.value)){
-            console.log("street");
-            this.setState({
-                streetOk: true,
-            });
-            this.shippingDet.street = event.target.value;
-        }else{
-            this.setState({
-                streetOk: false
-            });
-        }
-    }
-
-    checkBuildingNumber = (event) => {
-        if(buildingNumVal(event.target.value)){
-            console.log("address");
-            this.setState({
-                buildingOk: true,
-            });
-            this.shippingDet.building = event.target.value;
-        }else{
-            this.setState({
-                buildingOk: false
-            });
-        }
-    }
-    
-    checkCity = (event) => {
-        if(cityVal(event.target.value)){
-            console.log("city");
-            this.setState({
-                cityOk: true,
-            });
-            this.shippingDet.city = event.target.value;
-        }else{
-            this.setState({
-                cityOk: false
-            });
-        }
-    }
-    
-    checkCountry = (event) => {
-        if(countryVal(event.target.value)){
-            console.log("country");
-            this.setState({
-                countryOk: true,
-            });
-            this.shippingDet.country = event.target.value;
-        }else{
-            this.setState({
-                countryOk: false
-            });
-        }
-    }
-
-    checkState = (event) => {
-        if(event.target.value){
-            console.log("state");
-            // this.setState({
-            //     stateOk: true,
-            // });
-            this.shippingDet.state = event.target.value;
-        }else{
-            // this.setState({
-            //     stateOk: false
-            // });
-        }
-    }
-
-    checkPostCode = (event) => {
-        if(postCodeVal(event.target.value)){
-            console.log("city");
-            this.setState({
-                postCodeOk: true,
-            });
-            this.shippingDet.postCode = event.target.value;
-        }else{
-            this.setState({
-                postCodeOk: false
-            });
-        }
-    }
-
-    getMessage = (event) => {
-        if(event.target.value){
-            console.log("message");
-            // this.setState({
-            //     messageOk: true,
-            // });
-            this.shippingDet.message = event.target.value;
-        }else{
-            // this.setState({
-            //     messageOk: false
-            // });
-        }
-    }
-
-    validateAll = () => {
-       let temp = Object.keys(this.state)
-        for(let i = 0; i < temp.length; i++){
-            if(this.state[temp[i]] !== true){
-                return false
+            firstSubmit: false,
+            //option: submitOk: bool. instead of the following attr.
+            // fNameOk: false,
+            // lNameOk: false,
+            // phoneOk: false,
+            // emailOk: false,
+            // streetOk: false,
+            // buildingNumOk: false,
+            // cityOk: false,
+            // countryOk: false,
+            // postCodeOk: false,
+            submitOk: false,
+            messages: {
+                fName: "required field",
+                lName: "required field",
+                street: "required field",
+                buildingNum: "required field",
+                city: "required field",
+                country: "required field",
+                postCode: "required field",
+                phone: "required field",
+                email: "required field"
             }
         }
-        return true
     }
 
-    navigate = () => {
-        if(this.validateAll()){
-            this.props.history.push("/checkout/form3")
+
+    fNameVal(exp){
+        return /^[a-z ,.'-]+$/.test(exp.toLowerCase())
+    }
+
+    lNameVal(exp){
+        return /^[a-z ,.'-]+$/.test(exp.toLowerCase())
+    }
+    
+    phoneVal(exp){
+        if(/^\d{9}$/.test(exp) || /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/.test(exp)){
+            return true
         }
+            return false
+    }
+
+    emailVal(exp){
+        return /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/.test(exp)
+    }
+
+    cityVal(exp){
+        return /^[a-z ,.'-]+$/.test(exp)
+    }
+
+    countryVal(exp){
+        return /^[a-z ,.'-]+$/.test(exp)
+    }
+
+    postCodeVal(exp){
+        return /[A-Za-z0-9]+/.test(exp)
+    }
+
+    //should allow for numbers. needs FIx.
+    streetVal(exp){
+        return /^[a-z ,.'-]+$/.test(exp)
+    }
+
+    buildingNumVal(exp){
+        return /^[0-9]+$/.test(exp)
+    }
+
+    checkField = (e, str) => {
+        let messages = this.state.messages;
+        if(!e.target.value){
+            console.log("1:");
+            messages[str] = "required field";
+            // this.setState({[str + "Ok"]: false, messages: messages})
+            this.setState({submitOk: false, messages: messages})
+        }else if(e.target.value && !this[str + "Val"](e.target.value)){
+            console.log("2:");
+            messages[str] = this.unvalidMessage[str];
+            //this.setState({[str + "Ok"]: false, messages: messages})
+            this.setState({submitOk: false, messages: messages})
+        }else{
+            console.log("3:");
+            messages[str] = "";
+            // this.setState({[str + "Ok"]: true})
+            this.setState({submitOk: true})
+        }
+    }
+
+    // validateAll = () => {
+    //     let temp = Object.keys(this.state)
+    //      for(let i = 0; i < temp.length; i++){
+    //          if(this.state[temp[i]] !== true && temp[i] !== "messages" && temp[i] !== "firstSubmit"){
+    //              return false
+    //          }
+    //      }
+    //      return true
+    //  }
+
+    // navigate = () => {
+    //     if(this.validateAll()){
+    //         this.props.history.push("/checkout/form3")
+    //     }
+    // }
+
+    navigate2 = () => {
+        this.props.history.push("/checkout/form3")
+    }
+
+    submit = (e) => {
+        e.preventDefault()
+        let shippingDet = {
+            fName: e.target[0].value,
+            lName: e.target[1].value,
+            street: e.target[2].value,
+            buildingNum: e.target[3].value,
+            postCode: e.target[4].value,
+            city: e.target[5].value,
+            state: e.target[6].value,
+            country: e.target[7].value,
+            email: e.target[8].value,
+            phone: e.target[9].value,
+            message: e.target[10].value
+        }
+        console.log("shippingDet:", shippingDet);
+        if(this.state.submitOk){
+            this.navigate2();
+        }
+
+        if(!this.state.firstSubmit){
+            this.setState({firstSubmit: true})}
     }
 
     render(){
         return(
             <div className="flex flex-col items-center">
                 <span>Shipping Address</span>
-                <form className="flex flex-col items-center w-72" action="">
+            <form onSubmit={this.submit} className="flex flex-col items-center w-72" action="">
                 <div className="self-stretch flex justify-between">
                     <span>* First name</span>
-                    <input onBlur={this.checkFName} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "fName")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.fName}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* Last name</span>
-                    <input onBlur={this.checkLName} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "lName")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.lName}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* Street</span>
-                    <input onBlur={this.checkStreet} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "street")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.street}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* building number</span>
-                    <input onBlur={this.checkBuildingNumber} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "buildingNum")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.buildingNum}
+                    </div>
                 </div>
                 {/* <div className="self-stretch flex justify-between">
                     <span></span>
@@ -310,31 +189,62 @@ class Form2 extends React.Component{
                 </div> */}
                 <div className="self-stretch flex justify-between">
                     <span>* Post code</span>
-                    <input onBlur={this.checkPostCode} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "postCode")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.postCode}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* City</span>
-                    <input onBlur={this.checkCity} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "city")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.city}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>State/Province</span>
-                    <input onBlur={this.checkState} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        {/* <input onChange={(e) => this.checkField(e, "state")}  className="border border-1 rounded my-2" type="text" placeholder="" /> */}
+                        <input className="border border-1 rounded my-2" type="text" placeholder="" />
+                        
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>* Country</span>
-                    <input onBlur={this.checkCountry} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "country")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.country}
+                    </div>   
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Email</span>
-                    <input onBlur={this.checkEmail} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "email")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.email}
+                    </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Phone</span>
-                    <input onBlur={this.checkPhone} className="border border-1 rounded my-2" type="text" placeholder="" />
+                    <div className="flex flex-col">
+                        <input onChange={(e) => this.checkField(e, "phone")}  className="border border-1 rounded my-2" type="text" placeholder="" />
+                        {this.state.firstSubmit && this.state.messages.phone}
+                    </div>
                 </div>
-                <textarea onBlur={this.getMessage} className="self-stretch border border-1 rounded my-2" name="" id="" cols="30" rows="10"></textarea>
+                <div className="self-stretch flex flex-col items-start">
+                    <p>message:</p>
+                    <textarea className="self-stretch border border-1 rounded my-2" name="" id="" cols="30" rows="5"></textarea>
+                </div>
+                <div className="self-stretch my-4 w-72">
+                    <span className="mx-4">Shipping method:</span>
+                    <select className="border border-1 rounded" name="" id="">
+                        <option value="">store pick-up - free</option>
+                        <option value="">standard post</option>
+                        <option value="">express</option>
+                        <option value="">free shipping for orders above 200$</option>
+                    </select>
+                </div>
+                <button className="border border-turq border-1 rounded px-2 py-1 my-4">next</button>
                 </form>
-                <button className="border border-turq border-1 rounded px-2 py-1 my-4" onClick={() => {console.log("shippingDet: ", this.shippingDet); this.navigate()}} >next</button>
             </div> 
         )
     }

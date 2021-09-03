@@ -10,41 +10,68 @@ class Checkout extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-
+            shippingDest: "",
+            shippingMethod: "",
+            shippingPrice: ""
         }
     }
 
-    valFName(event){
-        if(event.target.value){
-            console.log("fName");
+    // valFName(event){
+    //     if(event.target.value){
+    //         console.log("fName");
+    //     }
+    // }
+
+    // valLName(event){
+    //     if(event.target.value){
+    //         console.log("lName");
+    //     }
+    // }
+
+    // valPhone(event){
+    //     if(event.target.value){
+    //         console.log("phone");
+    //     }
+    // }
+
+    // valEmail(event){
+    //     if(event.target.value){
+    //         console.log("email");
+    //     }
+    // }
+
+    // getSubscribe(event){
+    //     if(event.target.checked == true){
+    //         console.log("subscribe true");
+    //     }else{
+    //         console.log("subscribe false");
+    //     }
+    // }
+
+    setShippingDest = () => {
+
+    }
+
+    setShipping = (e) => {
+        console.log("setShipping");
+        if(e.target.value === "0"){
+            console.log("ship 0");
+            this.setState({shippingMethod: "pickUp", shippingPrice: 0})
+        }else if(e.target.value === "1"){
+            // use shippingDest and chosen method to determine shippingPrice (probably by making a request to carier api)
+            //and then:
+            //this.setState({shippingMethod: "from user. onSelect event", shippingPrice: "price recieved from api"})
+
+            //if total > 200 : price "0". get the total from? 
+            console.log("ship 1");
+            this.setState({shippingMethod: "standard", shippingPrice: 20})
+        }else if(e.target.value === "2"){
+            //same theoretical logic as above
+            console.log("ship 2");
+            this.setState({shippingMethod: "express", shippingPrice: 60})
         }
     }
 
-    valLName(event){
-        if(event.target.value){
-            console.log("lName");
-        }
-    }
-
-    valPhone(event){
-        if(event.target.value){
-            console.log("phone");
-        }
-    }
-
-    valEmail(event){
-        if(event.target.value){
-            console.log("email");
-        }
-    }
-
-    getSubscribe(event){
-        if(event.target.checked == true){
-            console.log("subscribe true");
-        }else{
-            console.log("subscribe false");
-        }
-    }
 
     render(){
         return(
@@ -56,13 +83,20 @@ class Checkout extends React.Component{
                         <div className="border border-1">
                             {/* in order for the cart to re-render when moving through forms
                             try to setState on url props change. might solve the issue with images not showing */}
-                            <CheckoutCart />
+
+                            {/* pass shippingPrice as props to CheckoutCart */}
+                            <CheckoutCart shippingPrice={this.state.shippingPrice} />
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
                     <Switch>
                         <Route path="/checkout/form1" component={Form1} />
-                        <Route path="/checkout/form2" component={Form2} />
+                        {/* <Route path="/checkout/form1" >
+                            <Form1  />
+                        </Route> */}
+                        <Route path="/checkout/form2" component={Form2} >
+                            <Form2 setShipping={this.setShipping} />
+                        </Route>
                         <Route path="/checkout/form3" component={Form3} />
                     </Switch>
                     </div>

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
-function ChckoutCart(){
+function ChckoutCart({shippingPrice}){
     let taxRate = 0.17;
-    let shippingPrice = 20;
+    //let shippingPrice = 20;
     let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
     let total = 0;
         if(items){

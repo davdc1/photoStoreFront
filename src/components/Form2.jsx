@@ -236,11 +236,11 @@ class Form2 extends React.Component{
                 </div>
                 <div className="self-stretch my-4 w-72">
                     <span className="mx-4">Shipping method:</span>
-                    <select className="border border-1 rounded" name="" id="">
-                        <option value="">store pick-up - free</option>
-                        <option value="">standard post</option>
-                        <option value="">express</option>
-                        <option value="">free shipping for orders above 200$</option>
+                    <select onChange={this.props.setShipping} className="border border-1 rounded" name="" id="">
+                        <option value="0">store pick-up - free</option>
+                        <option value="1">standard post</option>
+                        <option value="2">express</option>
+                        <option value="3">free shipping for orders above 200$</option>
                     </select>
                 </div>
                 <button className="border border-turq border-1 rounded px-2 py-1 my-4">next</button>

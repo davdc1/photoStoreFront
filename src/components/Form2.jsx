@@ -21,16 +21,16 @@ class Form2 extends React.Component{
         this.state = {
             firstSubmit: false,
             //option: submitOk: bool. instead of the following attr.
-            // fNameOk: false,
-            // lNameOk: false,
-            // phoneOk: false,
-            // emailOk: false,
-            // streetOk: false,
-            // buildingNumOk: false,
-            // cityOk: false,
-            // countryOk: false,
-            // postCodeOk: false,
-            submitOk: false,
+            //submitOk: false,
+            fNameOk: false,
+            lNameOk: false,
+            phoneOk: false,
+            emailOk: false,
+            streetOk: false,
+            buildingNumOk: false,
+            cityOk: false,
+            countryOk: false,
+            postCodeOk: false,
             messages: {
                 fName: "required field",
                 lName: "required field",
@@ -77,9 +77,8 @@ class Form2 extends React.Component{
         return /[A-Za-z0-9]+/.test(exp)
     }
 
-    //should allow for numbers. needs FIx.
     streetVal(exp){
-        return /^[a-z ,.'-]+$/.test(exp)
+        return /^[0-9a-z ,.'-]+$/.test(exp)
     }
 
     buildingNumVal(exp){
@@ -106,25 +105,25 @@ class Form2 extends React.Component{
         }
     }
 
-    // validateAll = () => {
-    //     let temp = Object.keys(this.state)
-    //      for(let i = 0; i < temp.length; i++){
-    //          if(this.state[temp[i]] !== true && temp[i] !== "messages" && temp[i] !== "firstSubmit"){
-    //              return false
-    //          }
-    //      }
-    //      return true
-    //  }
+    validateAll = () => {
+        let temp = Object.keys(this.state)
+         for(let i = 0; i < temp.length; i++){
+             if(this.state[temp[i]] !== true && temp[i] !== "messages" && temp[i] !== "firstSubmit"){
+                 return false
+             }
+         }
+         return true
+     }
 
-    // navigate = () => {
-    //     if(this.validateAll()){
-    //         this.props.history.push("/checkout/form3")
-    //     }
-    // }
-
-    navigate2 = () => {
-        this.props.history.push("/checkout/form3")
+    navigate = () => {
+        if(this.validateAll()){
+            this.props.history.push("/checkout/form3")
+        }
     }
+
+    // navigate2 = () => {
+    //     this.props.history.push("/checkout/form3")
+    // }
 
     submit = (e) => {
         e.preventDefault()
@@ -142,9 +141,12 @@ class Form2 extends React.Component{
             message: e.target[10].value
         }
         console.log("shippingDet:", shippingDet);
-        if(this.state.submitOk){
-            this.navigate2();
-        }
+        
+        // if(this.state.submitOk){
+        //     this.navigate2();
+        // }
+
+        this.navigate();
 
         if(!this.state.firstSubmit){
             this.setState({firstSubmit: true})}
@@ -240,7 +242,6 @@ class Form2 extends React.Component{
                         <option value="0">store pick-up - free</option>
                         <option value="1">standard post</option>
                         <option value="2">express</option>
-                        <option value="3">free shipping for orders above 200$</option>
                     </select>
                 </div>
                 <button className="border border-turq border-1 rounded px-2 py-1 my-4">next</button>

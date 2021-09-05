@@ -24,21 +24,37 @@ class App extends React.Component{
     super(props)
     this.state = {
       inCart: [],
-      toggleAdded: false,
+      inCartNum: 0,
       userLogged: false,
       userName: ""
     }
   }
 
-  // getCartItems(){
+componentDidMount(){
+  this.updateCartPrev();
+}
 
-  // }
+updateCartPrev = () => {
+  let items = this.getCartItems();
+  let sum = this.getInCartNum(items);
+  this.setState({inCart: items, inCartNum: sum});
+}
 
-  // itemAdded = () => {
-  //   this.setState({toggleAdded: !this.state.toggleAdded})
-  // }
+getInCartNum(items){
+    let sum = 0;
+    for(let i = 0; i < items.length; i++){
+        sum += items[i].quantity;
+    }
+    return sum;
+}
 
-  getUserList(){
+getCartItems(){
+   return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+}
+
+
+
+getUserList(){
     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
 }
 
@@ -67,13 +83,13 @@ class App extends React.Component{
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Header inCart={this.state.inCart} inCartNum={this.state.inCartNum} />
         <Switch>
           <Route exact path="/">
             <Welcome />
           </Route>
           
-          <Route  path="/catalog/" component={props => <Catalog {...props}/>} />
+          <Route  path="/catalog/" component={props => <Catalog updateCartPrev={this.updateCartPrev} {...props}/>} />
           
           <Route  path="/catalog/:category" component={props => <Catalog {...props}/>} />
           

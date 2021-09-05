@@ -10,12 +10,26 @@ class Checkout extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            items: [],
+            total: 0,
             shippingDest: "",
             shippingMethod: "",
-            shippingPrice: ""
+            shippingPrice: 0,
+            taxRate: 0.17, //should be set dynamicaly, according to shippingDest
         }
     }
 
+    componentDidMount(){
+        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+        let total = 0;
+
+        if(items){
+            for(let i = 0; i < items.length; i++){
+                total += (parseInt(items[i].price) * items[i].quantity);
+            }
+            this.setState({items: items, total: total})
+        }
+    }
     // valFName(event){
     //     if(event.target.value){
     //         console.log("fName");
@@ -60,11 +74,14 @@ class Checkout extends React.Component{
         }else if(e.target.value === "1"){
             // use shippingDest and chosen method to determine shippingPrice (probably by making a request to carier api)
             //and then:
-            //this.setState({shippingMethod: "from user. onSelect event", shippingPrice: "price recieved from api"})
+            //this.setState({shippingMethod: from user, onSelect event, shippingPrice: price recieved from api})
 
-            //if total > 200 : price "0". get the total from? 
             console.log("ship 1");
-            this.setState({shippingMethod: "standard", shippingPrice: 20})
+            if(this.state.total >= 500){
+                this.setState({shippingMethod: "standard", shippingPrice: 0})
+            }else{
+                this.setState({shippingMethod: "standard", shippingPrice: 20})
+            }
         }else if(e.target.value === "2"){
             //same theoretical logic as above
             console.log("ship 2");
@@ -84,8 +101,13 @@ class Checkout extends React.Component{
                             {/* in order for the cart to re-render when moving through forms
                             try to setState on url props change. might solve the issue with images not showing */}
 
-                            {/* pass shippingPrice as props to CheckoutCart */}
-                            <CheckoutCart shippingPrice={this.state.shippingPrice} />
+                            <CheckoutCart
+                                items={this.state.items}
+                                total={this.state.total}
+                                taxRate={this.state.taxRate}
+                                shippingPrice={this.state.shippingPrice}
+                            />
+
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
@@ -94,9 +116,13 @@ class Checkout extends React.Component{
                         {/* <Route path="/checkout/form1" >
                             <Form1  />
                         </Route> */}
-                        <Route path="/checkout/form2" component={Form2} >
+
+                        {/* <Route path="/checkout/form2" >
                             <Form2 setShipping={this.setShipping} />
-                        </Route>
+                        </Route> */}
+
+                        <Route path="/checkout/form2" component={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} {...props}/>} />
+
                         <Route path="/checkout/form3" component={Form3} />
                     </Switch>
                     </div>

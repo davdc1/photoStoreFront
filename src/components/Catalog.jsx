@@ -36,16 +36,12 @@ class Catalog extends React.Component{
             searchStr: searchFor,
             quickV: false,
             quickProduct: "",
-            inCart: this.getCartItems(),
             added: false,
             addedProduct: "",
             chosenProdProps: ""
         }
     }
 
-    updateCartPrev = () => {
-        this.setState({inCart: this.getCartItems()});
-    }
 
     getCartItems(){
        return JSON.parse(localStorage.getItem("cartItems"));
@@ -160,7 +156,14 @@ class Catalog extends React.Component{
             }
         }
         //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
-        return <CatCard2 product={product} key={index} showAdded={this.showAdded} showQuick={this.showQuick} updateCartPrev={this.updateCartPrev} />
+        return <CatCard2
+            product={product}
+            key={index}
+            showAdded={this.showAdded}
+            showQuick={this.showQuick}
+            updateCartPrev={this.props.updateCartPrev}
+
+        />
     }
 
     render(){

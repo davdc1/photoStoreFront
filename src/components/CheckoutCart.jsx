@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom'
 
-function ChckoutCart({shippingPrice}){
-    let taxRate = 0.17;
-    //let shippingPrice = 20;
-    let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-    let total = 0;
-        if(items){
-            for(let i = 0; i < items.length; i++){
-                total += (parseInt(items[i].price) * items[i].quantity);
-            }
-        }
+function ChckoutCart({shippingPrice, taxRate, total, items}){
+    // let taxRate = 0.17;
+    // let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+    // let total = 0;
+
+    // if(items){
+    //     for(let i = 0; i < items.length; i++){
+    //         total += (parseInt(items[i].price) * items[i].quantity);
+    //     }
+    // }
 
     return(
         <div className="">
@@ -36,8 +36,8 @@ function ChckoutCart({shippingPrice}){
             <div className="flex flex-col items-start pl-3 py-3">
                 <span className="">sub-total: ${total}</span>
                 <span>shipping: ${shippingPrice}</span>
-                <span>tax: ${(total + shippingPrice) * taxRate}</span>
-                <span>total: ${(total + shippingPrice) * 1.17}</span>
+                <span>tax: ${((total + shippingPrice) * taxRate).toFixed(2)}</span>
+                <span>total: ${((total + shippingPrice) * (1 + taxRate)).toFixed(2)}</span>
             </div>
         </div>
     )

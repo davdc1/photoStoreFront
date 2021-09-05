@@ -29,14 +29,14 @@ class Form1 extends React.Component{
 
         this.state = {
             firstSubmit: false,
-            fNameOk: "false",
-            lNameOk: "false",
-            //phoneOk: "false",
-            //emailOk: "false",
-            streetOk: "false",
-            buildingNumOk: "false",
-            cityOk: "false",
-            countryOk: "false",    
+            fNameOk: false,
+            lNameOk: false,
+            //phoneOk: false,
+            //emailOk: false,
+            streetOk: false,
+            buildingNumOk: false,
+            cityOk: false,
+            countryOk: false,    
             messages: {
                 fName: "required field",
                 lName: "required field",
@@ -201,9 +201,8 @@ class Form1 extends React.Component{
         return /[A-Za-z0-9]+/.test(exp)
     }
 
-    //should allow for numbers. needs FIx.
     streetVal(exp){
-        return /^[a-z ,.'-]+$/.test(exp)
+        return /^[0-9a-z ,.'-]+$/.test(exp)
     }
 
     buildingNumVal(exp){

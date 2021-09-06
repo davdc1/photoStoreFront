@@ -31,8 +31,9 @@ class ProdPage extends React.Component{
         let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
         //handle duplicates:
         let sum = 0;
+        console.log("add:", this.state.idSize);
         for(let i = 0; i < items.length; i++){
-            if(items[i].id === this.props.match.params.id && items[i].size === this.state.size){
+            if(items[i].idSize === this.state.idSize){
                 sum += parseInt(items[i].quantity);
                 items.splice(i, 1);
                 i--;
@@ -45,7 +46,7 @@ class ProdPage extends React.Component{
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
-            quantity: parseInt(this.state.quant) + sum,
+            quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
             image: this.product.imageStr
         })
         localStorage.setItem("cartItems", JSON.stringify(items));
@@ -103,7 +104,7 @@ class ProdPage extends React.Component{
                             </div>
                             <div className="flex flex-row justify-start">
                                 <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1" type="number" min="1" value={this.state.quant} name="" id="" />
-                                <button onClick={()=>{this.addToCart(); this.showAdded()}}  className={catBtn}>Add to basket</button>
+                                <button onClick={()=>{this.addToCart(); this.showAdded(); this.props.updateCartPrev()}}  className={catBtn}>Add to basket</button>
                             </div>
                         </div>
                     </div>

@@ -85,6 +85,7 @@ class Catalog extends React.Component{
     }
     
     showAdded = (product, chosenProdProps) => {
+        console.log("show addd", this.state.added);
         this.setState({
             added: !this.state.added,
             addedProduct: product,

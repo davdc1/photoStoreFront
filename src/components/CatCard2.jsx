@@ -1,7 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
 
-//replicate in quicView ?
 
 class CatCard extends React.Component{
     constructor(props){
@@ -21,20 +20,21 @@ class CatCard extends React.Component{
         //handle duplicates:
         let sum = 0;
         for(let i = 0; i < items.length; i++){
-            if(items[i].id === this.product.id && items[i].size === this.state.size){
+            if(items[i].idSize === this.state.idSize){
+                
                 sum += parseInt(items[i].quantity);
                 items.splice(i, 1);
                 i--;
             }
         }
-
+        
         items.push({
             id: this.product.id,
             prodName: this.product.prodName,
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
-            quantity: parseInt(this.state.quant) + sum,
+            quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
             image: this.product.imageStr
         })
         localStorage.setItem("cartItems", JSON.stringify(items));

@@ -35,6 +35,7 @@ componentDidMount(){
 }
 
 updateCartPrev = () => {
+  console.log("updateCartPrev at app.js");
   let items = this.getCartItems();
   let sum = this.getInCartNum(items);
   this.setState({inCart: items, inCartNum: sum});
@@ -54,6 +55,7 @@ getCartItems(){
 
 
 
+//look at all the user & login things. remove what's not neccessary 
 getUserList(){
     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
 }
@@ -80,6 +82,8 @@ getUserList(){
 
 
   render(){
+    console.log("inCart:", this.state.inCart);
+    console.log("inCartNum:", this.state.inCartNum);
   return (
     <Router>
       <div className="App">
@@ -109,10 +113,10 @@ getUserList(){
             <SignUp  handleLogIn={this.handleLogIn} userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />
           </Route>
 
-          <Route  path ="/prodPage/:id" component={ProdPage}/>
+          <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
          
           <Route  path="/Cart">
-            <Cart />
+            <Cart updateCartPrev={this.updateCartPrev} />
           </Route>
 
           <Route  path="/Gallery">

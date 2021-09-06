@@ -62,6 +62,7 @@ class Cart extends React.Component{
         }
         localStorage.setItem("cartItems", JSON.stringify(this.items));
         this.setState({items: this.items, total: this.getItemTotal(this.items)})
+        this.props.updateCartPrev();
     }
 
     minusQuant(idSize){
@@ -75,21 +76,43 @@ class Cart extends React.Component{
         }
         localStorage.setItem("cartItems", JSON.stringify(this.items));
         this.setState({items: this.items, total: this.getItemTotal(this.items)})
+        this.props.updateCartPrev();
+    }
+
+    removeItem = (idSize) => {
+        let items = this.state.items
+        for(let i = 0; i < items.length; i++){
+            if(items[i].idSize === idSize){
+                items.splice(i, 1)
+                break;
+            }
+        }
+        this.setState({items: items, total: this.getItemTotal(items)});
+        localStorage.setItem("cartItems", JSON.stringify(items));
+        this.props.updateCartPrev();
+    }
+
+    emptyCart = () => {
+        this.setState({items: [], total: 0});
+        localStorage.setItem("cartItems", []);
+        this.props.updateCartPrev();
     }
 
     render(){
         return (
             <div className="flex flex-col justify-center items-center my-14">
                 <h1>Cart</h1>
-
-                <div className="flex flex-col justify-center border border-2 rounded m-10">
+                <div className="flex flex-col justify-center border border-2 rounded m-10 ">
+                {this.state.items.length > 0 &&  
                     <div className="flex justify-around">
-                        <div className="flex-1"></div>
-                        <div className="flex-1"></div>
-                        <span className="flex-1">unit price</span>
-                        <span className="flex-1">quantity</span>
-                        <span className="flex-1">total</span>
+                        <div className="flex-1 w-44"></div>
+                        <div className="flex-1 w-44 mr-14"></div>
+                        <span className="flex-1 mx-2">unit price</span>
+                        <span className="flex-1 mx-2">quantity</span>
+                        <span className="flex-1 ml-2">total</span>
+                        <span className="flex-1 w-44"></span>
                     </div>
+                    }
                     {this.state.items.map((item, index) =>{
                         if(item.quantity){
                             return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
@@ -108,9 +131,16 @@ class Cart extends React.Component{
                                             </div>
                                         </div>
                                         <span className="mx-3">${item.price * item.quantity}</span>
+                                        <div>
+                                            <button onClick={() => this.removeItem(item.idSize)} className="text-xs">remove</button>
+                                        </div>
                                 </div>)
                         }
                     })}
+                     {this.state.items.length === 0 && <div className="border-t-2 py-6 px-8"><span>your cart is empty</span></div>}
+                    <div className="border border-b-0 border-r-0 border-l-0 border-t-2">
+                        {this.state.items.length > 0 && <button onClick={this.emptyCart} className="text-sm my-1">empty cart</button>}
+                    </div>
                 </div>
                 <div className="flex">
                     <div className="flex flex-col items-start">

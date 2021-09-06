@@ -13,34 +13,24 @@ class NavBar extends React.Component{
         this.state = {
             searchStr: "",
             searchRedirect: false,
-            inCart: this.getCartItems(),
-            //doesn't update until mouseOver cart:
-            inCartNum: this.getInCartNum(),
+
+            inCart: this.props.inCart,
+            inCartNum: this.props.inCartNum,
+
             noMatch: false,
             toggle: false,
             showPrev: false
         }
     }
 
-    updateCartPrev = () => {
-        this.setState({
-            inCart: this.getCartItems(),
-            inCartNum: this.getCartItems()?this.getInCartNum():0,
-            showPrev: !this.state.showPrev
-        });
-    }
-
-    getInCartNum(){
-        let items = this.getCartItems();
-        let sum = 0;
-        for(let i = 0; i < items.length; i++){
-            sum += items[i].quantity;
+    componentDidUpdate(prevProps){
+        if(prevProps.inCartNum !== this.props.inCartNum || prevProps.inCart !== this.props.inCart){
+            this.setState({inCartNum: this.props.inCartNum, inCart: this.props.inCart})
         }
-        return sum;
     }
 
-    getCartItems(){
-       return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+    showCartPrev = () => {
+        this.setState({showPrev: !this.state.showPrev})
     }
 
     search = (e) => {
@@ -81,7 +71,7 @@ class NavBar extends React.Component{
                 </div>
                 <div className="flex items-center">
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
-                    <div onMouseEnter={()=>{this.updateCartPrev();console.log("mouseEnter");}} onMouseLeave={this.updateCartPrev} >
+                    <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
                         {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
                             <span>{this.state.inCartNum}</span>
                         </div>}

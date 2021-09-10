@@ -1,0 +1,48 @@
+[
+    {
+      "postId": "1",
+      "comments": [
+        {
+          "title": "very good blog",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "12/8/21"
+        },
+        {
+          "title": "not so good",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "23/7/21"
+        },
+        {
+          "title": "just another comment",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "1/8/21"
+        }
+      ]
+    },
+    {
+      "postId": "2",
+      "comments": [
+        {
+          "title": "very bad",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "4/2/18"
+        },
+        {
+          "title": "excellent!!",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "4/2/18"
+        },
+        {
+          "title": "just another comment",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
+          "user": "user anonymouse",
+          "date": "6/2/18"
+        }
+      ]
+    }
+  ]

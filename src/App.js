@@ -16,7 +16,7 @@ import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
 import Checkout from './components/Checkout';
 import Profile from './components/Profile';
-
+import BlogPost from './components/BlogPost';
 
 class App extends React.Component{
   
@@ -108,6 +108,12 @@ getUserList(){
           <Route  path="/blog">
             <Blog />
           </Route>
+
+          <Route path="/blogpost/:id" component={BlogPost} />
+
+          {/* <Route  path="/blogtemp">
+            <BlogTemp />
+          </Route> */}
           
           <Route  path="/signUp" >
             <SignUp  handleLogIn={this.handleLogIn} userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />

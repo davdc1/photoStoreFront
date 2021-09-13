@@ -157,14 +157,15 @@ class Catalog extends React.Component{
             }
         }
         //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
-        return <CatCard2
-            product={product}
-            key={index}
-            showAdded={this.showAdded}
-            showQuick={this.showQuick}
-            updateCartPrev={this.props.updateCartPrev}
-
-        />
+        return (
+            <CatCard2
+                product={product}
+                key={index}
+                showAdded={this.showAdded}
+                showQuick={this.showQuick}
+                updateCartPrev={this.props.updateCartPrev}
+            />
+            )
     }
 
     render(){

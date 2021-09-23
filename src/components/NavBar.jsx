@@ -71,6 +71,7 @@ class NavBar extends React.Component{
                 </div>
                 <div className="flex items-center">
                     <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
+                    <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
                     <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
                         {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
                             <span>{this.state.inCartNum}</span>

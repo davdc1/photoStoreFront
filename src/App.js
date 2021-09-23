@@ -17,6 +17,7 @@ import NotFound from './components/NotFound';
 import Checkout from './components/Checkout';
 import Profile from './components/Profile';
 import BlogPost from './components/BlogPost';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 class App extends React.Component{
   
@@ -25,8 +26,8 @@ class App extends React.Component{
     this.state = {
       inCart: [],
       inCartNum: 0,
-      userLogged: false,
-      userName: ""
+      //userLogged: false,
+      //userName: ""
     }
   }
 
@@ -60,25 +61,25 @@ getUserList(){
     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
 }
 
-  handleLogIn = (event) => {
-    event.preventDefault();
-    console.log("event:", event.target[0].value, event.target[1].value);
+//   handleLogIn = (event) => {
+//     event.preventDefault();
+//     console.log("event:", event.target[0].value, event.target[1].value);
 
-    let users = this.getUserList();
-    for(let i = 0; i < users.length; i++){
-        if(users[i].userName === event.target[0].value && event.target[1].value === users[i].password){
-            console.log("logIn successfull");
+//     let users = this.getUserList();
+//     for(let i = 0; i < users.length; i++){
+//         if(users[i].userName === event.target[0].value && event.target[1].value === users[i].password){
+//             console.log("logIn successfull");
             
-            this.setState({
-              userLogged: true,
-              userName: users[i].userName
-            })
-            //this.props.history.push("/profile")
-        }else{
-            console.log("incorrect userName/password");
-        }
-    }
-}
+//             this.setState({
+//               userLogged: true,
+//               userName: users[i].userName
+//             })
+//             //this.props.history.push("/profile")
+//         }else{
+//             console.log("incorrect userName/password");
+//         }
+//     }
+// }
 
 
   render(){
@@ -115,9 +116,7 @@ getUserList(){
             <BlogTemp />
           </Route> */}
           
-          <Route  path="/signUp" >
-            <SignUp  handleLogIn={this.handleLogIn} userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />
-          </Route>
+          <Route  path="/signUp" component={props => <SignUp {...props}/>} />
 
           <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
          
@@ -129,11 +128,16 @@ getUserList(){
             <Gallery />
           </Route>
 
-          <Route path="/Checkout" component={Checkout} />
-
-          <Route path="/profile">
-            <Profile userLogged={{logged: this.state.userLogged, userName: this.state.userName}} />
+          <Route path="/Checkout">
+           <ProtectedRoute component={Checkout} />
           </Route>
+
+          {/* <Route path="/profile"> */}
+            {/* <Profile userLogged={{logged: this.state.userLogged, userName: this.state.userName}} /> */}
+            {/* <ProtectedRoute component={Profile} />
+          </Route> */}
+
+          <Route path="/profile" component={props => <ProtectedRoute component={Profile} {...props} />}/>
           
           <Route  path="">
             <NotFound />

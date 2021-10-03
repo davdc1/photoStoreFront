@@ -1,6 +1,6 @@
 import React from 'react'
-import { fNameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
-import { Link } from 'react-router-dom'
+//import { fNameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
+//import { Link } from 'react-router-dom'
 
 class Form2 extends React.Component{
     constructor(props){
@@ -20,8 +20,6 @@ class Form2 extends React.Component{
 
         this.state = {
             firstSubmit: false,
-            //option: submitOk: bool. instead of the following attr.
-            //submitOk: false,
             fNameOk: false,
             lNameOk: false,
             phoneOk: false,
@@ -90,18 +88,15 @@ class Form2 extends React.Component{
         if(!e.target.value){
             console.log("1:");
             messages[str] = "required field";
-            // this.setState({[str + "Ok"]: false, messages: messages})
-            this.setState({submitOk: false, messages: messages})
+            this.setState({[str + "Ok"]: false, messages: messages})
         }else if(e.target.value && !this[str + "Val"](e.target.value)){
             console.log("2:");
             messages[str] = this.unvalidMessage[str];
-            //this.setState({[str + "Ok"]: false, messages: messages})
-            this.setState({submitOk: false, messages: messages})
+            this.setState({[str + "Ok"]: false, messages: messages})
         }else{
             console.log("3:");
             messages[str] = "";
-            // this.setState({[str + "Ok"]: true})
-            this.setState({submitOk: true})
+            this.setState({[str + "Ok"]: true})
         }
     }
 
@@ -117,13 +112,9 @@ class Form2 extends React.Component{
 
     navigate = () => {
         if(this.validateAll()){
-            this.props.history.push("/checkout/form3")
+            this.props.history.push("/checkout/form3");
         }
     }
-
-    // navigate2 = () => {
-    //     this.props.history.push("/checkout/form3")
-    // }
 
     submit = (e) => {
         e.preventDefault()
@@ -142,10 +133,6 @@ class Form2 extends React.Component{
         }
         console.log("shippingDet:", shippingDet);
         
-        // if(this.state.submitOk){
-        //     this.navigate2();
-        // }
-
         this.navigate();
 
         if(!this.state.firstSubmit){
@@ -219,14 +206,14 @@ class Form2 extends React.Component{
                     </div>   
                 </div>
                 <div className="self-stretch flex justify-between">
-                    <span>Email</span>
+                    <span>* Email</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "email")}  className="border border-1 rounded my-2" type="text" placeholder="" />
                         {this.state.firstSubmit && this.state.messages.email}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
-                    <span>Phone</span>
+                    <span>* Phone</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "phone")}  className="border border-1 rounded my-2" type="text" placeholder="" />
                         {this.state.firstSubmit && this.state.messages.phone}

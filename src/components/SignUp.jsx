@@ -1,12 +1,16 @@
 import React from "react"
 import auth from "../firebase/auth.js"
+import { Redirect } from 'react-router-dom'
 
 class SignUp extends React.Component{
 
     constructor(props){
         super(props)
         console.log("props at signup:", props);
-        this.state = {}
+        this.state = {
+            redirect: false,
+            redirectTo: props.location.state?props.location.state.from:null
+        }
     }
 
     /*CHECK: remove any unneccessary props*/
@@ -69,7 +73,15 @@ class SignUp extends React.Component{
     //         }
     //     }
     // }
-
+    
+    redirect = () => {
+        if(this.state.redirectTo){
+            this.setState({redirect: true});
+        }else{
+            this.props.history.goBack();
+        }
+    }
+    
 
     createAcount = (e) => {
         e.preventDefault();
@@ -83,13 +95,14 @@ class SignUp extends React.Component{
     handleLogIn = (e) => {
         e.preventDefault();
         //validation required
-
-        auth.login(e.target[0].value, e.target[1].value);
+        auth.login(e.target[0].value, e.target[1].value, this.redirect)
     }
 
     render(){
         return(
             <div>
+                {this.state.redirect && this.state.redirectTo != "" && <Redirect to={this.state.redirectTo}/>}
+                {!this.state.redirect && <p>redirect false</p>}
                 <h1>sign up \ sign in</h1>
                 <div className="flex justify-center items-stretch my-8">
                     <form onSubmit={this.handleLogIn} className="flex flex-col border border-light border-1 rounded mx-8">

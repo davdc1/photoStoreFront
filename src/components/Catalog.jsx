@@ -157,6 +157,7 @@ class Catalog extends React.Component{
             }
         }
         //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
+        console.log("card product:", product);
         return (
             <CatCard2
                 product={product}

@@ -18,6 +18,7 @@ import Checkout from './components/Checkout';
 import Profile from './components/Profile';
 import BlogPost from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import AdminPage from './components/AdminPage';
 
 class App extends React.Component{
   
@@ -128,9 +129,7 @@ getUserList(){
             <Gallery />
           </Route>
 
-          <Route path="/Checkout">
-           <ProtectedRoute component={Checkout} />
-          </Route>
+          <Route path="/Checkout" component={props => <ProtectedRoute component={Checkout} {...props} />} />
 
           {/* <Route path="/profile"> */}
             {/* <Profile userLogged={{logged: this.state.userLogged, userName: this.state.userName}} /> */}
@@ -139,6 +138,8 @@ getUserList(){
 
           <Route path="/profile" component={props => <ProtectedRoute component={Profile} {...props} />}/>
           
+          <Route path="/admin" component={AdminPage} />
+
           <Route  path="">
             <NotFound />
           </Route>

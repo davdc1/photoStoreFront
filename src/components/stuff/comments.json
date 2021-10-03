@@ -1,47 +1,59 @@
 [
     {
-      "postId": "1",
+      "postId": 1,
       "comments": [
         {
+          "commentId": 1,
+          "postId": 1,
           "title": "very good blog",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "12/8/21"
+          "userId": 1,
+          "date": "2021-08-12"
         },
         {
+          "commentId": 2,
+          "postId": 1,
           "title": "not so good",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "23/7/21"
+          "userId": 2,
+          "date": "2021-07-23"
         },
         {
+          "commentId": 3,
+          "postId": 1,
           "title": "just another comment",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "1/8/21"
+          "userId": 3,
+          "date": "2021-08-01"
         }
       ]
     },
     {
-      "postId": "2",
+      "postId": 2,
       "comments": [
         {
+          "commentId": 4,
+          "postId": 2,
           "title": "very bad",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "4/2/18"
+          "userId": 1,
+          "date": "2018-02-04"
         },
         {
+          "commentId": 5,
+          "postId": 2,
           "title": "excellent!!",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "4/2/18"
+          "userId": 2,
+          "date": "2018-02-04"
         },
         {
+          "commentId": 6,
+          "postId": 2,
           "title": "just another comment",
           "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, dolore. Ipsum dolor officia molestias ducimus incidunt fugiat itaque, excepturi expedita",
-          "user": "user anonymouse",
-          "date": "6/2/18"
+          "userId": 3,
+          "date": "2018-02-06"
         }
       ]
     }

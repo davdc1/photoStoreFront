@@ -49,37 +49,70 @@ class NavBar extends React.Component{
 
     render(){
         return (
-            <div  className="flex flex-row justify-between items-center mx-6">
-                {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
+            <div>
+                <div  className="sm:flex hidden flex-row justify-between items-center mx-6">
+                    {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
+                    <div>   
+                        <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="mx-2">
+                            <button className={catBtn}><Link to="/">Home</Link></button>
+                            <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
+                            <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
+                            <button className={catBtn}><Link to="/about">About</Link></button>
+                        </div>
+                        <div className="flex flex-col">
+                            <form onSubmit={this.search} action="">
+                                <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
+                                <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
+                            </form>
+                            {this.state.noMatch && <span className="text-black">enter a valid term</span>}
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
+                        <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
+                        <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
+                            {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
+                                <span>{this.state.inCartNum}</span>
+                            </div>}
+                            <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                        </div>
+                    </div>
+                            {this.state.showPrev && <CartPrev items={this.state.inCart} />}
+                </div>
+                <div className="absolute top-0 sm:hidden flex flex-col justify-between items-center mx-6">
                 <div>   
-                    <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
-                </div>
-                <div className="flex items-center">
-                    <div className="mx-2">
-                        <button className={catBtn}><Link to="/">Home</Link></button>
-                        <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
-                        <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
-                        <button className={catBtn}><Link to="/about">About</Link></button>
+                        <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
                     </div>
-                    <div className="flex flex-col">
-                        <form onSubmit={this.search} action="">
-                            <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
-                            <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
-                        </form>
-                        {this.state.noMatch && <span className="text-black">enter a valid term</span>}
+                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center">
+                        <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
+                        <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
+                        <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
+                            {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
+                                <span>{this.state.inCartNum}</span>
+                            </div>}
+                            <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                        </div>
                     </div>
-                </div>
-                <div className="flex items-center">
-                    <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
-                    <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
-                    <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
-                        {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
-                            <span>{this.state.inCartNum}</span>
-                        </div>}
-                        <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                        <div className="mx-2 flex flex-col">
+                            <button className={catBtn}><Link to="/">Home</Link></button>
+                            <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
+                            <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
+                            <button className={catBtn}><Link to="/about">About</Link></button>
+                        </div>
+                        <div className="flex flex-col">
+                            <form onSubmit={this.search} action="">
+                                <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
+                                <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
+                            </form>
+                            {this.state.noMatch && <span className="text-black">enter a valid term</span>}
+                        </div>
                     </div>
+                            {this.state.showPrev && <CartPrev items={this.state.inCart} />}
                 </div>
-                        {this.state.showPrev && <CartPrev items={this.state.inCart} />}
             </div>
         )
     }

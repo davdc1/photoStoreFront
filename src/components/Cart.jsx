@@ -51,31 +51,36 @@ class Cart extends React.Component{
         
     }
 
+    
     plusQuant(idSize){
-        for(let i = 0; i < this.items.length; i++){
-            if(this.items[i].idSize === idSize){
-                if(this.items[i].quantity < 10){
-                    this.items[i].quantity += 1;
+        let items =  this.state.items;
+        for(let i = 0; i < items.length; i++){
+            if(items[i].idSize === idSize){
+                if(items[i].quantity < 10){
+                    items[i].quantity += 1;
                 }
                 break;
             }
         }
-        localStorage.setItem("cartItems", JSON.stringify(this.items));
-        this.setState({items: this.items, total: this.getItemTotal(this.items)})
+        localStorage.setItem("cartItems", JSON.stringify(items));
+        this.setState({items: items, total: this.getItemTotal(items)})
         this.props.updateCartPrev();
     }
 
     minusQuant(idSize){
-        for(let i = 0; i < this.items.length; i++){
-            if(this.items[i].idSize === idSize){
-                if(this.items[i].quantity > 0){
-                    this.items[i].quantity -= 1;
+        let items = this.state.items;
+        for(let i = 0; i < items.length; i++){
+            if(items[i].idSize === idSize){
+                if(items[i].quantity <= 1){
+                    items.splice(i, 1);
+                }else{
+                    items[i].quantity -= 1;
                 }
                 break;
             }
         }
-        localStorage.setItem("cartItems", JSON.stringify(this.items));
-        this.setState({items: this.items, total: this.getItemTotal(this.items)})
+        localStorage.setItem("cartItems", JSON.stringify(items));
+        this.setState({items: items, total: this.getItemTotal(items)})
         this.props.updateCartPrev();
     }
 

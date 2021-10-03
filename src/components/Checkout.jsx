@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import Form1 from './Form1';
 import Form2 from './Form2';
 import Form3 from './Form3';
+import CreditCardDet from './CreditCardDet';
+import Paypal from './Paypal';
 import CheckoutCart from './CheckoutCart';
 
 class Checkout extends React.Component{
@@ -89,41 +91,31 @@ class Checkout extends React.Component{
         }
     }
 
-
     render(){
         return(
             <div>
                 <span>Checkout</span>
-                <div className="flex flex-row-reverse justify-evenly">
+                <div className="flex flex-row-reverse justify-evenly mt-10">
                     <div className="">
                         <span>cart</span>
-                        <div className="border border-1">
+                        <div className="border border-1 mb-10">
                             {/* in order for the cart to re-render when moving through forms
                             try to setState on url props change. might solve the issue with images not showing */}
-
                             <CheckoutCart
                                 items={this.state.items}
                                 total={this.state.total}
                                 taxRate={this.state.taxRate}
                                 shippingPrice={this.state.shippingPrice}
                             />
-
                         </div>
                     </div>
                     <div className="flex flex-col items-center">
                     <Switch>
                         <Route path="/checkout/form1" component={Form1} />
-                        {/* <Route path="/checkout/form1" >
-                            <Form1  />
-                        </Route> */}
-
-                        {/* <Route path="/checkout/form2" >
-                            <Form2 setShipping={this.setShipping} />
-                        </Route> */}
-
                         <Route path="/checkout/form2" component={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} {...props}/>} />
-
                         <Route path="/checkout/form3" component={Form3} />
+                        <Route path="/checkout/CreditCardDet" component={CreditCardDet} />
+                        <Route path="/checkout/Paypal" component={Paypal} />
                     </Switch>
                     </div>
                 </div>

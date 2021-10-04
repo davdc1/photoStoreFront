@@ -60,6 +60,7 @@ class NavBar extends React.Component{
                             <button className={catBtn}><Link to="/">Home</Link></button>
                             <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
                             <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
+                            <button className={catBtn}><Link to="/blog">Blog</Link></button>
                             <button className={catBtn}><Link to="/about">About</Link></button>
                         </div>
                         <div className="flex flex-col">

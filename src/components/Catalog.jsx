@@ -12,31 +12,11 @@ class Catalog extends React.Component{
     constructor(props){
         super(props);
         
-        // let params = this.parseQuery();
-        // let urlFilter;
-        // console.log("params.q", params.q);
-        // if(params.q){
-        //     urlFilter = [{
-        //         key: params.q.split(" ")[0],
-        //         value: params.q.split(" ")[1]
-        //     }];
-        //     console.log("urlFilter:", urlFilter);
-        // }else{
-        //     urlFilter = [];
-        // }
-        
-        // let searchFor = params.q;
-        // if(props.location.state){
-        //     if(props.location.state.notFromSearch == true)
-        //         searchFor = ""
-        // }
-
-        // console.log("props: ", props.location);
         this.state = {
-            //prodArray: productJson.prodArray,
-            prodArray: [],
-            filterByArr: "", //urlFilter,
-            searchStr: "", //searchFor,
+            prodArray: productJson.prodArray,
+            //prodArray: [],
+            filterByArr: "",
+            searchStr: "",
             quickV: false,
             quickProduct: "",
             added: false,
@@ -44,7 +24,6 @@ class Catalog extends React.Component{
             chosenProdProps: ""
         }
     }
-
 
     getUrlFilters(){
         let query = this.parseQuery().q;
@@ -63,7 +42,7 @@ class Catalog extends React.Component{
     }
     
     componentDidMount(){
-        this.fetchProducts();
+        //this.fetchProducts();
         this.setState({
             filterByArr: this.getUrlFilters(),
             searchStr: this.getSearchQuery()
@@ -76,7 +55,6 @@ class Catalog extends React.Component{
         this.setState({prodArray: data});
     }
 
-
     getCartItems(){
        return JSON.parse(localStorage.getItem("cartItems"));
     }
@@ -85,7 +63,6 @@ class Catalog extends React.Component{
         let urlSearchParams = new URLSearchParams(this.props.location.search);
         return Object.fromEntries(urlSearchParams.entries());
     }
-
 
     componentDidUpdate(prevProps){
         if(prevProps.location.search !== this.props.location.search){

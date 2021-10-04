@@ -1,6 +1,8 @@
 
 import React from "react"
 import BlogCard from "./BlogCard"
+import axios from 'axios'
+
 
 class Blog extends React.Component{
     constructor(props){
@@ -11,8 +13,12 @@ class Blog extends React.Component{
         }
     }
 
+    async fetchBlogPosts(){
+        const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        return data;
+    }
 
-    componentDidMount() {
+    fetchPosts2(){
         fetch("https://jsonplaceholder.typicode.com/posts")
           .then(function(response) {
             console.log("res:", response);
@@ -25,24 +31,30 @@ class Blog extends React.Component{
           .catch(function(ex) {
             console.log("parsing failed", ex);
           });
+    }
+
+    componentDidMount() {
+        this.fetchPosts2();
+        //this.setState({blogs: this.fetchBlogPosts(), loading: false})
+        //console.log("data blog", this.fetchBlogPosts());
       }
 
     render(){
         return(
-            <div>
+            <div className="">
                 <h1>blog</h1>
                 {this.state.loading && 
-                <div>
-                    <div className="bg-light border my-10 mx-5 h-48 text-xl">
+                <div className="flex justify-center" >
+                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         
                     </div>
-                    <div className="bg-light border my-10 mx-5 h-48 text-xl">
+                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         
                     </div>
-                    <div className="bg-light border my-10 mx-5 h-48 text-xl">
+                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         
                     </div>
-                    <div className="bg-light border my-10 mx-5 h-48 text-xl">
+                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         
                     </div>
                 </div>}

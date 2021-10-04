@@ -5,41 +5,75 @@ import productJson from './stuff/products.json'
 import ItemAdded from "./ItemAdded";
 import CartPrev from "./CartPrev";
 import PropTypes from 'prop-types';
+import axios from 'axios'
 
 class Catalog extends React.Component{
     
     constructor(props){
         super(props);
         
-        let params = this.parseQuery();
-        let urlFilter;
-
-        if(params.q){
-            urlFilter = [{
-                key: params.q.split(" ")[0],
-                value: params.q.split(" ")[1]
-            }];
-        }else{
-            urlFilter = [];
-        }
+        // let params = this.parseQuery();
+        // let urlFilter;
+        // console.log("params.q", params.q);
+        // if(params.q){
+        //     urlFilter = [{
+        //         key: params.q.split(" ")[0],
+        //         value: params.q.split(" ")[1]
+        //     }];
+        //     console.log("urlFilter:", urlFilter);
+        // }else{
+        //     urlFilter = [];
+        // }
         
-        let searchFor = params.q;
-        if(props.location.state){
-            if(props.location.state.notFromSearch == true)
-                searchFor = ""
-        }
+        // let searchFor = params.q;
+        // if(props.location.state){
+        //     if(props.location.state.notFromSearch == true)
+        //         searchFor = ""
+        // }
 
-        console.log("props: ", props.location);
+        // console.log("props: ", props.location);
         this.state = {
-            prodArray: productJson.prodArray,
-            filterByArr: urlFilter,
-            searchStr: searchFor,
+            //prodArray: productJson.prodArray,
+            prodArray: [],
+            filterByArr: "", //urlFilter,
+            searchStr: "", //searchFor,
             quickV: false,
             quickProduct: "",
             added: false,
             addedProduct: "",
             chosenProdProps: ""
         }
+    }
+
+
+    getUrlFilters(){
+        let query = this.parseQuery().q;
+        return query ? [{
+            key: query.split(" ")[0],
+            value: query.split(" ")[1]
+        }] : []
+    }
+
+    getSearchQuery(){
+        if(this.props.location.state){
+            if(this.props.location.state.notFromSearch == true)
+                return "";
+        }
+        return this.parseQuery().q
+    }
+    
+    componentDidMount(){
+        this.fetchProducts();
+        this.setState({
+            filterByArr: this.getUrlFilters(),
+            searchStr: this.getSearchQuery()
+        })
+    }
+
+    async fetchProducts(){
+        const {data} = await axios.get("/products")
+        console.log(data);
+        this.setState({prodArray: data});
     }
 
 
@@ -51,6 +85,7 @@ class Catalog extends React.Component{
         let urlSearchParams = new URLSearchParams(this.props.location.search);
         return Object.fromEntries(urlSearchParams.entries());
     }
+
 
     componentDidUpdate(prevProps){
         if(prevProps.location.search !== this.props.location.search){

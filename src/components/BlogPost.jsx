@@ -1,6 +1,6 @@
 import { stringify } from "postcss";
 import React from "react";
-
+import axios from "axios";
 
 class BlogPost extends React.Component{
     constructor(props){
@@ -8,15 +8,23 @@ class BlogPost extends React.Component{
         this.state ={
             postId: props.match.params.id,
             post: props.location.state.blog,
-            comments: []
+            comments: [],
+            loading: true
         }
     }
 
     componentDidMount(){
-        this.getPostComments();
+        this.fetchComments();
+        //this.getPostComments();
         console.log("props:", this.props);
         console.log("state: blog", this.props.location.state.blog);
     }
+
+    async fetchComments(){
+        const { data } = await axios.get('/comments')
+        this.setState({comments: data, loading: false});
+    }
+
 
     getPostComments(){
         let allComments = localStorage.getItem("allPostComments")?JSON.parse(localStorage.getItem("allPostComments")):[];
@@ -36,9 +44,23 @@ class BlogPost extends React.Component{
             title: e.target[1].value,
             content: e.target[2].value,
             user: e.target[0].value,
-            date: new Date().toDateString()
+            date: new Date().toDateString(),
+            postId: this.state.postId,
         }
         
+        this.postComment(comment);
+        //this.pushToLclStrg(comment);
+
+    }
+
+    async postComment(comment){
+        axios.post('/comments', {comment}).then((res)=>{
+            console.log("post res:", res.data);
+        })
+        console.log("posted?");
+    }
+
+    pushToLclStrg(comment){
         let allComments = localStorage.getItem("allPostComments")?JSON.parse(localStorage.getItem("allPostComments")):[];
         let notFound = true;
         for(let i = 0; i < allComments.length; i++){
@@ -54,9 +76,9 @@ class BlogPost extends React.Component{
             this.setState({comments: [comment]});
         }
 
-
         localStorage.setItem("allPostComments", JSON.stringify(allComments));
     }
+
 
     render(){
         return(

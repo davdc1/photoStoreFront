@@ -14,8 +14,8 @@ class Blog extends React.Component{
     }
 
     async fetchBlogPosts(){
-        const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        return data;
+        const { data } = await axios.get('/posts')
+        this.setState({blogs: data, loading: false});
     }
 
     fetchPosts2(){
@@ -34,7 +34,8 @@ class Blog extends React.Component{
     }
 
     componentDidMount() {
-        this.fetchPosts2();
+        this.fetchBlogPosts();
+        //this.fetchPosts2();
         //this.setState({blogs: this.fetchBlogPosts(), loading: false})
         //console.log("data blog", this.fetchBlogPosts());
       }
@@ -46,16 +47,16 @@ class Blog extends React.Component{
                 {this.state.loading && 
                 <div className="flex justify-center" >
                     <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
-                        
+                        <p>loading post</p>
                     </div>
                     <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
-                        
+                        <p>loading post</p>
                     </div>
                     <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
-                        
+                        <p>loading post</p>
                     </div>
                     <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
-                        
+                        <p>loading post</p>
                     </div>
                 </div>}
                 {!this.state.loading &&

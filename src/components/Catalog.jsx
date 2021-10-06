@@ -13,8 +13,8 @@ class Catalog extends React.Component{
         super(props);
         
         this.state = {
-            prodArray: productJson.prodArray,
-            //prodArray: [],
+            //prodArray: productJson.prodArray,
+            prodArray: [],
             filterByArr: "",
             searchStr: "",
             quickV: false,
@@ -24,6 +24,7 @@ class Catalog extends React.Component{
             chosenProdProps: ""
         }
     }
+
 
     getUrlFilters(){
         let query = this.parseQuery().q;
@@ -42,7 +43,7 @@ class Catalog extends React.Component{
     }
     
     componentDidMount(){
-        //this.fetchProducts();
+        this.fetchProducts();
         this.setState({
             filterByArr: this.getUrlFilters(),
             searchStr: this.getSearchQuery()
@@ -55,6 +56,7 @@ class Catalog extends React.Component{
         this.setState({prodArray: data});
     }
 
+
     getCartItems(){
        return JSON.parse(localStorage.getItem("cartItems"));
     }
@@ -63,6 +65,7 @@ class Catalog extends React.Component{
         let urlSearchParams = new URLSearchParams(this.props.location.search);
         return Object.fromEntries(urlSearchParams.entries());
     }
+
 
     componentDidUpdate(prevProps){
         if(prevProps.location.search !== this.props.location.search){

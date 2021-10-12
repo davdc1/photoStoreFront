@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import MyMapComponent from './GoogleMap'
 
@@ -11,18 +12,33 @@ class ContactUs extends React.Component{
         }
     }
 
+    async sendMessage(message){
+        try{
+            await axios.post('tickets', message);
+            this.setState({sent: true})
+        }
+        catch(err){
+            console.log('contact us error:', err);
+            this.setState({sent: false})
+        }
+    }
+
+
     submit = (e) => {
         e.preventDefault();
-        this.setState({sent: true})
         
         let message = {
             name: e.target[0].value,
             email: e.target[1].value,
             phone: e.target[2].value,
-            message: e.target[3].value
+            date: new Date().toLocaleDateString(),
+            title: e.target[3].value,
+            content: e.target[4].value,
+            status: "pending",
+            comment: ""
         }
         console.log("contact message:", message);
-        return message;
+        this.sendMessage(message);
     }
 
     render(){
@@ -34,9 +50,10 @@ class ContactUs extends React.Component{
                         <div className="p-2 flex flex-col items-center w-96 border border-1 mb-10">
                             <input className="p-0.5 pl-1 border border-1 w-full" type="text" placeholder="Name*"/>
                             <div className="flex w-full">
-                                <input className="p-0.5 pl-1 border border-1 flex-1" type="text" placeholder="Email*"/>
-                                <input className="p-0.5 pl-1 border border-1 flex-1" type="text" placeholder="Phone"/>
+                                <input className="p-0.5 pl-1 border border-1" type="text" placeholder="Email*"/>
+                                <input className="p-0.5 pl-1 border border-1" type="text" placeholder="Phone"/>
                             </div>
+                            <input className="p-0.5 pl-1 border border-1 w-full" type="text" placeholder="subject" />
                             <textarea className="p-0.5 pl-1 border border-1 w-full" placeholder="Your message*" name="" id="" cols="30" rows="10"></textarea>
                             <button className="border-2 rounded border-turq px-1 py-0.5 mt-2">Send</button>
                         </div>

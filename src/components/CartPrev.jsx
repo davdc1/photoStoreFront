@@ -17,11 +17,12 @@ function CartPrev({items}){
             </div>
             <div className="flex flex-wrap justify-center">
                 {items && items.map((item, index) => {
+                    console.log("item image at cart prev:", item.image);
                     if(item.quantity){
                         return (
                             <div key={index}>
                                 <div className="flex justify-evenly items-center my-4">
-                                    <img className="w-14 mx-3" src={item.image} alt="" />
+                                    <img className="w-14 mx-3" src={`/images/largeProdImgs/${item.image}`} alt="" />
                                     <div>
                                         <p>(X{item.quantity}):</p>
                                         <p>{item.size}</p>

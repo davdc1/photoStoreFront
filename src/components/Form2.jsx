@@ -111,16 +111,18 @@ class Form2 extends React.Component{
      }
 
     navigate = () => {
-        if(this.validateAll()){
-            this.props.history.push("/checkout/form3");
-        }
+        this.props.history.push("/checkout/form3");
+    }
+
+    saveShippingAddress(info){
+        localStorage.setItem('shippingAddress', JSON.stringify(info));
     }
 
     submit = (e) => {
         e.preventDefault()
-        let shippingDet = {
-            fName: e.target[0].value,
-            lName: e.target[1].value,
+        let shippingAddress = {
+            firstName: e.target[0].value,
+            lastName: e.target[1].value,
             street: e.target[2].value,
             buildingNum: e.target[3].value,
             postCode: e.target[4].value,
@@ -131,9 +133,13 @@ class Form2 extends React.Component{
             phone: e.target[9].value,
             message: e.target[10].value
         }
-        console.log("shippingDet:", shippingDet);
+        console.log("shippingDet:", shippingAddress);
         
-        this.navigate();
+        if(this.validateAll()){
+            this.saveShippingAddress(shippingAddress);
+            this.props.saveFinalBill();
+            this.navigate();
+        }
 
         if(!this.state.firstSubmit){
             this.setState({firstSubmit: true})}

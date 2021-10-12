@@ -1,6 +1,10 @@
 
 import React from "react"
 import { Link } from 'react-router-dom'
+import axios from "axios"
+
+
+import loggedUser from '../components/stuff/loggedUser.json'
 //import couponJson from './stuff/coupon.json'
 
 class Cart extends React.Component{
@@ -11,6 +15,7 @@ class Cart extends React.Component{
         ]
         this.items = this.getItemList();
         this.state = {
+            loggedUser: loggedUser._id,
             items: this.items,
             total: this.getItemTotal(this.items),
             couponOk: false,
@@ -101,6 +106,20 @@ class Cart extends React.Component{
         this.setState({items: [], total: 0});
         localStorage.setItem("cartItems", []);
         this.props.updateCartPrev();
+    }
+
+    async updateCart(cart){
+        try{
+            await axios.put(`/users/updatecart/${this.state.loggedUser}`, cart)
+            .then((res) => console.log("put to cart res:", res));
+        }
+        catch(err){
+            console.log("put to cart error:", err.message);
+        }
+    }
+
+    componentWillUnmount(){
+        this.updateCart(this.state.items);
     }
 
     render(){

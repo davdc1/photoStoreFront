@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-
+import auth from '../firebase/firebase'
 
 import users from "./stuff/users.json"
 
@@ -11,6 +11,10 @@ class Profile extends React.Component{
         this.state = {
             user: users[0]
         }
+    }
+
+    componentDidMount(){
+        console.log("user:", auth.auth().currentUser);
     }
 
     render(){

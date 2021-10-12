@@ -1,0 +1,24 @@
+
+[
+    {
+        "prodId":"43737djfhd83uj39.....REF",
+        "idSize": "2-a3",
+        "size": "a3 (cm X cm)",
+        "pricePerUnit": 150,
+        "quantity": 1
+    },
+    {
+        "prodId":"9dfg676afld83ujj7.....REF",
+        "idSize": "1-a1",
+        "size": "a1 (cm X cm)",
+        "pricePerUnit": 600,
+        "quantity": 1
+    },
+    {
+        "prodId":"71237dzxhd8hgf23.....REF",
+        "idSize": "5-a2",
+        "size": "a2 (cm X cm)",
+        "pricePerUnit": 400,
+        "quantity": 6
+    }
+]

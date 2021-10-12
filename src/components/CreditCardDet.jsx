@@ -1,4 +1,7 @@
+import axios from "axios";
 import React from "react";
+import loggedUser from './stuff/loggedUser.json';
+
 
 class CreditCardDet extends React.Component{
     constructor(props){
@@ -12,6 +15,7 @@ class CreditCardDet extends React.Component{
         }
 
         this.state = {
+            loggedUser: loggedUser._id,
             firstSubmit: false,
             cardNumOk: false,
             nameOnCardOk: false,
@@ -81,16 +85,54 @@ class CreditCardDet extends React.Component{
         
         this.setState({firstSubmit: true});
 
-        if(this.validateAll()){
-            let det = {
-                cardNumber: e.target[0].value,
-                nameOnCard: e.target[1].value,
-                expiration: e.target[2].value,
-                cvv: e.target[3].value
-            }
-            console.log(det);
+        // if(this.validateAll()){
+        //     let det = {
+        //         cardNumber: e.target[0].value,
+        //         nameOnCard: e.target[1].value,
+        //         expiration: e.target[2].value,
+        //         cvv: e.target[3].value
+        //     }
+        //     console.log(det);
+        // }
+
+        this.saveOrder();
+    }
+
+    async saveOrder(){
+        let shippingAddress = localStorage.getItem('shippingAddress')?
+        JSON.parse(localStorage.getItem('shippingAddress')):null;
+
+        let billingAddress = localStorage.getItem('billingAddress')?
+        JSON.parse(localStorage.getItem('billingAddress')):null;
+
+        let finalBill = localStorage.getItem('finalBill')?
+        JSON.parse(localStorage.getItem('finalBill')):null;
+
+        let order = {
+            userId:this.state.loggedUser,
+            date: new Date().toLocaleDateString(),
+            status: "",
+            paied: false,
+            shippingAddress: shippingAddress,
+            billingAddress: billingAddress,
+            subTotal: finalBill.subTotal,
+            shippingPrice: finalBill.shippingPrice,
+            tax: (finalBill.total * (finalBill.taxRate + 1)),
+            total: finalBill.total,
+            cart: JSON.parse(localStorage.getItem('cartItems'))
         }
 
+        axios.post(`/orders`, order);
+    }
+
+    async sendPaymentDet(det){
+        try{
+            axios.post('/payment', det);
+
+        }
+        catch(err){
+
+        }
     }
 
     render(){

@@ -91,6 +91,16 @@ class Checkout extends React.Component{
         }
     }
 
+    saveFinalBill = () => {
+        let bill = {
+            subTotal: this.state.total,
+            shippingPrice: this.state.shippingPrice,
+            taxRate: this.state.taxRate,
+            total: (this.state.total + this.state.shippingPrice) * (1 + this.state.taxRate)
+        }
+        localStorage.setItem('finalBill', JSON.stringify(bill));
+    }
+
     render(){
         return(
             <div>
@@ -112,7 +122,7 @@ class Checkout extends React.Component{
                     <div className="flex flex-col items-center">
                     <Switch>
                         <Route path="/checkout/form1" component={Form1} />
-                        <Route path="/checkout/form2" component={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} {...props}/>} />
+                        <Route path="/checkout/form2" component={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} saveFinalBill={this.saveFinalBill} {...props}/>} />
                         <Route path="/checkout/form3" component={Form3} />
                         <Route path="/checkout/CreditCardDet" component={CreditCardDet} />
                         <Route path="/checkout/Paypal" component={Paypal} />

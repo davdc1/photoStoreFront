@@ -244,22 +244,42 @@ class Form1 extends React.Component{
      }
  
      navigate = () => {
-         if(this.validateAll()){
-             this.props.history.push("/checkout/form2")
-         }
+        this.props.history.push("/checkout/form2")
      }
 
-     submit = (event) => {
-         event.preventDefault();
-         console.log("submit:", event);
+     saveBillingAddress(info){
+        localStorage.setItem('billingAddress', JSON.stringify(info))
+     }
+
+     submit = (e) => {
+         e.preventDefault();
+         
+         let billingAddress = {
+            firstName: e.target[0].value,
+            lastName: e.target[1].value,
+            street: e.target[2].value,
+            buildingNum: e.target[3].value,
+            city: e.target[4].value,
+            country: e.target[5].value,
+            phone: e.target[6].value,
+            email: e.target[7].value,
+            wishToRecieve: e.target[8].checked
+         }
+
+         console.log("billing Address:", billingAddress);
+         
          this.setState({firstSubmit: true});
-         this.navigate();
+         
+         if(this.validateAll()){
+            this.saveBillingAddress(billingAddress)
+            this.navigate();
+         }
      }
 
     render(){
         return(
             <div className="flex flex-col items-center justify-center">
-            <span>Billing Address</span>
+            <span>Billing Information</span>
             <form onSubmit={this.submit} className="flex flex-col items-center w-72" action="">
                 <div className="self-stretch flex justify-between">
                     <span>* First name</span>

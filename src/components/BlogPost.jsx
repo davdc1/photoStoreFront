@@ -2,6 +2,8 @@ import { stringify } from "postcss";
 import React from "react";
 import axios from "axios";
 
+import loggedUser from './stuff/loggedUser.json'
+
 class BlogPost extends React.Component{
     constructor(props){
         super(props)
@@ -9,7 +11,8 @@ class BlogPost extends React.Component{
             postId: props.match.params.id,
             post: props.location.state.blog,
             comments: [],
-            loading: true
+            loading: true,
+            loggedUser: loggedUser._id
         }
     }
 
@@ -21,8 +24,13 @@ class BlogPost extends React.Component{
     }
 
     async fetchComments(){
-        const { data } = await axios.get('/comments')
-        this.setState({comments: data, loading: false});
+        try{
+            const { data } = await axios.get(`/comments/forPost/${this.state.postId}`)
+            this.setState({comments: data, loading: false}, ()=>console.log("comments:", this.state.comments));
+        }
+        catch(err){
+            console.log("fetchComments error:", err.response.data.message);
+        }
     }
 
 
@@ -41,22 +49,36 @@ class BlogPost extends React.Component{
         e.preventDefault();
         console.log("form:", e.target[0].value, e.target[1].value);
         let comment = {
+            commentId: 0,
             title: e.target[1].value,
             content: e.target[2].value,
-            user: e.target[0].value,
+            //user: e.target[0].value,
+            userId: this.state.loggedUser,
             date: new Date().toDateString(),
             postId: this.state.postId,
         }
         
+        // {
+        //     commentId:Number,
+        //     postId:Number,
+        //     userId:Number,
+        //     title:String,
+        //     content:String,
+        //     date:String,
+        //     id:String
+        // }
+
+
         this.postComment(comment);
         //this.pushToLclStrg(comment);
 
     }
 
     async postComment(comment){
-        axios.post('/comments', {comment}).then((res)=>{
+        axios.post(`/comments`, comment).then((res)=>{
             console.log("post res:", res.data);
         })
+        .catch((err) => {console.log("postError:", err.response.data)})
         console.log("posted?");
     }
 
@@ -111,7 +133,7 @@ class BlogPost extends React.Component{
                             <p className="font-semibold">{comment.title}</p>
                             <p className="text-left">{comment.content}</p>
                             <div className="flex justify-between self-stretch">
-                                <span>written by: <span className="italic">{comment.user}</span></span>
+                                <span>written by: <span className="italic">{comment.userId.name.firstName + " " + comment.userId.name.lastName}</span></span>
                                 <span>{comment.date}</span>
                             </div>
                         </div>

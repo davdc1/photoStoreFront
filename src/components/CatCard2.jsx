@@ -1,12 +1,15 @@
+import axios from "axios";
 import React from "react"
 import {Link} from "react-router-dom"
 
+import loggedUser from './stuff/loggedUser.json'
 
 class CatCard extends React.Component{
     constructor(props){
         super(props)
         this.product = this.props.product;
         this.state = {
+            loggedUser: loggedUser._id,
             price: this.product.sizes[0].price,
             size: this.product.sizes[0].size,
             idSize: this.product.sizes[0].idSize,
@@ -14,8 +17,8 @@ class CatCard extends React.Component{
             quant: "1"
         }
     }
-
-    addToCart = () => {
+ 
+   async addToCart(){
         let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
         //handle duplicates:
         let sum = 0;
@@ -29,15 +32,27 @@ class CatCard extends React.Component{
         }
         
         items.push({
-            id: this.product.id,
+            productId: this.product._id,
             prodName: this.product.prodName,
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
             quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
-            image: this.product.imageStr
+            image: this.product.imageName
         })
         localStorage.setItem("cartItems", JSON.stringify(items));
+
+        this.updateCart(items);
+    }
+
+    async updateCart(cart){
+        try{
+            await axios.put(`/users/updatecart/${this.state.loggedUser}`, cart)
+            .then((res) => console.log("put to cart res:", res));
+        }
+        catch(err){
+            console.log("put to cart error:", err.message);
+        }
     }
 
     setPrice = (event) => {
@@ -58,10 +73,10 @@ class CatCard extends React.Component{
         return(
             <div className='flex flex-col sm:flex-row min-h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-light rounded'>
                 <div className="">
-                    <Link to={{pathname:`/prodpage/${this.product.id}`}}><img className="w-full sm:w-52 shadow-xl" src={"./images/" + this.product.imageName} alt="ProdImage" /></Link>
+                    <Link to={{pathname:`/prodpage/${this.product.id}`, state: {product: this.product}}}><img className="w-full sm:w-52 shadow-xl" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.product.imageName} alt="ProdImage" /></Link>
                 </div>
                     <div className="flex flex-col justify-between sm:ml-4 self-stretch mt-10 sm:mt-0">
-                        <span className="font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${this.product.id}`}}>name: {this.product.prodName}</Link></span>
+                        <span className="font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${this.product.id}`, state: {product: this.product}}}>name: {this.product.prodName}</Link></span>
                         <span className="mt-3 ">rank: {this.product.rank}</span>
                         <div>
                             <div className="flex flex-row-reverse sm:flex-col justify-center h-24  mx-3 mt-4">   

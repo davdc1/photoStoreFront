@@ -6,13 +6,6 @@ class Carousel extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            // images:  [
-            //     "url(https://i.ibb.co/YkTt4JD/2.jpg)",
-            //     "url(https://i.ibb.co/D7FfSgc/city.jpg)",
-            //     "url(https://i.ibb.co/kQKH4m7/IMG-4547.jpg)",
-            //     "url(https://i.ibb.co/xfPpJw1/bridge.jpg)",
-            //     "url(https://i.ibb.co/hyVKDZ4/dwntwn.jpg)"
-            // ],
             products: this.props.productArray
         }
     }

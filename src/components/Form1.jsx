@@ -15,17 +15,6 @@ class Form1 extends React.Component{
             country: "enter a valid country"
         }
 
-        // this.billingDet = {
-        //     fName: "",
-        //     lName: "",
-        //     phone: "",
-        //     email: "",
-        //     street: "",
-        //     building: "",
-        //     city: "",
-        //     country: "",
-        //     subscribe: false
-        // }
 
         this.state = {
             firstSubmit: false,
@@ -48,127 +37,7 @@ class Form1 extends React.Component{
         }
     }
 
-    // checkFName = (event) => {
-    //     if(nameVal(event.target.value)){
-    //         console.log("fName");
-    //         this.setState({
-    //             fNameOk: true
-    //         });
-    //         this.billingDet.fName = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             fNameOk: false
-    //         });
-    //     }
-    // }
-
-    // checkLName = (event) => {
-    //     if(nameVal(event.target.value)){
-    //         console.log("lName");
-    //         this.setState({
-    //             lNameOk: true,
-    //         });
-    //         this.billingDet.lName = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             lNameOk: false
-    //         });
-    //     }
-    // }
-
-    // checkPhone = (event) => {
-    //     if(phoneVal(event.target.value)){
-    //         console.log("phone");
-    //         // this.setState({
-    //         //     phoneOk: true,
-    //         // });
-    //         this.billingDet.phone = event.target.value;
-    //     }else{
-    //         // this.setState({
-    //         //     phoneOk: false
-    //         // });
-    //     }
-    // }
-
-    // checkEmail = (event) => {
-    //     if(emailVal(event.target.value)){
-    //         console.log("email");
-    //         // this.setState({
-    //         //     emailOk: true,
-    //         // });
-    //         this.billingDet.email = event.target.value;
-    //     }else{
-    //         // this.setState({
-    //         //     emailOk: false
-    //         // });
-    //     }
-    // }
-
-    // checkStreet = (event) => {
-    //     if(streetVal(event.target.value)){
-    //         console.log("street");
-    //         this.setState({
-    //             streetOk: true,
-    //         });
-    //         this.billingDet.street = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             streetOk: false
-    //         });
-    //     }
-    // }
-
-    // checkBuildingNumber = (event) => {
-    //     if(buildingNumVal(event.target.value)){
-    //         console.log("address");
-    //         this.setState({
-    //             buildingOk: true,
-    //         });
-    //         this.billingDet.building = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             buildingOk: false
-    //         });
-    //     }
-    // }
     
-    // checkCity = (event) => {
-    //     if(cityVal(event.target.value)){
-    //         console.log("city");
-    //         this.setState({
-    //             cityOk: true,
-    //         });
-    //         this.billingDet.city = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             cityOk: false
-    //         });
-    //     }
-    // }
-    
-    // checkCountry = (event) => {
-    //     if(countryVal(event.target.value)){
-    //         console.log("country");
-    //         this.setState({
-    //             countryOk: true,
-    //         });
-    //         this.billingDet.country = event.target.value;
-    //     }else{
-    //         this.setState({
-    //             countryOk: false
-    //         });
-    //     }
-    // }
-
-    // getSubscribe = (event) => {
-    //     if(event.target.checked == true){
-    //         console.log("subscribe true");
-    //         this.billingDet.subscribe = true;
-    //     }else{
-    //         console.log("subscribe false");
-    //         this.billingDet.subscribe = false;
-    //     }
-    // }
 
     fNameVal(exp){
         return /^[a-z ,.'-]+$/.test(exp.toLowerCase())
@@ -213,17 +82,12 @@ class Form1 extends React.Component{
     checkField = (e, str) => {
         let messages = this.state.messages;
         if(!e.target.value){
-            console.log("1:");
             messages[str] = "required field";
             this.setState({[str + "Ok"]: false, messages: messages})
-            //this.setState({[str + "Ok"]: false, messages: {[str]: "required field"}}, console.log("mes:", this.state.messages[str]), console.log("mesLname:", this.state.messages.lName ))
         }else if(e.target.value && !this[str + "Val"](e.target.value)){
-            console.log("2:");
             messages[str] = this.unvalidMessage[str];
             this.setState({[str + "Ok"]: false, messages: messages})
-            //this.setState({[str + "Ok"]: false, messages: {[str]: this.unvalidMessage[str]}}, console.log("mes:", this.state.messages[str]))
         }else{
-            console.log("3:");
             messages[str] = "";
             this.setState({[str + "Ok"]: true})
         }
@@ -233,13 +97,10 @@ class Form1 extends React.Component{
     validateAll = () => {
         let temp = Object.keys(this.state)
          for(let i = 0; i < temp.length; i++){
-             console.log("keys:", temp[i]);
              if(this.state[temp[i]] !== true && temp[i] !== "messages" && temp[i] !== "firstSubmit"){
-                 console.log("val all false");
                  return false
              }
          }
-         console.log("val all true");
          return true
      }
  
@@ -265,8 +126,6 @@ class Form1 extends React.Component{
             email: e.target[7].value,
             wishToRecieve: e.target[8].checked
          }
-
-         console.log("billing Address:", billingAddress);
          
          this.setState({firstSubmit: true});
          
@@ -347,7 +206,7 @@ class Form1 extends React.Component{
                     <label htmlFor="subscribe">i wish to recieve... </label>
                     <input onChange={this.getSubscribe} className="border border-1 rounded my-2" type="checkbox" name="subscribe" id="" />
                 </div>
-                <button className="border border-turq border-1 rounded px-2 py-1 my-2" onClick={() => {console.log("billingDet:", this.billingDet);}}>next</button>
+                <button className="border border-turq border-1 rounded px-2 py-1 my-2">next</button>
             </form>
         </div> 
         )

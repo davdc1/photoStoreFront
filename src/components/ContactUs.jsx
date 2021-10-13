@@ -18,7 +18,6 @@ class ContactUs extends React.Component{
             this.setState({sent: true})
         }
         catch(err){
-            console.log('contact us error:', err);
             this.setState({sent: false})
         }
     }
@@ -37,7 +36,7 @@ class ContactUs extends React.Component{
             status: "pending",
             comment: ""
         }
-        console.log("contact message:", message);
+        
         this.sendMessage(message);
     }
 

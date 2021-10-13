@@ -10,8 +10,6 @@ class Carousel extends React.Component{
         }
     }
 
-    //pass images as props. try to use array.map on first state asignement
-
     rotateRight = () => {
         let array = this.state.products;
         
@@ -41,10 +39,19 @@ class Carousel extends React.Component{
                     {this.state.products.map((product, index) => {
                         if(index <= 4){
                             if(index === 2){
-                                //return <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage:  `url(${product.imageStr})`}}></div>
-                                return <Link to={{pathname:`/prodpage/${product.id}`}} key={index} ><div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage: `url(${product.imageStr})`}}></div></Link>
+                                return (
+                                <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
+                                    <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage: `url(/images/smallProdImgs/${product.imageName})`}}>
+                                    </div>
+                                </Link>
+                                    )
                             }
-                            return <Link to={{pathname:`/prodpage/${product.id}`}} key={index} ><div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(${product.imageStr})`}}></div></Link>
+                            return (
+                            <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
+                                <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(/images/smallProdImgs/${product.imageName})`}}>
+                                    </div>
+                            </Link>
+                            )
                         }
                     })}
                     <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>

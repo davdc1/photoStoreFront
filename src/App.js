@@ -19,6 +19,10 @@ import Profile from './components/Profile';
 import BlogPost from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import AdminPage from './components/AdminPage';
+import app from './firebase/firebase';
+import axios from 'axios';
+
+export const LoggedUserContext = React.createContext();
 
 class App extends React.Component{
   
@@ -27,6 +31,8 @@ class App extends React.Component{
     this.state = {
       inCart: [],
       inCartNum: 0,
+      isLogged: false,
+      loggedUser: "",
       //userLogged: false,
       //userName: ""
     }
@@ -55,7 +61,23 @@ getCartItems(){
    return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
 }
 
+async getUserId(email){
+  try{
+    let userId = await axios.post('/users/getId', {email: email});
+    console.log("userId:", userId.data);
+    this.setState({loggedUser: userId.data})
+  }
+  catch(error){
 
+  }
+}
+
+setUserLogged = () => {
+let user =  app.auth().currentUser
+ console.log("user:", user.email);
+ console.log("return user?",this.getUserId(user.email));
+//  this.setState({loggedUser: user.email})
+}
 
 //look at all the user & login things. remove what's not neccessary 
 getUserList(){
@@ -87,6 +109,7 @@ getUserList(){
     console.log("inCart:", this.state.inCart);
     console.log("inCartNum:", this.state.inCartNum);
   return (
+    <LoggedUserContext.Provider value={this.state.loggedUser, this.setUserLogged} >
     <Router>
       <div className="App">
         <Header inCart={this.state.inCart} inCartNum={this.state.inCartNum} />
@@ -148,6 +171,7 @@ getUserList(){
         <Footer />
       </div>
     </Router>
+    </LoggedUserContext.Provider>
   )
   }
 }

@@ -86,15 +86,12 @@ class Form2 extends React.Component{
     checkField = (e, str) => {
         let messages = this.state.messages;
         if(!e.target.value){
-            console.log("1:");
             messages[str] = "required field";
             this.setState({[str + "Ok"]: false, messages: messages})
         }else if(e.target.value && !this[str + "Val"](e.target.value)){
-            console.log("2:");
             messages[str] = this.unvalidMessage[str];
             this.setState({[str + "Ok"]: false, messages: messages})
         }else{
-            console.log("3:");
             messages[str] = "";
             this.setState({[str + "Ok"]: true})
         }
@@ -133,7 +130,6 @@ class Form2 extends React.Component{
             phone: e.target[9].value,
             message: e.target[10].value
         }
-        console.log("shippingDet:", shippingAddress);
         
         if(this.validateAll()){
             this.saveShippingAddress(shippingAddress);

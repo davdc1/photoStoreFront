@@ -56,15 +56,12 @@ class CreditCardDet extends React.Component{
     validate = (e, str) => {
         let messages = this.state.messages;
         if(!e.target.value){
-            console.log(str, " field is required");
             messages[str] = "this field is required"
             this.setState({[str + "Ok"]: false, messages: messages});
         }else if(e.target.value && !this[str + "Val"](e.target.value)){
-            console.log(`enter a valid ${str} value`);
             messages[str] = this.unvalidMessages[str];
             this.setState({[str + "Ok"]: false, messages: messages})
         }else{
-            console.log(`${str} field ok`);
             messages[str] = ""
             this.setState({[str + "Ok"]: true, messages: messages})
         }
@@ -85,15 +82,14 @@ class CreditCardDet extends React.Component{
         
         this.setState({firstSubmit: true});
 
-        // if(this.validateAll()){
-        //     let det = {
-        //         cardNumber: e.target[0].value,
-        //         nameOnCard: e.target[1].value,
-        //         expiration: e.target[2].value,
-        //         cvv: e.target[3].value
-        //     }
-        //     console.log(det);
-        // }
+        if(this.validateAll()){
+            let det = {
+                cardNumber: e.target[0].value,
+                nameOnCard: e.target[1].value,
+                expiration: e.target[2].value,
+                cvv: e.target[3].value
+            }
+        }
 
         this.saveOrder();
     }

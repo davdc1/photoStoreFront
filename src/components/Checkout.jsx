@@ -32,53 +32,20 @@ class Checkout extends React.Component{
             this.setState({items: items, total: total})
         }
     }
-    // valFName(event){
-    //     if(event.target.value){
-    //         console.log("fName");
-    //     }
-    // }
-
-    // valLName(event){
-    //     if(event.target.value){
-    //         console.log("lName");
-    //     }
-    // }
-
-    // valPhone(event){
-    //     if(event.target.value){
-    //         console.log("phone");
-    //     }
-    // }
-
-    // valEmail(event){
-    //     if(event.target.value){
-    //         console.log("email");
-    //     }
-    // }
-
-    // getSubscribe(event){
-    //     if(event.target.checked == true){
-    //         console.log("subscribe true");
-    //     }else{
-    //         console.log("subscribe false");
-    //     }
-    // }
 
     setShippingDest = () => {
 
     }
 
     setShipping = (e) => {
-        console.log("setShipping");
+
         if(e.target.value === "0"){
-            console.log("ship 0");
             this.setState({shippingMethod: "pickUp", shippingPrice: 0})
         }else if(e.target.value === "1"){
             // use shippingDest and chosen method to determine shippingPrice (probably by making a request to carier api)
             //and then:
             //this.setState({shippingMethod: from user, onSelect event, shippingPrice: price recieved from api})
 
-            console.log("ship 1");
             if(this.state.total >= 500){
                 this.setState({shippingMethod: "standard", shippingPrice: 0})
             }else{
@@ -86,7 +53,6 @@ class Checkout extends React.Component{
             }
         }else if(e.target.value === "2"){
             //same theoretical logic as above
-            console.log("ship 2");
             this.setState({shippingMethod: "express", shippingPrice: 60})
         }
     }

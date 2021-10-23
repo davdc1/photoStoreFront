@@ -3,6 +3,7 @@ import React from "react"
 import BlogCard from "./BlogCard"
 import axios from 'axios'
 import { RecentPost } from "./RecentPost"
+import { Link } from "react-router-dom"
 
 
 class Blog extends React.Component{
@@ -63,7 +64,9 @@ class Blog extends React.Component{
                 {!this.state.loading &&
                 <div className="my-14">
                     <div className="flex justify-center">
+                    <Link className="" to={{pathname: `/blogpost/${this.state.blogs[0].id}`, state:{blog: this.state.blogs[0]}}} >
                         <RecentPost blog={this.state.blogs[0]} />
+                    </Link>
                     </div>
                 </div>}
                 <p>other posts</p>

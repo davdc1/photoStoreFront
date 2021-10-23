@@ -1,5 +1,5 @@
 import React from "react"
-import auth from "../firebase/auth.js"
+import auth from "../firebase/auth"
 import { Redirect } from 'react-router-dom'
 
 import { User } from './contexts/UserContext' 

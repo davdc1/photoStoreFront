@@ -2,6 +2,9 @@ import React from "react"
 import auth from "../firebase/auth.js"
 import { Redirect } from 'react-router-dom'
 
+import { User } from './contexts/UserContext' 
+import axios from "axios"
+
 class SignUp extends React.Component{
 
     constructor(props){
@@ -9,74 +12,19 @@ class SignUp extends React.Component{
         console.log("props at signup:", props);
         this.state = {
             redirect: false,
-            redirectTo: props.location.state?props.location.state.from:null
+            redirectTo: props.location.state ? props.location.state.from : null
         }
     }
 
     /*CHECK: remove any unneccessary props*/
 
-
-    // componentDidUpdate(prevProps){
-    //     if(prevProps.userLogged !== this.props.userLogged){
-           
-    //         // let params = this.parseQuery();
-
-    //         this.setState({          
-    //             logged: this.props.userLogged.logged,
-    //             userName: this.props.userLogged.userName
-    //         });
-    //         console.log("state:", this.state);
-    //         console.log("didUpdate");
-
-            
-    //     }
-    // }
-
-    // getUserList(){
-    //     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
-    // }
-
-    // createAcount = (event) => {
-    //     event.preventDefault();
-    //     let users = this.getUserList();
-    //     for(let i = 0; i < users.length; i++){
-    //         if(users[i].userName === event.target[0].value){
-    //             console.log("username not available");
-    //             return
-    //         }
-    //     }
-    //     if(event.target[1].value === event.target[2].value){
-    //         console.log("username ok. password ok");
-    //         users.push({
-    //             userName: event.target[0].value,
-    //             password: event.target[1].value
-    //         })
-    //         localStorage.setItem("userList", JSON.stringify(users));
-    //         console.log("new user created");
-    //         //login
-    //     }else{
-    //         console.log("passwords don't match");
-    //     }
-
-    // }
-
-    // handleLogIn = (event) => {
-    //     event.preventDefault();
-    //     console.log("event:", event.target[0].value, event.target[1].value);
-
-    //     let users = this.getUserList();
-    //     for(let i = 0; i < users.length; i++){
-    //         if(users[i].userName === event.target[0].value && event.target[1].value === users[i].password){
-    //             console.log("logIn successfull");
-    //         }else{
-    //             console.log("incorrect userName/password");
-    //         }
-    //     }
-    // }
     
+    static contextType = User;
+
     redirect = () => {
+        console.log("at redirect");
         if(this.state.redirectTo){
-            this.setState({redirect: true});
+            this.setState({redirect: true}, () => {console.log("rdirect2", this.state.redirect)});
         }else{
             this.props.history.goBack();
         }
@@ -86,23 +34,49 @@ class SignUp extends React.Component{
     createAcount = (e) => {
         e.preventDefault();
         //validate email and then:
-        if(e.target[1].value === e.target[2].value){
-            auth.signUp(e.target[0].value, e.target[1].value);
+        if(e.target[3].value === e.target[4].value){
+            this.newUser = {
+                firstName: e.target[0].value,
+                lastName: e.target[1].value
+            }
+            auth.signUp(e.target[2].value, e.target[3].value, this.onCreateAcount)
         }
+    }
 
+    onCreateAcount = (user) => {
+        this.postNewUser(user)
+        .then(() => {this.context.getUserByEmail(user.email)})
+    }
+
+    async postNewUser(user){
+        await axios.post('/users',
+        {
+            email: user.email,
+            name:{
+                firstName: this.newUser.firstName,
+                lastName: this.newUser.lastName
+            }
+        })
     }
 
     handleLogIn = (e) => {
         e.preventDefault();
         //validation required
-        auth.login(e.target[0].value, e.target[1].value, this.redirect)
+        auth.login(e.target[0].value, e.target[1].value, this.onLogin)
     }
 
+    onLogin = async (user) => {
+        console.log("onLogin:", user.user.email);
+        await this.context.getUserByEmail(user.user.email)
+        this.redirect();
+    }
+
+
     render(){
+        console.log("at sigup:", this.context);
         return(
-            <div>
+            <div className="my-8">
                 {this.state.redirect && this.state.redirectTo != "" && <Redirect to={this.state.redirectTo}/>}
-                {!this.state.redirect && <p>redirect false</p>}
                 <h1>sign up \ sign in</h1>
                 <div className="flex justify-center items-stretch my-8">
                     <form onSubmit={this.handleLogIn} className="flex flex-col border border-light border-1 rounded mx-8">
@@ -120,6 +94,16 @@ class SignUp extends React.Component{
                     </form>
                     <form onSubmit={this.createAcount} className="border border-light border-1 rounded mx-8"className="border border-light border-1 rounded mx-2">
                         <span>Create account</span>
+                        <div className="flex justify-between my-4">
+                            <div>
+                                <span className="mx-2">First name</span>
+                                <input className="border border-light border-1 rounded mx-2" type="text" />
+                            </div>
+                            <div>
+                                <span className="mx-2">Last name</span>
+                                <input className="border border-light border-1 rounded mx-2" type="text" />
+                            </div>
+                        </div>
                         <div className="flex justify-between my-4">
                             <span className="mx-2">Email</span>
                             <input className="border border-light border-1 rounded mx-2" type="text" />

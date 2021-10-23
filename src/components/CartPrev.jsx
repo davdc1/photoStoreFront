@@ -22,7 +22,7 @@ function CartPrev({items}){
                         return (
                             <div key={index}>
                                 <div className="flex justify-evenly items-center my-4">
-                                    <img className="w-14 mx-3" src={`/images/largeProdImgs/${item.image}`} alt="" />
+                                    <img className="w-14 mx-3" src={`/images/smallProdImgs/${item.image}`} alt="" />
                                     <div>
                                         <p>(X{item.quantity}):</p>
                                         <p>{item.size}</p>

@@ -15,15 +15,18 @@ class Profile extends React.Component{
             user: users[0]
         }
     }
+    
+    //static contextType = LoggedUserContext
 
     componentDidMount(){
         console.log("user:", auth.auth().currentUser);
+        console.log("this.context:", this.context);
     }
 
     render(){
         return (
             <LoggedUserContext.Consumer>
-            {(setUserLogged, loggedUser) => {console.log('logged',loggedUser); return(<div>
+            {(loggedUser) => {console.log('logged', loggedUser); return(<div>
                 <span>user profile</span>
                 {/* <div>
                     <span>userName: {this.props.userLogged.userName}</span>
@@ -42,7 +45,6 @@ class Profile extends React.Component{
                     })}
                 </div>
                 <p>
-                    <button onClick={setUserLogged}>click</button>
                     <button className="mx-8" >my orders</button>
                     {this.state.user.authorization === "admin" && <Link to="/admin" >admin page</Link>}
                 </p>

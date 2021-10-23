@@ -5,26 +5,39 @@ import axios from "axios"
 
 
 import loggedUser from '../components/stuff/loggedUser.json'
+import { User } from "./contexts/UserContext"
 //import couponJson from './stuff/coupon.json'
 
 class Cart extends React.Component{
+    static contextType = User;
     constructor(props){
         super(props)
         this.coupon = [
             {code: "10off", dis: "10-percent"}
         ]
-        this.items = this.getItemList();
+        // this.items = this.getItemsFromLocalStrorage();
         this.state = {
-            loggedUser: loggedUser._id,
-            items: this.items,
-            total: this.getItemTotal(this.items),
+            loggedUserId: "",
+            items: [],
+            total: 0,
             couponOk: false,
-            dis: ""
+            dis: "",
+            editCart: false
         }
     }
 
     componentDidMount(){
-        this.getItemList();
+        console.log("cartcartcart", this.context);
+        let items = this.context.signedUser ?
+            this.context.signedUser.cart :
+            this.getItemsFromLocalStrorage();
+        
+        this.setState({
+            loggedUserId: this.context.signedUser._id ? this.context.signedUser._id : "",
+            items: items,
+            total: this.getItemTotal(items)
+        })
+
     }
 
     getItemTotal(items){
@@ -37,7 +50,7 @@ class Cart extends React.Component{
         return total;
     }
     
-    getItemList(){
+    getItemsFromLocalStrorage(){
         return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
     }
 
@@ -56,6 +69,9 @@ class Cart extends React.Component{
         
     }
 
+    setEditCart = () => {
+        this.setState({editCart: !this.state.editCart})
+    }
     
     plusQuant(idSize){
         let items =  this.state.items;
@@ -108,9 +124,9 @@ class Cart extends React.Component{
         this.props.updateCartPrev();
     }
 
-    async updateCart(cart){
+    async sendCart(cart){
         try{
-            await axios.put(`/users/updatecart/${this.state.loggedUser}`, cart)
+            await axios.put(`/users/updatecart/${this.state.loggedUserId}`, cart)
             .then((res) => console.log("put to cart res:", res));
         }
         catch(err){
@@ -118,8 +134,14 @@ class Cart extends React.Component{
         }
     }
 
+    async updateCart(){
+        await this.sendCart(this.state.items)
+        this.context.getUserByEmail(this.context.signedUser.email)
+    }
+
     componentWillUnmount(){
-        this.updateCart(this.state.items);
+        if(this.state.loggedUserId)
+            this.sendCart(this.state.items);
     }
 
     render(){
@@ -138,32 +160,35 @@ class Cart extends React.Component{
                     </div>
                     }
                     {this.state.items.map((item, index) =>{
+                        console.log("item at cart:", item);
                         if(item.quantity){
                             return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
-                                        <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="" className="h-20 mx-3" /></Link>
+                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}><img src={`/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" /></Link>
                                         <div className="flex flex-col">
-                                            <Link to={{pathname:`/prodpage/${item.id}`}}><span className="font-semibold">{item.prodName}</span></Link>
+                                            <Link to={{pathname:`/prodpage/${item.productId}`}}><span className="font-semibold">{item.prodName}</span></Link>
                                             <span className="mx-3">{item.size}</span>
                                         </div>
                                         <span className="mx-3">${item.price}</span>
                                         <div className="mx-3 flex items-strech ">
                                             {/* <span>quantity: {item.quantity}</span> */}
                                             <div className="flex items-strech mx-3">
-                                                <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">-</button>
+                                                {this.state.editCart && <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">-</button>}
                                                 <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
-                                                <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">+</button>
+                                                {this.state.editCart && <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">+</button>}
                                             </div>
                                         </div>
                                         <span className="mx-3">${item.price * item.quantity}</span>
                                         <div>
-                                            <button onClick={() => this.removeItem(item.idSize)} className="text-xs">remove</button>
+                                            {this.state.editCart && <button onClick={() => this.removeItem(item.idSize)} className="text-xs">remove</button>}
                                         </div>
                                 </div>)
                         }
                     })}
                      {this.state.items.length === 0 && <div className="border-t-2 py-6 px-8"><span>your cart is empty</span></div>}
                     <div className="border border-b-0 border-r-0 border-l-0 border-t-2">
-                        {this.state.items.length > 0 && <button onClick={this.emptyCart} className="text-sm my-1">empty cart</button>}
+                        {!this.state.editCart && <button onClick={this.setEditCart} className="text-sm my-1">Edit cart</button>}
+                        {this.state.editCart && this.state.items.length > 0 && <button onClick={this.emptyCart} className="text-sm my-1">empty cart</button>}
+                        {this.state.editCart && <div><button onClick={() => {this.setEditCart(); this.sendCart(this.state.items)}} className="text-sm my-1">Apply changes</button></div>}
                     </div>
                 </div>
                 <div className="flex">

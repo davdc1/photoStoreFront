@@ -18,9 +18,15 @@ import Checkout from './components/Checkout';
 import Profile from './components/Profile';
 import BlogPost from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import AdminPage from './components/AdminPage';
+import { OrderPage } from './components/OrderPage';
+
+//import AdminPage from './components/AdminPage';
+import { AdminPage } from './components/Admin/AdminPage'
+
 import app from './firebase/firebase';
 import axios from 'axios';
+import { Profile2 } from './components/Profile2';
+import UserContextProvider from './components/contexts/UserContext';
 
 export const LoggedUserContext = React.createContext();
 
@@ -44,9 +50,17 @@ componentDidMount(){
 
 updateCartPrev = () => {
   console.log("updateCartPrev at app.js");
-  let items = this.getCartItems();
+  let items =
+  this.state.loggedUser ?
+  this.state.loggedUser.cart :
+  this.getCartItemsFromLocalStorage();
+  
   let sum = this.getInCartNum(items);
-  this.setState({inCart: items, inCartNum: sum});
+  
+  this.setState({
+    inCart:items,
+    inCartNum: sum
+  });
 }
 
 getInCartNum(items){
@@ -57,26 +71,21 @@ getInCartNum(items){
     return sum;
 }
 
-getCartItems(){
+getCartItemsFromLocalStorage(){
    return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
 }
 
-async getUserId(email){
-  try{
-    let userId = await axios.post('/users/getId', {email: email});
-    console.log("userId:", userId.data);
-    this.setState({loggedUser: userId.data})
-  }
-  catch(error){
-
-  }
+getUserByEmail = (email) => {
+  console.log("get user by email");
+  axios.post('/users/getId', {email: email})
+  .then((res)=>{
+    this.setState({loggedUser: res.data})
+  })
 }
+
 
 setUserLogged = () => {
 let user =  app.auth().currentUser
- console.log("user:", user.email);
- console.log("return user?",this.getUserId(user.email));
-//  this.setState({loggedUser: user.email})
 }
 
 //look at all the user & login things. remove what's not neccessary 
@@ -84,32 +93,10 @@ getUserList(){
     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
 }
 
-//   handleLogIn = (event) => {
-//     event.preventDefault();
-//     console.log("event:", event.target[0].value, event.target[1].value);
-
-//     let users = this.getUserList();
-//     for(let i = 0; i < users.length; i++){
-//         if(users[i].userName === event.target[0].value && event.target[1].value === users[i].password){
-//             console.log("logIn successfull");
-            
-//             this.setState({
-//               userLogged: true,
-//               userName: users[i].userName
-//             })
-//             //this.props.history.push("/profile")
-//         }else{
-//             console.log("incorrect userName/password");
-//         }
-//     }
-// }
-
-
   render(){
-    console.log("inCart:", this.state.inCart);
-    console.log("inCartNum:", this.state.inCartNum);
   return (
-    <LoggedUserContext.Provider value={this.state.loggedUser, this.setUserLogged} >
+    <UserContextProvider>
+    <LoggedUserContext.Provider value={this.state.loggedUser} >
     <Router>
       <div className="App">
         <Header inCart={this.state.inCart} inCartNum={this.state.inCartNum} />
@@ -140,7 +127,7 @@ getUserList(){
             <BlogTemp />
           </Route> */}
           
-          <Route  path="/signUp" component={props => <SignUp {...props}/>} />
+          <Route  path="/signUp" component={props => <SignUp getUserByEmail={this.getUserByEmail} {...props} />} />
 
           <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
          
@@ -159,7 +146,9 @@ getUserList(){
             {/* <ProtectedRoute component={Profile} />
           </Route> */}
 
-          <Route path="/profile" component={props => <ProtectedRoute component={Profile} {...props} />}/>
+          <Route path="/profile" component={props => <ProtectedRoute component={Profile2} {...props} />}/>
+
+          <Route path="/orderpage/:id" component={ OrderPage } />
           
           <Route path="/admin" component={AdminPage} />
 
@@ -172,6 +161,7 @@ getUserList(){
       </div>
     </Router>
     </LoggedUserContext.Provider>
+    </UserContextProvider>
   )
   }
 }

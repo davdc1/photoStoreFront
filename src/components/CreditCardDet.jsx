@@ -1,9 +1,13 @@
 import axios from "axios";
 import React from "react";
-import loggedUser from './stuff/loggedUser.json';
+// import loggedUser from './stuff/loggedUser.json';
 
+import { User } from './contexts/UserContext'
 
 class CreditCardDet extends React.Component{
+    
+    static contextType = User;
+
     constructor(props){
         super(props);
 
@@ -15,7 +19,7 @@ class CreditCardDet extends React.Component{
         }
 
         this.state = {
-            loggedUser: loggedUser._id,
+            loggedUser: "",
             firstSubmit: false,
             cardNumOk: false,
             nameOnCardOk: false,
@@ -31,6 +35,10 @@ class CreditCardDet extends React.Component{
     }
 
     
+    componentDidMount(){
+        console.log("at crditcardpage: context user:", this.context.signedUser);
+        this.setState({loggedUser: this.context.signedUser})
+    }
 
     nameOnCardVal(a){
         return /^[a-z ,.'-]+$/.test(a);
@@ -105,7 +113,7 @@ class CreditCardDet extends React.Component{
         JSON.parse(localStorage.getItem('finalBill')):null;
 
         let order = {
-            userId:this.state.loggedUser,
+            userId:this.state.loggedUser._id,
             date: new Date().toLocaleDateString(),
             status: "",
             paied: false,
@@ -118,7 +126,15 @@ class CreditCardDet extends React.Component{
             cart: JSON.parse(localStorage.getItem('cartItems'))
         }
 
-        axios.post(`/orders`, order);
+        axios.post(`/orders`, order)
+        .then((res)=>{
+            axios.put(`/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
+            .then((res) => {
+                console.log("res at there", res);
+                localStorage.setItem('cartItems', []);
+                this.context.getUserByEmail(this.context.signedUser.email)
+        });
+        });
     }
 
     async sendPaymentDet(det){

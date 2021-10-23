@@ -3,26 +3,55 @@ import React from "react";
 import productJson from './stuff/products.json'
 import LargeImage from "./LargeImage";
 import ItemAdded from "./ItemAdded";
+import axios from "axios";
 
 class ProdPage extends React.Component{
     constructor(props){
         super(props);
-
+        console.log("propsmatchparamsid:", this.props.match.params.id);
         //either pass id and make an api request to get the product by id, or pass the product object itself and fetch only the img. or? 
-        this.product = props.location.state.product;
-        // this.product = productJson.prodArray[props.match.params.id - 1];
-        //this.product = productJson.prodArray[0];
+        //this.state.product = props.location.state.product;
+        //this.state.product = null;
+        // this.state.product = productJson.prodArray[props.match.params.id - 1];
+        //this.state.product = productJson.prodArray[0];
         //console.log("prod: ", props.location);
-        //console.log("product: ", this.product);
+        //console.log("product: ", this.state.product);
         this.state = {
-            price: this.product.sizes[0].price,
-            size: this.product.sizes[0].size,
-            idSize: this.product.sizes[0].idSize,
-            priceTag: '$' + this.product.sizes[0].price,
+            loading: true,
+            error: false,
             quant: "1",
             largeImage: false,
             added: false
         }
+    }
+
+    async getProduct(){
+        console.log("get product");
+        try{
+            let {data} = await axios.get(`/products/${this.props.match.params.id}`);
+            console.log("fetched product:", data);
+            this.setState({
+                error:false,
+                loading: false,
+                product: data,
+                price: data.sizes[0].price,
+                size: data.sizes[0].size,
+                idSize: data.sizes[0].idSize,
+                priceTag: '$' + data.sizes[0].price,
+            })
+        }
+        catch(error){
+            console.log("error:", error);
+            this.setState({
+                error:true,
+                loading:false
+            })
+        }
+    }
+
+    componentDidMount(){
+        console.log("did mount");
+        this.getProduct();
     }
 
     showAdded = () => {
@@ -46,12 +75,12 @@ class ProdPage extends React.Component{
 
         items.push({
             id: this.props.match.params.id,
-            prodName: this.product.prodName,
+            prodName: this.state.product.prodName,
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
             quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
-            image: this.product.imageStr
+            image: this.state.product.imageStr
         })
         localStorage.setItem("cartItems", JSON.stringify(items));
     }
@@ -65,10 +94,10 @@ class ProdPage extends React.Component{
 
     setPrice = (event) => {
         this.setState({
-            price: this.product.sizes[parseInt(event.target.value)].price,
-            size: this.product.sizes[parseInt(event.target.value)].size,
-            idSize: this.product.sizes[parseInt(event.target.value)].idSize,
-            priceTag: "$" + this.product.sizes[parseInt(event.target.value)].price
+            price: this.state.product.sizes[parseInt(event.target.value)].price,
+            size: this.state.product.sizes[parseInt(event.target.value)].size,
+            idSize: this.state.product.sizes[parseInt(event.target.value)].idSize,
+            priceTag: "$" + this.state.product.sizes[parseInt(event.target.value)].price
         })
     }
 
@@ -77,18 +106,29 @@ class ProdPage extends React.Component{
     }
 
     render(){
-        return (
+        if(this.state.error){
+            return(
+            <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
+                <p>something went wrong</p>
+            </div>)
+        }else if(this.state.loading){
+            return (
+            <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
+                <p>loading</p>
+            </div>)
+        }else
+        {return (
             <div className="text-gray-600 ">
-                <LargeImage  imageName={this.product.imageName} largeImage={this.state.largeImage} showLarge={this.showLarge} />
-                {this.state.added && <ItemAdded product={this.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
+                <LargeImage  imageName={this.state.product.imageName} largeImage={this.state.largeImage} showLarge={this.showLarge} />
+                {this.state.added && <ItemAdded product={this.state.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.product.imageName} alt="image" />
+                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.state.product.imageName} alt="image" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">
                             <div className="mb-4 flex flex-col justify-between">
-                                <h1 className="text-2xl mb-2 align-top">{this.product.prodName}</h1>
+                                <h1 className="text-2xl mb-2 align-top">{this.state.product.prodName}</h1>
                                 <p>product id: {this.props.match.params.id}</p>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit., tempore, corrupti quisquam magnam.</p>
                             </div>
@@ -100,7 +140,7 @@ class ProdPage extends React.Component{
                             <div className="mb-4 flex flex-row items-center">
                                 <span className="mr-3">Print size</span>
                                 <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>
-                                    {this.product.sizes.map((obj, index) => {
+                                    {this.state.product.sizes.map((obj, index) => {
                                         return <option value={index} key={index} >{obj.size}</option>
                                     })}
                                 </select>
@@ -114,7 +154,7 @@ class ProdPage extends React.Component{
                     </div>
                 </div>
             </div>
-        )
+        )}
     }
 }
 

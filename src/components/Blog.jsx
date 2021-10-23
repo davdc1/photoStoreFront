@@ -2,6 +2,7 @@
 import React from "react"
 import BlogCard from "./BlogCard"
 import axios from 'axios'
+import { RecentPost } from "./RecentPost"
 
 
 class Blog extends React.Component{
@@ -43,7 +44,7 @@ class Blog extends React.Component{
     render(){
         return(
             <div className="">
-                <h1>blog</h1>
+                
                 {this.state.loading && 
                 <div className="flex justify-center" >
                     <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
@@ -60,9 +61,18 @@ class Blog extends React.Component{
                     </div>
                 </div>}
                 {!this.state.loading &&
+                <div className="my-14">
+                    <div className="flex justify-center">
+                        <RecentPost blog={this.state.blogs[0]} />
+                    </div>
+                </div>}
+                <p>other posts</p>
+                {!this.state.loading &&
                 <div className="flex flex-wrap justify-center">
+                    {/* posts should be sorted by date, the most recent one displayed on top. the rest are mapped: */}
                     {this.state.blogs.map((blog, index) => {
-                        return <BlogCard key={index.toString()} blog={blog}/>
+                        if(index !== 0)
+                            return <BlogCard className="" key={index.toString()} blog={blog}/>
                     })}
                 </div>}
             </div>

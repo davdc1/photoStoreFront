@@ -24,7 +24,7 @@ class BlogPost extends React.Component{
 
     async fetchComments(){
         try{
-            const { data } = await axios.get(`/comments/forPost/${this.state.postId}`)
+            const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/comments/forPost/${this.state.postId}`)
             this.setState({comments: data, loading: false}, ()=>console.log("comments:", this.state.comments));
         }
         catch(err){
@@ -75,7 +75,7 @@ class BlogPost extends React.Component{
     }
 
     async postComment(comment){
-        axios.post(`/comments`, comment).then((res)=>{
+        axios.post(`${process.env.REACT_APP_API_URL}/comments`, comment).then((res)=>{
             console.log("post res:", res.data);
         })
         .catch((err) => {console.log("postError:", err.response.data)})

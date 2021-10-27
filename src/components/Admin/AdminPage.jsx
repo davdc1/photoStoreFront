@@ -21,7 +21,7 @@ require('dotenv').config()
 
 export const AdminPage = () => {
     return(
-        <Admin dataProvider={simpleRestProvider('http://localhost:5000')}>
+        <Admin dataProvider={simpleRestProvider(process.env.REACT_APP_API_URL)}>
             <Resource  name="users" list={UserList} create={UserCreate} edit={UserEdit} />
             <Resource name="products" list={ProductList} create={ProductCreate} edit={ProductEdit} />
             <Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} />

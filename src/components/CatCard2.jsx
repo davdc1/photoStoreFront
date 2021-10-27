@@ -56,7 +56,7 @@ class CatCard extends React.Component{
 
     async sendCart(cart){
         try{
-            await axios.put(`/users/updatecart/${this.state.loggedUser._id}`, cart)
+            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.loggedUser._id}`, cart)
             .then((res) => {
                 console.log("put to cart res:", res);
                 this.context.setSignedUser(res.data);

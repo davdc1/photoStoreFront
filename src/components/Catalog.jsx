@@ -48,7 +48,7 @@ class Catalog extends React.Component{
     }
 
     async fetchProducts(){
-        const {data} = await axios.get("/products")
+        const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products`)
         console.log(data);
         this.setState({prodArray: data});
     }

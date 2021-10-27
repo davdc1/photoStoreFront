@@ -11,7 +11,7 @@ export const Profile2 = (getUserByEmail) => {
     
     
     let getOrders = async () => {
-        let {data} = await axios.get(`/orders/user/${user._id}`);
+        let {data} = await axios.get(`${process.env.REACT_APP_API_URL}/orders/user/${user._id}`);
         setOrders(data);
         setOrdersLoading(false);
     }
@@ -30,7 +30,7 @@ export const Profile2 = (getUserByEmail) => {
     }
 
     let sendChages = async (body) => {
-        let res = await axios.put(`/users/${user._id}`, body)
+        let res = await axios.put(`${process.env.REACT_APP_API_URL}/users/${user._id}`, body)
         .then(() => {getUserByEmail(user.email)})
         .catch((error) => console.log("error at send changes:", error));
     }

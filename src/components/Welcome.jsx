@@ -21,7 +21,7 @@ class Welcome extends React.Component{
 
     async getProducts(){
         try{
-            let products = await axios.get('/products');
+            let products = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
             this.setState({
                 products: products.data,
                 loading: false

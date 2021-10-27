@@ -122,7 +122,7 @@ class Cart extends React.Component{
 
     async sendCart(cart){
         try{
-            await axios.put(`/users/updatecart/${this.state.loggedUserId}`, cart)
+            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.loggedUserId}`, cart)
             .then((res) => console.log("put to cart res:", res));
         }
         catch(err){

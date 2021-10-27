@@ -128,7 +128,7 @@ class CreditCardDet extends React.Component{
 
         axios.post(`/orders`, order)
         .then((res)=>{
-            axios.put(`/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
+            axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
             .then((res) => {
                 console.log("res at there", res);
                 localStorage.setItem('cartItems', []);
@@ -139,7 +139,7 @@ class CreditCardDet extends React.Component{
 
     async sendPaymentDet(det){
         try{
-            axios.post('/payment', det);
+            axios.post(`${process.env.REACT_APP_API_URL}/payment`, det);
 
         }
         catch(err){

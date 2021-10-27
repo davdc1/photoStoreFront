@@ -49,7 +49,7 @@ class SignUp extends React.Component{
     }
 
     async postNewUser(user){
-        await axios.post('/users',
+        await axios.post(`${process.env.REACT_APP_API_URL}/users`,
         {
             email: user.email,
             name:{

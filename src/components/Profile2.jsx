@@ -1,13 +1,10 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom";
-import UserContextProvider, { User } from './contexts/UserContext' 
+import { useContext, useState } from "react"
+import { User } from './contexts/UserContext' 
 import { OrderCard } from "./OrderCard";
 
 export const Profile2 = (getUserByEmail) => {
     const user = useContext(User).signedUser;
-    console.log("user at profile2:",user);
-
     const [showOrders, setShowOrders] = useState(false);
     const [orders, setOrders] = useState([]);
     const [ordersLoading, setOrdersLoading] = useState(true);
@@ -19,7 +16,6 @@ export const Profile2 = (getUserByEmail) => {
         setOrdersLoading(false);
     }
     
-    // useEffect(getOrders, []);
 
     let editProfile = (e) => {
         e.preventDefault();
@@ -30,22 +26,16 @@ export const Profile2 = (getUserByEmail) => {
             },
             phone: e.target[2].value
         }
-
         sendChages(details);
-
-        console.log("details:", details);
-
     }
 
     let sendChages = async (body) => {
         let res = await axios.put(`/users/${user._id}`, body)
         .then(() => {getUserByEmail(user.email)})
         .catch((error) => console.log("error at send changes:", error));
-        console.log("res at profile", res);
     }
 
     if(!user){
-        console.log("no user");
         return(<div><p>error</p></div>)
     }
 

@@ -1,8 +1,8 @@
 import { stringify } from "postcss";
 import React from "react";
 import axios from "axios";
+import { User } from './contexts/UserContext'
 
-import loggedUser from './stuff/loggedUser.json'
 
 class BlogPost extends React.Component{
     constructor(props){
@@ -12,15 +12,15 @@ class BlogPost extends React.Component{
             post: props.location.state.blog,
             comments: [],
             loading: true,
-            loggedUser: loggedUser._id
+            loggedUser: ""
         }
     }
 
+    static contextType = User;
+
     componentDidMount(){
         this.fetchComments();
-        //this.getPostComments();
-        console.log("props:", this.props);
-        console.log("state: blog", this.props.location.state.blog);
+        this.setState({loggedUser: this.context.signedUser})
     }
 
     async fetchComments(){
@@ -53,10 +53,11 @@ class BlogPost extends React.Component{
             title: e.target[1].value,
             content: e.target[2].value,
             //user: e.target[0].value,
-            userId: this.state.loggedUser,
+            userId: this.state.loggedUser._id,
             date: new Date().toDateString(),
             postId: this.state.postId,
         }
+        console.log("comment:", comment);
         
         // {
         //     commentId:Number,

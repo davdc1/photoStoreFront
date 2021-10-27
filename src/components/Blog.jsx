@@ -16,7 +16,7 @@ class Blog extends React.Component{
     }
 
     async fetchBlogPosts(){
-        const { data } = await axios.get('/posts')
+        const { data } = await axios.get(process.env.REACT_APP_API_URL+'/posts')
         this.setState({blogs: data, loading: false});
     }
 
@@ -48,16 +48,16 @@ class Blog extends React.Component{
                 
                 {this.state.loading && 
                 <div className="flex justify-center" >
-                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
+                    <div className="flex justify-center items-center bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         <p>loading post</p>
                     </div>
-                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
+                    <div className="flex justify-center items-center bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         <p>loading post</p>
                     </div>
-                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
+                    <div className="flex justify-center items-center bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         <p>loading post</p>
                     </div>
-                    <div className="bg-light border my-10 mx-5 w-96 h-64 text-xl">
+                    <div className="flex justify-center items-center bg-light border my-10 mx-5 w-96 h-64 text-xl">
                         <p>loading post</p>
                     </div>
                 </div>}

@@ -17,6 +17,7 @@ import { TicketList } from "./TicketList";
 import { Charts } from "./Charts";
 import { TicketCreate } from "./TicketCreate";
 import { TicketEdit } from "./TicketEdit";
+require('dotenv').config()
 
 export const AdminPage = () => {
     return(

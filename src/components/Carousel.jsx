@@ -45,13 +45,14 @@ class Carousel extends React.Component{
                                     </div>
                                 </Link>
                                     )
+                            }else{
+                                return (
+                                <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
+                                    <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(/images/smallProdImgs/${product.imageName})`}}>
+                                        </div>
+                                </Link>
+                                )
                             }
-                            return (
-                            <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
-                                <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(/images/smallProdImgs/${product.imageName})`}}>
-                                    </div>
-                            </Link>
-                            )
                         }
                     })}
                     <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>

@@ -74,8 +74,11 @@ class Blog extends React.Component{
                 <div className="flex flex-wrap justify-center">
                     {/* posts should be sorted by date, the most recent one displayed on top. the rest are mapped: */}
                     {this.state.blogs.map((blog, index) => {
-                        if(index !== 0)
+                        if(index !== 0){
                             return <BlogCard className="" key={index.toString()} blog={blog}/>
+                        }else{
+                            return null
+                        }
                     })}
                 </div>}
             </div>

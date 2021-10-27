@@ -1,5 +1,5 @@
 import { Resource } from "ra-core";
-import { Admin, ListGuesser } from "react-admin";
+import { Admin } from "react-admin";
 import simpleRestProvider from 'ra-data-simple-rest'
 import { UserList } from "./UserList";
 import { ProductList } from "./ProductList";

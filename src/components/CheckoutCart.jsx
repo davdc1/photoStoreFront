@@ -30,6 +30,8 @@ function ChckoutCart({shippingPrice, taxRate, total, items}){
                                     </div>
                                     <span className="mx-3">${item.price * item.quantity}</span>
                             </div>)
+                    }else{
+                        return null
                     }
                 })}
             </div>

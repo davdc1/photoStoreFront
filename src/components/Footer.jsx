@@ -20,9 +20,9 @@ function Footer(){
                 </div>
                 <div>
                     <p>links:</p>
-                    <a href="">this</a>
+                    <a href="index.html">this</a>
                     <br/>
-                    <a href="">that</a>
+                    <a href="index.html">that</a>
                 </div>
                 <div className="mt-5">
                     <a target="_blank" href="https://www.facebook.com"><FontAwesomeIcon className="mx-1" icon={faFacebook}/></a>

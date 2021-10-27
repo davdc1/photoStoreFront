@@ -1,5 +1,4 @@
-//import { TextField } from "@material-ui/core";
-import { Datagrid, DeleteButton, EditButton, EmailField, List, ReferenceField, TextField } from "ra-ui-materialui";
+import { Datagrid, DeleteButton, EditButton, EmailField, List, TextField } from "ra-ui-materialui";
 
 
 export const UserList = props => (

@@ -1,10 +1,7 @@
 import React from "react"
 import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
-import productJson from './stuff/products.json'
 import ItemAdded from "./ItemAdded";
-import CartPrev from "./CartPrev";
-import PropTypes from 'prop-types';
 import axios from 'axios'
 
 class Catalog extends React.Component{
@@ -36,7 +33,7 @@ class Catalog extends React.Component{
 
     getSearchQuery(){
         if(this.props.location.state){
-            if(this.props.location.state.notFromSearch == true)
+            if(this.props.location.state.notFromSearch === true)
                 return "";
         }
         return this.parseQuery().q
@@ -150,7 +147,7 @@ class Catalog extends React.Component{
 
     getFilters = (event) => {
         let temp = JSON.parse(JSON.stringify(this.state.filterByArr));
-        if(event.target.checked == true){
+        if(event.target.checked === true){
             temp.push({key: event.target.id.split(" ")[0], value: event.target.id.split(" ")[1]})
         }else{  
             for(let i = 0; i < temp.length; i++){

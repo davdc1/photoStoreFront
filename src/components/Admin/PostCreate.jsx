@@ -1,11 +1,11 @@
 
 
-import { Create, SimpleForm, TextInput, DateInput, useNotify, useRefresh, useRedirect } from 'react-admin'
+import { Create, SimpleForm, TextInput, DateInput, useNotify } from 'react-admin'
 
 export const PostCreate = (props) => {
 const notify = useNotify();
-const refresh = useRefresh();
-const redirect = useRedirect();
+//const refresh = useRefresh();
+//const redirect = useRedirect();
 
 let onFailure = (errors) => {
     notify(`is that an error?`)

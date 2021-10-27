@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 function LargeImage({largeImage, showLarge, imageName}){
 
-    if(largeImage == false){
+    if(largeImage === false){
         return null
     }
     return (

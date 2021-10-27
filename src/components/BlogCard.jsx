@@ -14,7 +14,7 @@ function BlogCard({blog}){
                     {/* <span className="">by: {blog.userId} (user-id)</span> */}
                     {/* <button className="border rounded px-2 mt-2 font-semibold">read</button> */}
                 </div>
-                <img className="border w-36" src="" alt="image here" />
+                <img className="border w-36" src="" alt="imageMissing" />
             </div>
         </Link>
     )

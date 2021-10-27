@@ -76,7 +76,7 @@ class SignUp extends React.Component{
         console.log("at sigup:", this.context);
         return(
             <div className="my-8">
-                {this.state.redirect && this.state.redirectTo != "" && <Redirect to={this.state.redirectTo}/>}
+                {this.state.redirect && this.state.redirectTo !== "" && <Redirect to={this.state.redirectTo}/>}
                 <h1>sign up \ sign in</h1>
                 <div className="flex justify-center items-stretch my-8">
                     <form onSubmit={this.handleLogIn} className="flex flex-col border border-light border-1 rounded mx-8">
@@ -92,7 +92,7 @@ class SignUp extends React.Component{
                         <button className="border border-turq border-1 rounded mx-2  px-2 py-1">LogIn</button>
                         <button className="text-xs my-2 item-center">forgot password?</button>
                     </form>
-                    <form onSubmit={this.createAcount} className="border border-light border-1 rounded mx-8"className="border border-light border-1 rounded mx-2">
+                    <form onSubmit={this.createAcount} className="border border-light border-1 rounded mx-8">
                         <span>Create account</span>
                         <div className="flex justify-between my-4">
                             <div>

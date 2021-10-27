@@ -15,7 +15,6 @@ import Cart from './components/Cart';
 import Gallery from './components/Gallery';
 import NotFound from './components/NotFound';
 import Checkout from './components/Checkout';
-import Profile from './components/Profile';
 import BlogPost from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { OrderPage } from './components/OrderPage';
@@ -23,7 +22,7 @@ import { OrderPage } from './components/OrderPage';
 //import AdminPage from './components/AdminPage';
 import { AdminPage } from './components/Admin/AdminPage'
 
-import app from './firebase/firebase';
+
 import axios from 'axios';
 import { Profile2 } from './components/Profile2';
 import UserContextProvider from './components/contexts/UserContext';
@@ -84,9 +83,9 @@ getUserByEmail = (email) => {
 }
 
 
-setUserLogged = () => {
-let user =  app.auth().currentUser
-}
+// setUserLogged = () => {
+// let user =  app.auth().currentUser
+// }
 
 //look at all the user & login things. remove what's not neccessary 
 getUserList(){

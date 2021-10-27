@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function ItemAdded({show, showAdded, product, chosenProdProps}){
 
-    if(show == false){
+    if(show === false){
         return null
     }
     return (

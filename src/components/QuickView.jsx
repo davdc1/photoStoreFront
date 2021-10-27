@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 
 function QuickView({show, showQuick, product}){
 
-    if(show == false){
+    if(show === false){
         return null
     }
     console.log("quick img:", product.imageName);

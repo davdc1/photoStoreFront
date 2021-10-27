@@ -1,13 +1,14 @@
 import React from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { GoogleApiWrapper, Map , Marker } from "google-maps-react-17"
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+const MyMapComponent = ((props) =>
+  <Map
+    google={props.google}
+    zoom={8}
+    initialCenter={{ lat: -34.397, lng: 150.644 }}
   >
     {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-  </GoogleMap>
-))
+  </Map>
+)
 
-export default MyMapComponent
+export default GoogleApiWrapper({apiKey:''})(MyMapComponent)

@@ -91,7 +91,9 @@ class CatCard extends React.Component{
         return(
             <div className='flex flex-col sm:flex-row min-h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-light rounded'>
                 <div className="">
-                    <Link to={{pathname:`/prodpage/${this.product.id}`, state: {product: this.product}}}><img className="w-full sm:w-52 shadow-xl" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.product.imageName} alt="ProdImage" /></Link>
+                    <Link to={{pathname:`/prodpage/${this.product.id}`, state: {product: this.product}}}>
+                        <img className="w-full sm:w-52 shadow-xl" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.product.imageName} alt="ProdImage" />
+                    </Link>
                 </div>
                     <div className="flex flex-col justify-between sm:ml-4 self-stretch mt-10 sm:mt-0">
                         <span className="font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${this.product.id}`, state: {product: this.product}}}>name: {this.product.prodName}</Link></span>

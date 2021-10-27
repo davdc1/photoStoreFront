@@ -10,7 +10,7 @@ class BlogPost extends React.Component{
             postId: props.match.params.id,
             post: props.location.state.blog,
             comments: [],
-            loading: true,
+            loadingComments: true,
             loggedUser: ""
         }
     }
@@ -20,12 +20,13 @@ class BlogPost extends React.Component{
     componentDidMount(){
         this.fetchComments();
         this.setState({loggedUser: this.context.signedUser})
+        console.log("post:", this.state.post)
     }
 
     async fetchComments(){
         try{
             const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/comments/forPost/${this.state.postId}`)
-            this.setState({comments: data, loading: false}, ()=>console.log("comments:", this.state.comments));
+            this.setState({comments: data, loadingComments: false}, () => console.log("comments:", this.state.comments));
         }
         catch(err){
             console.log("fetchComments error:", err.response.data.message);
@@ -70,7 +71,7 @@ class BlogPost extends React.Component{
 
 
         this.postComment(comment);
-        //this.pushToLclStrg(comment);
+        //this.pushToLocalStorage(comment);
 
     }
 
@@ -82,7 +83,7 @@ class BlogPost extends React.Component{
         console.log("posted?");
     }
 
-    pushToLclStrg(comment){
+    pushToLocalStorage(comment){
         let allComments = localStorage.getItem("allPostComments")?JSON.parse(localStorage.getItem("allPostComments")):[];
         let notFound = true;
         for(let i = 0; i < allComments.length; i++){
@@ -104,7 +105,7 @@ class BlogPost extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="relative top-24">
                 <div className="flex p-5">
                     <p>blogPost: {this.state.postId}</p>
                 </div>

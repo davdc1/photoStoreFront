@@ -159,7 +159,7 @@ class Cart extends React.Component{
                         console.log("item at cart:", item);
                         if(item.quantity){
                             return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
-                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}><img src={`/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" /></Link>
+                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}><img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" /></Link>
                                         <div className="flex flex-col">
                                             <Link to={{pathname:`/prodpage/${item.productId}`}}><span className="font-semibold">{item.prodName}</span></Link>
                                             <span className="mx-3">{item.size}</span>

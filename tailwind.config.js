@@ -21,7 +21,17 @@ module.exports = {
         'p800': '800px',
         'p900': '900px',
         'p1000': '1000px',
-        'huge': '10000px'
+        'huge': '10000px',
+        "10v": "10vw",
+        "20v": "20vw",
+        "30v": "30vw",
+        "40v": "40vw",
+        "50v": "50vw",
+        "60v": "60vw",
+        "70v": "70vw",
+        "80v": "80vw",
+        "90v": "90vw",
+        "100v": "100vw"
       },
       height: {
         'p100': '100px',
@@ -35,7 +45,18 @@ module.exports = {
         'p900': '900px',
         'p1000': '1000px',
         'huge': '10000px',
-        'screen': '100vh'
+        'screen': '100vh',
+        "10v": "10vh",
+        "20v": "20vh",
+        "30v": "30vh",
+        "40v": "40vh",
+        "50v": "50vh",
+        "60v": "60vh",
+        "70v": "70vh",
+        "80v": "80vh",
+        "90v": "90vh",
+        "95v": "95vh",
+        "100v": "100vh"
        },
        //was out of "extend":
        screens: {
@@ -73,7 +94,8 @@ module.exports = {
          'turq': '#00ADB5',
          'dark': '#393E46',
          'darker': '#222831',
-         'turq2': '#41AEA9'
+         'turq2': '#41AEA9',
+         'appbg': '#fffcf7'
         }),
    
         borderColor: theme => ({

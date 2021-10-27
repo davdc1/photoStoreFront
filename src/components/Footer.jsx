@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
 function Footer(){
     return(
-        <div style={style1} className="bg-light py-20 text-gray-700">
-            <div style={style2}>
+        <div className="flex flex-col items-center bg-light py-20 text-gray-700 z-50 relative">
+            <div className="flex justify-around w-full">
                 <div>
                     <p className="border border-1 rounded border-turq"><Link to="/contactUs">contact us:</Link></p>
                     <address>
@@ -40,7 +40,8 @@ function Footer(){
 let style1 = {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: "99"
 }
 let style2 = {
     display: "flex",

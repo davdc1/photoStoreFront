@@ -41,7 +41,7 @@ class Carousel extends React.Component{
                             if(index === 2){
                                 return (
                                 <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
-                                    <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage: `url(/images/smallProdImgs/${product.imageName})`}}>
+                                    <div key={index} className="border border-1 rounded shadow-2xl h-72 w-72 bg-center bg-cover mx-8" style={{backgroundImage: `url(${process.env.REACT_APP_API_URL}/images/smallProdImgs/${product.imageName})`}}>
                                     </div>
                                 </Link>
                                     )

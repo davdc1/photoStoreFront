@@ -19,7 +19,7 @@ function ChckoutCart({shippingPrice, taxRate, total, items}){
                         console.log("itemImage:", item.imageName);
                         return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
                                     {/* <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="product image" className="h-20 mx-3" /></Link> */}
-                                    <Link to={{pathname:`/prodpage/${item.productId}`}}><img src={`/images/smallProdImgs/${item.imageName}`} alt="product image" className="h-20 mx-3" /></Link>
+                                    <Link to={{pathname:`/prodpage/${item.productId}`}}><img src={`/images/smallProdImgs/${item.imageName}`} alt="productImage" className="h-20 mx-3" /></Link>
                                     <div className="flex flex-col">
                                         <Link to={{pathname:`/prodpage/${item.productId}`}}><span className="font-semibold">{item.prodName}</span></Link>
                                         <span className="mx-3">{item.size}</span>

@@ -1,8 +1,6 @@
 import axios from "axios";
 import React from "react"
 import {Link} from "react-router-dom"
-
-import loggedUser from './stuff/loggedUser.json'
 import { User } from './contexts/UserContext'
 
 class CatCard extends React.Component{

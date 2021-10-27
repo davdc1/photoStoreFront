@@ -53,6 +53,8 @@ class Carousel extends React.Component{
                                 </Link>
                                 )
                             }
+                        }else{
+                            return null
                         }
                     })}
                     <button onClick={this.rotateRight} className="text-xl bg-light rounded-full w-8 h-8 mx-4">{">"}</button>

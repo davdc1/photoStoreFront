@@ -31,6 +31,8 @@ function CartPrev({items}){
                                 <hr />
                             </div>
                         )
+                    }else{
+                        return null
                     }
                 })}
             </div>

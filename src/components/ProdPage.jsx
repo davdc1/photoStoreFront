@@ -1,6 +1,5 @@
 
 import React from "react";
-import productJson from './stuff/products.json'
 import LargeImage from "./LargeImage";
 import ItemAdded from "./ItemAdded";
 import axios from "axios";
@@ -123,7 +122,7 @@ class ProdPage extends React.Component{
                 {this.state.added && <ItemAdded product={this.state.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.state.product.imageName} alt="image" />
+                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.state.product.imageName} alt="productImage" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">

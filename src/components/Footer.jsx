@@ -25,9 +25,9 @@ function Footer(){
                     <a href="index.html">that</a>
                 </div>
                 <div className="mt-5">
-                    <a target="_blank" href="https://www.facebook.com"><FontAwesomeIcon className="mx-1" icon={faFacebook}/></a>
-                    <a target="_blank" href="https://www.twitter.com"><FontAwesomeIcon className="mx-1" icon={faTwitter}/></a>
-                    <a target="_blank" href="https://www.instagram.com"><FontAwesomeIcon className="mx-1" icon={faInstagram}/></a>
+                    <a rel="noreferrer" target="_blank" href="https://www.facebook.com"><FontAwesomeIcon className="mx-1" icon={faFacebook}/></a>
+                    <a rel="noreferrer" target="_blank" href="https://www.twitter.com"><FontAwesomeIcon className="mx-1" icon={faTwitter}/></a>
+                    <a rel="noreferrer" target="_blank" href="https://www.instagram.com"><FontAwesomeIcon className="mx-1" icon={faInstagram}/></a>
                 </div>
             </div>
             <div className="mt-6">

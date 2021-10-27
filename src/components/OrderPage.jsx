@@ -14,7 +14,7 @@ export const OrderPage = (props) => {
             {order.cart.map((item, index) => {
                 return(
                     <div className="flex justify-between items-center my-8" >
-                        <img className="h-24" src={`/images/smallProdImgs/${item.imageName}`} alt="item image" />
+                        <img className="h-24" src={`/images/smallProdImgs/${item.imageName}`} alt="itemImage" />
                         <span>size: {item.size}</span> 
                         <p>price: {item.price}</p>
                         <p>quantity: {item.quantity}</p>

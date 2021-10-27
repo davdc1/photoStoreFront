@@ -1,6 +1,5 @@
 import React from 'react'
 //import {  phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
-import { Link } from 'react-router-dom'
 
 class Form1 extends React.Component{
     constructor(props){

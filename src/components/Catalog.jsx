@@ -240,10 +240,12 @@ class Catalog extends React.Component{
                         </div>
                         <div className="flex flex-wrap justify-around 2xl:mx-48">
                         
-                            {this.state.prodArray.map((product, index)=>{
+                            {this.state.prodArray.map((product, index) => {
                                 if(this.state.searchStr !== "" && this.state.searchStr){
                                     if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr)){
                                         return this.filter2(product, index)
+                                    }else{
+                                        return null
                                     }
                                 }else{
                                     return this.filter2(product, index)

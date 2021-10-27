@@ -2,11 +2,7 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 import axios from "axios"
-
-
-import loggedUser from '../components/stuff/loggedUser.json'
 import { User } from "./contexts/UserContext"
-//import couponJson from './stuff/coupon.json'
 
 class Cart extends React.Component{
     static contextType = User;
@@ -182,6 +178,8 @@ class Cart extends React.Component{
                                             {this.state.editCart && <button onClick={() => this.removeItem(item.idSize)} className="text-xs">remove</button>}
                                         </div>
                                 </div>)
+                        }else{
+                            return null
                         }
                     })}
                      {this.state.items.length === 0 && <div className="border-t-2 py-6 px-8"><span>your cart is empty</span></div>}

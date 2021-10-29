@@ -29,7 +29,6 @@ export const BlogAtHomePage = () => {
     
     return(
         <div className="flex justify-center">
-
             {!loading && !error &&
             <div className="my-8">
                 <h1 className="text-2xl mb-4">Latest article</h1>
@@ -43,7 +42,9 @@ export const BlogAtHomePage = () => {
                         <img src="./images/fence.jpg" alt="" />
                     </div>
                 </div>
-                <Link to={{pathname: `/blogPost/${blog._id}`, state:{blog}}}><button className="border rounded px-2 py-1.5">Read article</button></Link>
+                <Link to={{pathname: `/blogPost/${blog._id}`, state:{blog}}}>
+                    <button className="border rounded px-2 py-1.5">Read article</button>
+                </Link>
             </div>}
             {loading && <div><p>loading</p></div>}
             {error && <div><p>somthing is missing</p></div>}

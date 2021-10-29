@@ -48,7 +48,7 @@ class Carousel extends React.Component{
                             }else{
                                 return (
                                 <Link to={{pathname:`/prodpage/${product.id}`, state:{product}}} key={index} >
-                                    <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(/images/smallProdImgs/${product.imageName})`}}>
+                                    <div key={index} className="border border-1 rounded filter grayscale h-52 w-52 bg-center bg-cover mx-2" style={{backgroundImage:  `url(${process.env.REACT_APP_API_URL}/images/smallProdImgs/${product.imageName})`}}>
                                         </div>
                                 </Link>
                                 )

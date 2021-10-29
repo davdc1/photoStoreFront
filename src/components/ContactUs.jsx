@@ -42,7 +42,7 @@ class ContactUs extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="relative top-24">
                 {!this.state.sent && <form action="" onSubmit={this.submit}>
                     <div className="flex flex-col items-center">
                         <h1 className="my-8 text-xl">Contact us</h1>

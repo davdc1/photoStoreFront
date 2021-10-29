@@ -19,10 +19,10 @@ function Gallery(){
         setShow(!show);
     }
     return (
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center relative top-24 my-24">
             {/* {show && <p onClick={()=>showLarge()}>{`only shown when true. (img is ${largeImg}) click to hide`}</p>} */}
             <LargeImage largeImage={show} showLarge={showLarge} imageName={largeImg} />
-            <div className="flex flex-wrap justify-center py-10">
+            <div className="flex flex-wrap justify-center mb-24">
                 {imgs.map((img, index) => {
                     return (
                         <div key={index.toString()}>

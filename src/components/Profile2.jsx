@@ -40,7 +40,7 @@ export const Profile2 = (getUserByEmail) => {
     }
 
     return(
-        <div>
+        <div className="relative top-24">
             <div className="flex flex-col items-center my-16">
                 <p>temp: 
                     <button onClick={() => console.log(user)} >log user</button>

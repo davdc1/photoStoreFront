@@ -68,7 +68,7 @@ class Checkout extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="relative top-24">
                 <span>Checkout</span>
                 <div className="flex flex-row-reverse justify-evenly mt-10">
                     <div className="">

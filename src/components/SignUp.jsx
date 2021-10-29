@@ -75,7 +75,7 @@ class SignUp extends React.Component{
     render(){
         console.log("at sigup:", this.context);
         return(
-            <div className="my-8">
+            <div className="relative top-24 my-8">
                 {this.state.redirect && this.state.redirectTo !== "" && <Redirect to={this.state.redirectTo}/>}
                 <h1>sign up \ sign in</h1>
                 <div className="flex justify-center items-stretch my-8">

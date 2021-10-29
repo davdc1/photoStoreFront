@@ -183,7 +183,7 @@ class Catalog extends React.Component{
 
     render(){
         return (
-            <div className="flex">
+            <div className="flex relative top-24">
                 <div>
                     <div className="my-2 flex flex-col sm:flex-row justify-center">
                         <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>

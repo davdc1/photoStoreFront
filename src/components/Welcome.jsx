@@ -35,15 +35,13 @@ class Welcome extends React.Component{
     render(){
         return(
             <div className="flex flex-col items-center bg-appbg">
-                <div className="fixed top-24 flex justify-center">
-                    {/* <div className="w-70v">
-                        <img className="h-80v w-full" src="./images/toMuch2.jpg" alt="" />
-                    </div> */}
+                {/* <div className="fixed top-24 flex justify-center">
                     <div className="h-80v w-100v">
                         <img className="w-full overflow-hidden absolute -bottom-56" src="./images/toMuch2.jpg" alt="" />
-                        {/* <div className="h-20v bg-gray-100"></div>               */}
                     </div>
-                </div>
+                </div> */}
+                <img className="w-full overflow-hidden fixed top-24" src="./images/toMuch2.jpg" alt="" />
+
                 <div className="relative">
                     <div className="mx-96 bg-opacity-0 h-95v flex justify-center items-center">
                         <div className="bg-opacity-30 bg-gray-700 mx-36 border-4 border-gray-600 rounded p-20">

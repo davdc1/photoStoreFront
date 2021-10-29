@@ -44,7 +44,7 @@ class Blog extends React.Component{
 
     render(){
         return(
-            <div className="">
+            <div className="relative top-24">
                 
                 {this.state.loading && 
                 <div className="flex justify-center" >

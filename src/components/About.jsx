@@ -1,8 +1,10 @@
 
 function About(){
     return(
-        <div>
-            <h1>About</h1>
+        <div className="relative top-24">
+            <div className="h-40v">
+                <h1>About</h1>
+            </div>
         </div>
     )
 }

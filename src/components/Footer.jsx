@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 function Footer(){
     return(
-        <div className="flex flex-col items-center bg-light py-20 text-gray-700 z-50 relative">
+        <div className="flex flex-col items-center bg-light py-20 text-gray-700 z-50 relative -bottom-24">
             <div className="flex justify-around w-full">
                 <div>
                     <p className="border border-1 rounded border-turq"><Link to="/contactUs">contact us:</Link></p>
@@ -37,15 +37,4 @@ function Footer(){
     )
 }
 
-let style1 = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    zIndex: "99"
-}
-let style2 = {
-    display: "flex",
-    justifyContent: "space-around",
-    width: "100%"
-}
 export default Footer;

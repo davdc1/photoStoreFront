@@ -142,7 +142,7 @@ class Cart extends React.Component{
 
     render(){
         return (
-            <div className="flex flex-col justify-center items-center my-14">
+            <div className="flex flex-col justify-center items-center my-14 relative top-24">
                 <h1>Cart</h1>
                 <div className="flex flex-col justify-center border border-2 rounded m-10 ">
                 {this.state.items.length > 0 &&  

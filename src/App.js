@@ -26,6 +26,7 @@ import { AdminPage } from './components/Admin/AdminPage'
 import axios from 'axios';
 import { Profile2 } from './components/Profile2';
 import UserContextProvider from './components/contexts/UserContext';
+import { AdminRoute } from './components/AdminRoute';
 
 export const LoggedUserContext = React.createContext();
 
@@ -149,7 +150,9 @@ getUserList(){
 
           <Route path="/orderpage/:id" component={ OrderPage } />
           
-          <Route path="/admin" component={AdminPage} />
+          {/* <Route path="/admin" component={AdminPage} /> */}
+
+          <Route path="/admin" component={props => <AdminRoute component={AdminPage} {...props} />} />
 
           <Route  path="">
             <NotFound />

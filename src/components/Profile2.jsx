@@ -9,7 +9,8 @@ export const Profile2 = (getUserByEmail) => {
     const [orders, setOrders] = useState([]);
     const [ordersLoading, setOrdersLoading] = useState(true);
     
-    
+    console.log("user:", user);
+
     let getOrders = async () => {
         let {data} = await axios.get(`${process.env.REACT_APP_API_URL}/orders/user/${user._id}`);
         setOrders(data);

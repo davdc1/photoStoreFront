@@ -20,7 +20,7 @@ class BlogPost extends React.Component{
     componentDidMount(){
         this.fetchComments();
         this.setState({loggedUser: this.context.signedUser})
-        console.log("post:", this.state.post)
+        console.log("post at blogpost:", this.state.post)
     }
 
     async fetchComments(){
@@ -129,12 +129,13 @@ class BlogPost extends React.Component{
                     </form>
                     {this.state.comments.length === 0 && <p>no comments</p>}
                     {this.state.comments.map((comment, index)=>{
+                        console.log("comment at blogpost", comment);
                         return (
                         <div className="flex flex-col items-start xl:mx-72 border-b-2 my-3 pb-3 px-3" key={index.toString()}>
                             <p className="font-semibold">{comment.title}</p>
                             <p className="text-left">{comment.content}</p>
                             <div className="flex justify-between self-stretch">
-                                <span>written by: <span className="italic">{comment.userId.name.firstName + " " + comment.userId.name.lastName}</span></span>
+                                {comment.userId && <span>written by: <span className="italic">{comment.userId.name.firstName + " " + comment.userId.name.lastName}</span></span>}
                                 <span>{comment.date}</span>
                             </div>
                         </div>

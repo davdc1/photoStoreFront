@@ -62,16 +62,17 @@ class Blog extends React.Component{
                     </div>
                 </div>}
                 {!this.state.loading &&
-                <div className="my-14">
+                <div className="my-14 flex justify-center">
                     <div className="flex justify-center">
-                    <Link className="" to={{pathname: `/blogpost/${this.state.blogs[0].id}`, state:{blog: this.state.blogs[0]}}} >
+                    <Link className="flex justify-center" to={{pathname: `/blogpost/${this.state.blogs[0].id}`, state:{blog: this.state.blogs[0]}}} >
                         <RecentPost blog={this.state.blogs[0]} />
                     </Link>
+                    {/* <RecentPost blog={this.state.blogs[0]} /> */}
                     </div>
                 </div>}
                 <p>other posts</p>
                 {!this.state.loading &&
-                <div className="flex flex-wrap justify-center">
+                <div className="flex flex-wrap justify-center items-center">
                     {/* posts should be sorted by date, the most recent one displayed on top. the rest are mapped: */}
                     {this.state.blogs.map((blog, index) => {
                         if(index !== 0){

@@ -34,13 +34,13 @@ class Welcome extends React.Component{
     
     render(){
         return(
-            <div className="flex flex-col items-center bg-appbg">
-                {/* <div className="fixed top-24 flex justify-center">
+            <div className="flex flex-col justify-center items-center bg-appbg">
+                <div className="fixed top-24 flex justify-center">
                     <div className="h-80v w-100v">
-                        <img className="w-full overflow-hidden absolute -bottom-56" src="./images/toMuch2.jpg" alt="" />
+                        <img className="w-full overflow-hidden absolute -bottom-56" src={`${process.env.REACT_APP_API_URL}/images/wallpaper/toMuch2.jpg`} alt="" />
                     </div>
-                </div> */}
-                <img className="w-full overflow-hidden fixed top-24" src="./images/toMuch2.jpg" alt="" />
+                </div>
+                {/* <img className="w-full overflow-hidden fixed top-24" src="./images/toMuch2.jpg" alt="" /> */}
 
                 <div className="relative">
                     <div className="mx-96 bg-opacity-0 h-95v flex justify-center items-center">
@@ -65,9 +65,12 @@ class Welcome extends React.Component{
                             </p>
                             {!this.state.loading && <Carousel productArray={this.state.products}/>}
                         </div>
-                        <div className="pt-5 mt-20  bg-blue-50 border-t-2 border-b-2 border-turq">
+                        {/* <div className="pt-5 mt-20  bg-blue-50 border-t-2 border-b-2 border-turq">
                             <p className="text-2xl mb-10"><Link to={{pathname: `/catalog`, search: "?q=theme%20architecture", state: {notFromSearch: true}}}>Another Category products!</Link></p>
                             {!this.state.loading && <CarouselLine productArray={this.state.products}/>}
+                        </div> */}
+                        <div className="h-50v border-2">
+
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ class UserContextProvider extends React.Component{
 
     getUserByEmail = (email) => {
         console.log("get user at context");
-        axios.post('/users/getId', {email: email})
+        axios.post(`${process.env.REACT_APP_API_URL}/users/getId`, {email: email})
         .then((res)=>{
         this.setState({signedUser: res.data})
         console.log("res at context", res);

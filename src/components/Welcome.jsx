@@ -43,8 +43,8 @@ class Welcome extends React.Component{
                 {/* <img className="w-full overflow-hidden fixed top-24" src="./images/toMuch2.jpg" alt="" /> */}
 
                 <div className="relative">
-                    <div className="mx-96 bg-opacity-0 h-95v flex justify-center items-center">
-                        <div className="bg-opacity-30 bg-gray-700 mx-36 border-4 border-gray-600 rounded p-20">
+                    <div className="bg-opacity-0 h-95v flex justify-center items-center">
+                        <div className="bg-opacity-30 bg-gray-700 mx-56 border-4 border-gray-600 rounded p-20">
                             <h1 className="text-5xl mb-14 text-green-700">Some nice words</h1>
                             <p className="text-xl text-gray-200">
                                 Lorem ipsum dolor sit amet consectetur 
@@ -57,7 +57,7 @@ class Welcome extends React.Component{
                     </div>
                     <div className="bg-gray-50">
                         <BlogAtHomePage />
-                        <div className="pt-5 mb-24 bg-blue-50 border-t-2 border-b-2 border-turq">
+                        <div className="pt-5 bg-blue-50 border-t-2 border-b-2 border-turq">
                             <p className="text-2xl mb-10">
                                 <Link to={{pathname: `/catalog`, search: "?q=theme%20city", state: {notFromSearch: true}}}>
                                     Best-selling products!
@@ -69,7 +69,7 @@ class Welcome extends React.Component{
                             <p className="text-2xl mb-10"><Link to={{pathname: `/catalog`, search: "?q=theme%20architecture", state: {notFromSearch: true}}}>Another Category products!</Link></p>
                             {!this.state.loading && <CarouselLine productArray={this.state.products}/>}
                         </div> */}
-                        <div className="h-50v border-2">
+                        <div className="h-20v border-2">
 
                         </div>
                     </div>

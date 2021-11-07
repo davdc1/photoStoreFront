@@ -52,27 +52,13 @@ class BlogPost extends React.Component{
             commentId: 0,
             title: e.target[1].value,
             content: e.target[2].value,
-            //user: e.target[0].value,
             userId: this.state.loggedUser._id,
             date: new Date().toDateString(),
             postId: this.state.postId,
         }
         console.log("comment:", comment);
-        
-        // {
-        //     commentId:Number,
-        //     postId:Number,
-        //     userId:Number,
-        //     title:String,
-        //     content:String,
-        //     date:String,
-        //     id:String
-        // }
-
-
+      
         this.postComment(comment);
-        //this.pushToLocalStorage(comment);
-
     }
 
     async postComment(comment){
@@ -111,7 +97,8 @@ class BlogPost extends React.Component{
                 </div>
                 <div className="mb-20 px-20 xl:px-96 text-left">
                     <p className="text-2xl ">{this.state.post.title}</p>
-                    <p className="my-5">{this.state.post.body}</p>
+                    <img src={`${process.env.REACT_APP_API_URL}/images/blogImages/${this.state.post.imageName}`} alt="" />
+                    <p className="my-5">{this.state.post.content}</p>
                 </div>
                 <div className="border-t-2 my-10 py-5">
                     <p className="mb-5 font-semibold">comments</p>
@@ -142,6 +129,7 @@ class BlogPost extends React.Component{
                         )
                     })}
                 </div>
+                <div className="h-10v"></div>
             </div>
         )
     }

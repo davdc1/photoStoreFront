@@ -207,6 +207,7 @@ class Form1 extends React.Component{
                 </div>
                 <button className="border border-turq border-1 rounded px-2 py-1 my-2">next</button>
             </form>
+            <div className="h-10v"></div>
         </div> 
         )
     }

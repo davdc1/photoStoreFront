@@ -26,62 +26,62 @@ import { AdminPage } from './components/Admin/AdminPage'
 import axios from 'axios';
 import { Profile2 } from './components/Profile2';
 import UserContextProvider from './components/contexts/UserContext';
+import GlobalContextProvider from './components/contexts/GlobalContext'
 import { AdminRoute } from './components/AdminRoute';
+import { Cart3 } from './components/Cart3';
 
-export const LoggedUserContext = React.createContext();
+//export const LoggedUserContext = React.createContext();
 
 class App extends React.Component{
   
   constructor(props){
     super(props)
-    this.state = {
-      inCart: [],
-      inCartNum: 0,
-      isLogged: false,
-      loggedUser: "",
-      //userLogged: false,
-      //userName: ""
-    }
+    // this.state = {
+    //   inCart: [],
+    //   inCartNum: 0,
+    //   isLogged: false,
+    //   loggedUser: ""
+    // }
   }
 
 componentDidMount(){
-  this.updateCartPrev();
+  //this.updateCartPrev();
 }
 
-updateCartPrev = () => {
-  console.log("updateCartPrev at app.js");
-  let items =
-  this.state.loggedUser ?
-  this.state.loggedUser.cart :
-  this.getCartItemsFromLocalStorage();
+// updateCartPrev = () => {
+//   console.log("updateCartPrev at app.js");
+//   let items =
+//   this.state.loggedUser ?
+//   this.state.loggedUser.cart :
+//   this.getCartItemsFromLocalStorage();
   
-  let sum = this.getInCartNum(items);
+//   let sum = this.getInCartNum(items);
   
-  this.setState({
-    inCart:items,
-    inCartNum: sum
-  });
-}
+//   this.setState({
+//     inCart:items,
+//     inCartNum: sum
+//   });
+// }
 
-getInCartNum(items){
-    let sum = 0;
-    for(let i = 0; i < items.length; i++){
-        sum += items[i].quantity;
-    }
-    return sum;
-}
+// getInCartNum(items){
+//     let sum = 0;
+//     for(let i = 0; i < items.length; i++){
+//         sum += items[i].quantity;
+//     }
+//     return sum;
+// }
 
-getCartItemsFromLocalStorage(){
-   return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-}
+// getCartItemsFromLocalStorage(){
+//    return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
+// }
 
-getUserByEmail = (email) => {
-  console.log("get user by email");
-  axios.post('/users/getId', {email: email})
-  .then((res)=>{
-    this.setState({loggedUser: res.data})
-  })
-}
+// getUserByEmail = (email) => {
+//   console.log("get user by email");
+//   axios.post('/users/getId', {email: email})
+//   .then((res)=>{
+//     this.setState({loggedUser: res.data})
+//   })
+// }
 
 
 // setUserLogged = () => {
@@ -89,17 +89,18 @@ getUserByEmail = (email) => {
 // }
 
 //look at all the user & login things. remove what's not neccessary 
-getUserList(){
-    return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
-}
+// getUserList(){
+//     return localStorage.getItem("userList")?JSON.parse( localStorage.getItem("userList")):[];
+// }
 
   render(){
   return (
+    <GlobalContextProvider>
     <UserContextProvider>
-    <LoggedUserContext.Provider value={this.state.loggedUser} >
+    {/* <LoggedUserContext.Provider value={this.state.loggedUser} > */}
     <Router>
       <div className="App">
-        <Header inCart={this.state.inCart} inCartNum={this.state.inCartNum} />
+        <Header />
         <Switch>
           <Route exact path="/">
             <Welcome />
@@ -131,8 +132,11 @@ getUserList(){
 
           <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
          
+          {/* <Route  path="/Cart">
+            <Cart updateCartPrev={this.updateCartPrev} userCart={UserContextProvider.value} />
+          </Route> */}
           <Route  path="/Cart">
-            <Cart updateCartPrev={this.updateCartPrev} />
+            <Cart3 />
           </Route>
 
           <Route  path="/Gallery">
@@ -162,8 +166,9 @@ getUserList(){
         <Footer />
       </div>
     </Router>
-    </LoggedUserContext.Provider>
+    {/* </LoggedUserContext.Provider> */}
     </UserContextProvider>
+    </GlobalContextProvider>
   )
   }
 }

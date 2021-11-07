@@ -1,20 +1,15 @@
-
 import React from "react";
 import LargeImage from "./LargeImage";
 import ItemAdded from "./ItemAdded";
 import axios from "axios";
+import { Global } from './contexts/GlobalContext'
 
 class ProdPage extends React.Component{
+
+    static contextType = Global;
+
     constructor(props){
         super(props);
-        console.log("propsmatchparamsid:", this.props.match.params.id);
-        //either pass id and make an api request to get the product by id, or pass the product object itself and fetch only the img. or? 
-        //this.state.product = props.location.state.product;
-        //this.state.product = null;
-        // this.state.product = productJson.prodArray[props.match.params.id - 1];
-        //this.state.product = productJson.prodArray[0];
-        //console.log("prod: ", props.location);
-        //console.log("product: ", this.state.product);
         this.state = {
             loading: true,
             error: false,
@@ -25,7 +20,6 @@ class ProdPage extends React.Component{
     }
 
     async getProduct(){
-        console.log("get product");
         try{
             let {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products/${this.props.match.params.id}`);
             console.log("fetched product:", data);
@@ -40,7 +34,6 @@ class ProdPage extends React.Component{
             })
         }
         catch(error){
-            console.log("error:", error);
             this.setState({
                 error:true,
                 loading:false
@@ -49,8 +42,25 @@ class ProdPage extends React.Component{
     }
 
     componentDidMount(){
-        console.log("did mount");
-        this.getProduct();
+        if(this.props.location.state){
+            if(this.props.location.state.product){
+                let product = this.props.location.state.product
+                this.setState({
+                    error: false,
+                    loading: false,
+                    product: product,
+                    price: product.sizes[0].price,
+                    size: product.sizes[0].size,
+                    idSize: product.sizes[0].idSize,
+                    priceTag: '$' + product.sizes[0].price,
+                })
+
+            }else{
+            this.getProduct()
+            }
+        }else{
+            this.getProduct()
+        }
     }
 
     showAdded = () => {
@@ -59,31 +69,19 @@ class ProdPage extends React.Component{
         })
     }
 
-    addToCart = () => {
-        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-        //handle duplicates:
-        let sum = 0;
-        console.log("add:", this.state.idSize);
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === this.state.idSize){
-                sum += parseInt(items[i].quantity);
-                items.splice(i, 1);
-                i--;
-            }
-        }
-
-        items.push({
-            id: this.props.match.params.id,
+    addToCartAtGlobalContext = () => {
+        let item = {
+            productId: this.state.product._id,
             prodName: this.state.product.prodName,
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
-            quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
-            image: this.state.product.imageStr
-        })
-        localStorage.setItem("cartItems", JSON.stringify(items));
-    }
+            quantity: parseInt(this.state.quant),
+            imageName: this.state.product.imageName
+        }
 
+        this.context.addToCart(item);
+    }
 
     showLarge = (product) => {
         this.setState({
@@ -117,7 +115,7 @@ class ProdPage extends React.Component{
             </div>)
         }else
         {return (
-            <div className="text-gray-600 ">
+            <div className="text-gray-600 relative top-24">
                 <LargeImage  imageName={this.state.product.imageName} largeImage={this.state.largeImage} showLarge={this.showLarge} />
                 {this.state.added && <ItemAdded product={this.state.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
                 <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
@@ -147,7 +145,7 @@ class ProdPage extends React.Component{
                             </div>
                             <div className="flex flex-row justify-start">
                                 <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1" type="number" min="1" value={this.state.quant} name="" id="" />
-                                <button onClick={()=>{this.addToCart(); this.showAdded(); this.props.updateCartPrev()}}  className={catBtn}>Add to basket</button>
+                                <button onClick={()=>{this.addToCartAtGlobalContext(); this.showAdded();}}  className={catBtn}>Add to basket</button>
                             </div>
                         </div>
                     </div>

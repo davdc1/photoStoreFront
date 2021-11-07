@@ -14,7 +14,7 @@ class ContactUs extends React.Component{
 
     async sendMessage(message){
         try{
-            await axios.post('tickets', message);
+            await axios.post(`${process.env.REACT_APP_API_URL}/tickets`, message);
             this.setState({sent: true})
         }
         catch(err){

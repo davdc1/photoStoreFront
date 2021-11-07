@@ -6,20 +6,64 @@ export const User = React.createContext();
 class UserContextProvider extends React.Component{
 
     state = {
-        signedUser: ""
+        signedUser: "",
+        cart: [],
+        inCartNum: ""
     }
 
     getUserByEmail = (email) => {
-        console.log("get user at context");
         axios.post(`${process.env.REACT_APP_API_URL}/users/getId`, {email: email})
         .then((res)=>{
-        this.setState({signedUser: res.data})
-        console.log("res at context", res);
+            //let mergedCart = this.compareCarts(JSON.parse(localStorage.getItem("cartItems")), res.data.cart);
+            //res.data.cart = mergedCart;
+            //localStorage.setItem('cartItems', JSON.stringify(mergedCart));
+            this.setState({signedUser: res.data})
+            console.log("res at context", res);
         })
-      }
+    }
+
+    compareCarts = (localCart, dbCart) => {
+        if(localCart.length === 0 && dbCart.length === 0){
+            return [];
+        }
+        
+        let [largerCart, smallerCart] =
+        localCart.length > dbCart.length ?
+        [localCart, dbCart] :
+        [dbCart, localCart];
+
+        let largerCartObj = {};
+
+        for(let i = 0; i < largerCart.length; i++){
+            largerCartObj[largerCart[i].idSize] = largerCart[i];
+        }
+
+        for(let i = 0; i < smallerCart.length; i++){
+            if(largerCartObj[smallerCart[i].idSize]){
+                if(largerCartObj[smallerCart[i].idSize].quantity < smallerCart[i].quantity){
+                    largerCartObj[smallerCart[i].idSize] = smallerCart[i];
+                }
+            }else{
+                largerCartObj[smallerCart[i].idSize] = smallerCart[i];
+            }
+        }
+
+        return Object.values(largerCartObj);
+    }
 
     setSignedUser = (user) => {
-        this.setState({signedUser: user});
+        this.setState({
+            signedUser: user,
+            inCartNum: this.getInCartNum(user.cart)
+        });
+    }
+
+    getInCartNum = (items) => {
+        let sum = 0;
+        for(let i = 0; i < items.length; i++){
+            sum += items[i].quantity;
+        }
+        return sum;
     }
 
     render(){

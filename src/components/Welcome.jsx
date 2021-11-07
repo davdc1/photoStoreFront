@@ -1,7 +1,6 @@
 import axios from "axios"
 import { Link } from "react-router-dom"
 import Carousel from "./Carousel"
-import CarouselLine from "./CarouselLine"
 import { BlogAtHomePage } from "./BlogAtHomePage"
 
 import React from 'react'

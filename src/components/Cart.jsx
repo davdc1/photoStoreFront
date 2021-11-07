@@ -8,12 +8,13 @@ class Cart extends React.Component{
     static contextType = User;
     constructor(props){
         super(props)
+
         this.coupon = [
             {code: "10off", dis: "10-percent"}
         ]
-        // this.items = this.getItemsFromLocalStrorage();
+        
         this.state = {
-            loggedUserId: "",
+            userId: this.context?this.context.signedUser._id:"",
             items: [],
             total: 0,
             couponOk: false,
@@ -23,17 +24,43 @@ class Cart extends React.Component{
     }
 
     componentDidMount(){
-        console.log("cartcartcart", this.context);
+        console.log("context at cart", this.context);
         let items = this.context.signedUser ?
             this.context.signedUser.cart :
             this.getItemsFromLocalStrorage();
         
         this.setState({
-            loggedUserId: this.context.signedUser._id ? this.context.signedUser._id : "",
             items: items,
             total: this.getItemTotal(items)
         })
 
+    }
+
+    componentDidUpdate(){
+        console.log("state.userId:", this.state.userId);
+        console.log("context at did update*****:", this.context);
+        if(this.context.signedUser._id !== this.state.userId){
+            console.log("is different");
+            this.setState({
+                userId: this.context.signedUser._id,
+                items: this.context.signedUser ? this.context.signedUser.cart : []
+            })
+        }
+        // this.setState({
+        //     items: this.context.signedUser.cart,
+        //     total: this.getItemTotal(this.context.signedUser.cart)
+        // })
+        
+        // if(prevProps.data !== this.props.data){
+        //     let items = this.context.signedUser ?
+        //     this.context.signedUser.cart :
+        //     this.getItemsFromLocalStrorage();
+        
+        // this.setState({
+        //     items: items,
+        //     total: this.getItemTotal(items)
+        // })
+        // }
     }
 
     getItemTotal(items){
@@ -116,13 +143,13 @@ class Cart extends React.Component{
 
     emptyCart = () => {
         this.setState({items: [], total: 0});
-        localStorage.setItem("cartItems", []);
+        localStorage.setItem("cartItems", '[]');
         this.props.updateCartPrev();
     }
 
     async sendCart(cart){
         try{
-            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.loggedUserId}`, cart)
+            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, cart)
             .then((res) => console.log("put to cart res:", res));
         }
         catch(err){
@@ -135,8 +162,15 @@ class Cart extends React.Component{
         this.context.getUserByEmail(this.context.signedUser.email)
     }
 
+    applyCartChanges = (items) => {
+        this.setEditCart();
+        this.sendCart(items);
+        this.context.signedUser.cart = items;
+        this.context.setSignedUser(this.context.signedUser)
+    }
+
     componentWillUnmount(){
-        if(this.state.loggedUserId)
+        if(this.context.signedUser)
             this.sendCart(this.state.items);
     }
 
@@ -156,26 +190,37 @@ class Cart extends React.Component{
                     </div>
                     }
                     {this.state.items.map((item, index) =>{
-                        console.log("item at cart:", item);
                         if(item.quantity){
                             return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
-                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}><img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" /></Link>
+                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}>
+                                            <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" />
+                                        </Link>
                                         <div className="flex flex-col">
-                                            <Link to={{pathname:`/prodpage/${item.productId}`}}><span className="font-semibold">{item.prodName}</span></Link>
+                                            <Link to={{pathname:`/prodpage/${item.productId}`}}>
+                                                <span className="font-semibold">{item.prodName}</span>
+                                            </Link>
                                             <span className="mx-3">{item.size}</span>
                                         </div>
                                         <span className="mx-3">${item.price}</span>
                                         <div className="mx-3 flex items-strech ">
                                             {/* <span>quantity: {item.quantity}</span> */}
                                             <div className="flex items-strech mx-3">
-                                                {this.state.editCart && <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">-</button>}
-                                                <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
-                                                {this.state.editCart && <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">+</button>}
+                                                {this.state.editCart && <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
+                                                    -
+                                                </button>}
+                                                <span className="px-2 py-1 border border-1 ">
+                                                    {item.quantity}
+                                                </span>
+                                                {this.state.editCart && <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
+                                                    +
+                                                </button>}
                                             </div>
                                         </div>
                                         <span className="mx-3">${item.price * item.quantity}</span>
                                         <div>
-                                            {this.state.editCart && <button onClick={() => this.removeItem(item.idSize)} className="text-xs">remove</button>}
+                                            {this.state.editCart && <button onClick={() => this.removeItem(item.idSize)} className="text-xs">
+                                                remove
+                                            </button>}
                                         </div>
                                 </div>)
                         }else{
@@ -186,7 +231,7 @@ class Cart extends React.Component{
                     <div className="border border-b-0 border-r-0 border-l-0 border-t-2">
                         {!this.state.editCart && <button onClick={this.setEditCart} className="text-sm my-1">Edit cart</button>}
                         {this.state.editCart && this.state.items.length > 0 && <button onClick={this.emptyCart} className="text-sm my-1">empty cart</button>}
-                        {this.state.editCart && <div><button onClick={() => {this.setEditCart(); this.sendCart(this.state.items)}} className="text-sm my-1">Apply changes</button></div>}
+                        {this.state.editCart && <div><button onClick={() => this.applyCartChanges(this.state.items)} className="text-sm my-1">Apply changes</button></div>}
                     </div>
                 </div>
                 <div className="flex">
@@ -211,6 +256,7 @@ class Cart extends React.Component{
                     </div>
 
                 </div>
+                <div className="h-10v"></div>
             </div>
         )
     }

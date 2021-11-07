@@ -9,12 +9,12 @@ export const OrderPage = (props) => {
     let order = props.location.state.order;
 
     return(
-        <div className="px-24 my-10">
+        <div className="relative top-24 px-24 my-10">
             <h1>Order Id: {order._id}</h1>
             {order.cart.map((item, index) => {
                 return(
                     <div className="flex justify-between items-center my-8" >
-                        <img className="h-24" src={`/images/smallProdImgs/${item.imageName}`} alt="itemImage" />
+                        <img className="h-24" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="itemImage" />
                         <span>size: {item.size}</span> 
                         <p>price: {item.price}</p>
                         <p>quantity: {item.quantity}</p>
@@ -59,9 +59,8 @@ export const OrderPage = (props) => {
                     </button>
                 </div>}
                 <hr />
-            </div>
-                
-
+            </div>  
+            <div className="h-10v"></div>
         </div>
     )
 }

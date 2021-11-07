@@ -1,11 +1,12 @@
 import React from "react"
 import auth from "../firebase/auth"
 import { Redirect } from 'react-router-dom'
-
-import { User } from './contexts/UserContext' 
+import { Global } from './contexts/GlobalContext'
 import axios from "axios"
 
 class SignUp extends React.Component{
+    
+    static contextType = Global;
 
     constructor(props){
         super(props)
@@ -17,9 +18,6 @@ class SignUp extends React.Component{
     }
 
     /*CHECK: remove any unneccessary props*/
-
-    
-    static contextType = User;
 
     redirect = () => {
         console.log("at redirect");
@@ -119,6 +117,7 @@ class SignUp extends React.Component{
                         <button className="border border-turq border-1 rounded mx-2 mb-4 px-2 py-1">create account</button>
                     </form>
                 </div>
+                <div className="h-10v"></div>
             </div>
 
         )

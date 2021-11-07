@@ -39,7 +39,7 @@ export const BlogAtHomePage = () => {
                         <p className="text-lg">{blog.content} {blog.content}</p>
                     </div>
                     <div className="w-20v">
-                        <img src="./images/fence.jpg" alt="" />
+                        <img src={`${process.env.REACT_APP_API_URL}/images/blogImages/${blog.imageName}`} alt="" />
                     </div>
                 </div>
                 <Link to={{pathname: `/blogPost/${blog._id}`, state:{blog}}}>

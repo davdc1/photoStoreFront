@@ -3,6 +3,7 @@ import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
 import ItemAdded from "./ItemAdded";
 import axios from 'axios'
+import CatCard3 from "./CatCard3";
 
 class Catalog extends React.Component{
     
@@ -10,7 +11,6 @@ class Catalog extends React.Component{
         super(props);
         
         this.state = {
-            //prodArray: productJson.prodArray,
             prodArray: [],
             filterByArr: "",
             searchStr: "",
@@ -21,7 +21,6 @@ class Catalog extends React.Component{
             chosenProdProps: ""
         }
     }
-
 
     getUrlFilters(){
         let query = this.parseQuery().q;
@@ -171,7 +170,7 @@ class Catalog extends React.Component{
         //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
         console.log("card product:", product);
         return (
-            <CatCard2
+            <CatCard3
                 product={product}
                 key={index}
                 showAdded={this.showAdded}
@@ -254,6 +253,7 @@ class Catalog extends React.Component{
                         </div>
                     </div>
                 </div>
+                <div className="h-10v"></div>
             </div>
         )
     }

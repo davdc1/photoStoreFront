@@ -1,11 +1,10 @@
-import axios from "axios";
 import React from "react"
 import {Link} from "react-router-dom"
-import { User } from './contexts/UserContext'
+import { Global } from './contexts/GlobalContext'
 
-class CatCard extends React.Component{
+class CatCard3 extends React.Component{
     
-    static contextType = User;
+    static contextType = Global;
     
     constructor(props){
         super(props)
@@ -25,55 +24,19 @@ class CatCard extends React.Component{
         this.setState({loggedUser: user})
         console.log("user at catcard:", user);
     }
- 
-   async addToCart(){
-        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-        //handle duplicates:
-        let sum = 0;
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === this.state.idSize){
-                
-                sum += parseInt(items[i].quantity);
-                items.splice(i, 1);
-                i--;
-            }
-        }
-        
-        items.push({
+
+    addToCartAtGlobalContext = () => {
+        let item = {
             productId: this.product._id,
             prodName: this.product.prodName,
             price: this.state.price,
             size: this.state.size,
             idSize: this.state.idSize,
-            quantity: (parseInt(this.state.quant) + sum) <= 10 ? (parseInt(this.state.quant) + sum) : 10,
+            quantity: parseInt(this.state.quant),
             imageName: this.product.imageName
-        })
-        
-        localStorage.setItem("cartItems", JSON.stringify(items));
-        
-        if(this.state.loggedUser){
-            this.sendCart(items);
-        }else{
-            //this.context.setCart
         }
-    }
 
-    async sendCart(cart){
-        try{
-            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.loggedUser._id}`, cart)
-            .then((res) => {
-                console.log("updateCart res:", res);
-                this.context.setSignedUser(res.data);
-            });
-        }
-        catch(err){
-            console.log("put to cart error:", err.message);
-        }
-    }
-
-    async updateCart(){
-        await this.sendCart(this.state.items)
-        this.context.getUserByEmail(this.context.signedUser.email)
+        this.context.addToCart(item);
     }
 
     setPrice = (event) => {
@@ -114,7 +77,7 @@ class CatCard extends React.Component{
                                 </div>
                                 <div className="mb-4 sm:mb-0 flex flex-row justify-start items-center">
                                     <button onClick={()=>{
-                                        this.addToCart();
+                                        this.addToCartAtGlobalContext();
                                         //this.props.updateCartPrev();
                                         //this.props.showAdded(this.product, this.state)
                                         }} className={catBtn}>
@@ -134,4 +97,4 @@ class CatCard extends React.Component{
 let catBtn = "mx-2 px-2 pb-1 sm:h-8 bg-turq2 rounded sm:font-medium font-lg text-gray-200"
 
 
-export default CatCard
+export default CatCard3

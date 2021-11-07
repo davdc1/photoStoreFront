@@ -126,14 +126,23 @@ class CreditCardDet extends React.Component{
             cart: JSON.parse(localStorage.getItem('cartItems'))
         }
 
-        axios.post(`/orders`, order)
+        // axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)
+        // .then((res)=>{
+        //     axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
+        //     .then((res) => {
+        //         console.log("res at there", res);
+        //         this.context.setSignedUser(res.data)
+        //         localStorage.setItem('cartItems', []);
+        //         //this.context.getUserByEmail(this.context.signedUser.email)
+        // });
+        // });
+
+        axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)
         .then((res)=>{
-            axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
-            .then((res) => {
-                console.log("res at there", res);
-                localStorage.setItem('cartItems', []);
-                this.context.getUserByEmail(this.context.signedUser.email)
-        });
+            console.log("res at there", res);
+            this.context.setSignedUser(res.data)
+            localStorage.setItem('cartItems', []);
+            //this.context.getUserByEmail(this.context.signedUser.email)
         });
     }
 
@@ -163,6 +172,7 @@ class CreditCardDet extends React.Component{
                         <button className="border rounded px-1 py-0.5 my-4" >submit</button>
                     </form>
                 </div>
+                <div className="h-10v"></div>
             </div>
         )
     }

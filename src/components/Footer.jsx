@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
 function Footer(){
     return(
-        <div className="flex flex-col items-center bg-light py-20 text-gray-700 z-50 relative ">
-            <div className="flex justify-around w-full">
+        <div className="flex flex-col items-center bg-light py-20 text-gray-700 z-40 relative ">
+            <div className="flex flex-col sm:flex-row justify-around w-full">
                 <div>
                     <p className="border border-1 rounded border-turq"><Link to="/contactUs">contact us:</Link></p>
                     <address>

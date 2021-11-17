@@ -29,13 +29,15 @@ class GlobalContextProvider extends React.Component{
         axios.post(`${process.env.REACT_APP_API_URL}/users/getId`, {email: email})
         .then((res)=>{
             
-            //let mergedCart = this.compareCarts(JSON.parse(localStorage.getItem("cartItems")), res.data.cart);
-            //res.data.cart = mergedCart;
+            let mergedCart = this.compareCarts(JSON.parse(localStorage.getItem("cartItems")), res.data.cart);
+            res.data.cart = mergedCart;
             //localStorage.setItem('cartItems', JSON.stringify(mergedCart));
             
             this.setState({
                 signedUser: res.data,
-                cart: res.data.cart
+                cart: res.data.cart,
+                inCartNum: this.getInCartNum(res.data.cart),
+                total: this.getCartTotal(res.data.cart)
             })
             console.log("res at globalContext", res);
         })
@@ -67,6 +69,7 @@ class GlobalContextProvider extends React.Component{
             }
         }
 
+        localStorage.setItem('cartItems', '[]');
         return Object.values(largerCartObj);
     }
 
@@ -106,26 +109,8 @@ class GlobalContextProvider extends React.Component{
         item.quantity = (parseInt(item.quantity) + sum) <= 10 ? (parseInt(item.quantity) + sum) : 10;
         items.push(item);
         
-        localStorage.setItem("cartItems", JSON.stringify(items));
-        
-        if(this.state.signedUser){
-            let user = this.state.signedUser;
-            user.cart = items;
-            this.setState({
-                signedUser: user,
-                cart: items
-            })
-            this.sendCart(items);
-        }else{
-            this.setState({
-                cart: items
-            })
-        }
-
-        console.log("signedUser.cart:", this.state.signedUser.cart);
-        console.log("cart at context:", this.state.cart);
-        console.log("cart at storage:", JSON.parse(localStorage.getItem('cartItems')));
-        console.log("inCartNum:", this.getInCartNum(items));
+        this.setCart(items);
+        this.sendCart();
     }
 
     sendCart = async () => {
@@ -136,7 +121,7 @@ class GlobalContextProvider extends React.Component{
                 await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.signedUser._id}`, this.state.cart)
                 .then((res) => {
                     console.log("updateCart res at GlobalContext:", res);
-                    this.setSignedUser(res.data);
+                    //this.setSignedUser(res.data);
                 });
             }
             catch(err){
@@ -210,8 +195,6 @@ class GlobalContextProvider extends React.Component{
     }
 
     setCart = (items) => {
-        localStorage.setItem("cartItems", JSON.stringify(items));
-       
         if(this.state.signedUser){
             let user = this.state.signedUser
             user.cart = items;
@@ -221,8 +204,9 @@ class GlobalContextProvider extends React.Component{
                 total: this.getCartTotal(items),
                 inCartNum: this.getInCartNum(items)
             })
-
+            
         }else{
+            localStorage.setItem("cartItems", JSON.stringify(items));
             this.setState({
                 cart: items,
                 total: this.getCartTotal(items),

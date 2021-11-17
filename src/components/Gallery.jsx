@@ -26,7 +26,7 @@ function Gallery(){
                 {imgs.map((img, index) => {
                     return (
                         <div key={index.toString()}>
-                            <img onClick={()=>showLarge(img)} className="h-96 mx-4 my-4 shadow-2xl" src={`./images/${img}`} alt=""/>
+                            <img onClick={()=>showLarge(img)} className="h-96 mx-4 my-4 shadow-2xl" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${img}`} alt=""/>
                         </div>
                     )
                 })}

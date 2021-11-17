@@ -4,6 +4,8 @@ import QuickView from "./QuickView";
 import ItemAdded from "./ItemAdded";
 import axios from 'axios'
 import CatCard3 from "./CatCard3";
+import { ProductCardSkeleton } from './skeletons/ProductCardSkeleton'
+
 
 class Catalog extends React.Component{
     
@@ -11,6 +13,7 @@ class Catalog extends React.Component{
         super(props);
         
         this.state = {
+            loading: true,
             prodArray: [],
             filterByArr: "",
             searchStr: "",
@@ -49,7 +52,10 @@ class Catalog extends React.Component{
     async fetchProducts(){
         const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products`)
         console.log(data);
-        this.setState({prodArray: data});
+        this.setState({
+            prodArray: data,
+            loading: false
+        });
     }
 
 
@@ -182,7 +188,7 @@ class Catalog extends React.Component{
 
     render(){
         return (
-            <div className="flex relative top-24">
+            <div className="relative top-24">
                 <div>
                     <div className="my-2 flex flex-col sm:flex-row justify-center">
                         <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
@@ -238,8 +244,8 @@ class Catalog extends React.Component{
                             </div>
                         </div>
                         <div className="flex flex-wrap justify-around 2xl:mx-48">
-                        
-                            {this.state.prodArray.map((product, index) => {
+                            {this.state.loading && [1, 2, 3, 4].map((item) => {return <ProductCardSkeleton key={item.toString()} />})}                        
+                            {!this.state.loading && this.state.prodArray.map((product, index) => {
                                 if(this.state.searchStr !== "" && this.state.searchStr){
                                     if(product.prodName.includes(this.state.searchStr) || product.theme.includes(this.state.searchStr)){
                                         return this.filter2(product, index)
@@ -253,7 +259,7 @@ class Catalog extends React.Component{
                         </div>
                     </div>
                 </div>
-                <div className="h-10v"></div>
+                <div className="h-20v"></div>
             </div>
         )
     }

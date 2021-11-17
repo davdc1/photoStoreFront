@@ -6,8 +6,12 @@ import Form3 from './Form3';
 import CreditCardDet from './CreditCardDet';
 import Paypal from './Paypal';
 import CheckoutCart from './CheckoutCart';
+import { Global } from './contexts/GlobalContext'
 
 class Checkout extends React.Component{
+    
+    static contextType = Global;
+    
     constructor(props){
         super(props)
         this.state = {
@@ -21,15 +25,10 @@ class Checkout extends React.Component{
     }
 
     componentDidMount(){
-        let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-        let total = 0;
-
-        if(items){
-            for(let i = 0; i < items.length; i++){
-                total += (parseInt(items[i].price) * items[i].quantity);
-            }
-            this.setState({items: items, total: total})
-        }
+        this.setState({
+            items: this.context.cart,
+            total: this.context.total
+        })
     }
 
     setShippingDest = () => {
@@ -74,8 +73,6 @@ class Checkout extends React.Component{
                     <div className="">
                         <span>cart</span>
                         <div className="border border-1 mb-10">
-                            {/* in order for the cart to re-render when moving through forms
-                            try to setState on url props change. might solve the issue with images not showing */}
                             <CheckoutCart
                                 items={this.state.items}
                                 total={this.state.total}
@@ -87,7 +84,7 @@ class Checkout extends React.Component{
                     <div className="flex flex-col items-center">
                     <Switch>
                         <Route path="/checkout/form1" component={Form1} />
-                        <Route path="/checkout/form2" component={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} saveFinalBill={this.saveFinalBill} {...props}/>} />
+                        <Route path="/checkout/form2" render={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} saveFinalBill={this.saveFinalBill} {...props}/>} />
                         <Route path="/checkout/form3" component={Form3} />
                         <Route path="/checkout/CreditCardDet" component={CreditCardDet} />
                         <Route path="/checkout/Paypal" component={Paypal} />

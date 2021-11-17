@@ -14,7 +14,6 @@ export const BlogAtHomePage = () => {
     const getBlog = async () => {
         try{
             const { data }  = await axios.get(`${process.env.REACT_APP_API_URL}/posts/latest`)
-            console.log("latest blog?", blog);
             setBlog(data);
             setLoading(false);
             setError(false);

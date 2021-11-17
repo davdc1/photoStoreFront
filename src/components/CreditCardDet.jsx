@@ -1,12 +1,10 @@
 import axios from "axios";
 import React from "react";
-// import loggedUser from './stuff/loggedUser.json';
-
-import { User } from './contexts/UserContext'
+import { Global } from './contexts/GlobalContext'
 
 class CreditCardDet extends React.Component{
     
-    static contextType = User;
+    static contextType = Global;
 
     constructor(props){
         super(props);
@@ -19,7 +17,7 @@ class CreditCardDet extends React.Component{
         }
 
         this.state = {
-            loggedUser: "",
+            signedUser: "",
             firstSubmit: false,
             cardNumOk: false,
             nameOnCardOk: false,
@@ -37,7 +35,7 @@ class CreditCardDet extends React.Component{
     
     componentDidMount(){
         console.log("at crditcardpage: context user:", this.context.signedUser);
-        this.setState({loggedUser: this.context.signedUser})
+        this.setState({signedUser: this.context.signedUser})
     }
 
     nameOnCardVal(a){
@@ -113,7 +111,7 @@ class CreditCardDet extends React.Component{
         JSON.parse(localStorage.getItem('finalBill')):null;
 
         let order = {
-            userId:this.state.loggedUser._id,
+            userId:this.state.signedUser._id,
             date: new Date().toLocaleDateString(),
             status: "",
             paied: false,
@@ -123,7 +121,7 @@ class CreditCardDet extends React.Component{
             shippingPrice: finalBill.shippingPrice,
             tax: (finalBill.total * (finalBill.taxRate + 1)),
             total: finalBill.total,
-            cart: JSON.parse(localStorage.getItem('cartItems'))
+            cart: this.context.cart
         }
 
         // axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)

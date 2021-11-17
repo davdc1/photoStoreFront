@@ -10,15 +10,6 @@ export const Cart3 = () => {
             {code: "10off", dis: "10-percent"}
         ]
         
-        // state = {
-        //     userId: this.context ? this.context.signedUser._id : "",
-        //     items: [],
-        //     total: 0,
-        //     couponOk: false,
-        //     dis: "",
-        //     editCart: false
-        // }
-        
     const globalState = useContext(Global);
 
     const [editCart, setEditCart] = useState(false);
@@ -53,33 +44,12 @@ export const Cart3 = () => {
         
     }
 
-    // const emptyCart = () => {
-    //     this.setState({items: [], total: 0});
-    //     localStorage.setItem("cartItems", '[]');
-    //     this.props.updateCartPrev();
-    // }
-
-    // const sendCart = async (cart) => {
-    //     try{
-    //         await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, cart)
-    //         .then((res) => console.log("put to cart res:", res));
-    //     }
-    //     catch(err){
-    //         console.log("put to cart error:", err.message);
-    //     }
-    // }
-
-    // const updateCart = async () => {
-    //     await this.sendCart(this.state.items)
-    //     this.context.getUserByEmail(this.context.signedUser.email)
-    // }
-
         return (
             <div className="flex flex-col justify-center items-center my-14 relative top-24">
                 <h1>Cart</h1>
-                <div className="flex flex-col justify-center border border-2 rounded m-10 ">
+                <div className="flex flex-col sm:justify-center items-stretch border border-2 rounded sm:m-10 w-90v sm:w-auto">
                 {globalState.cart.length > 0 &&  
-                    <div className="flex justify-around">
+                    <div className="hidden sm:flex justify-around">
                         <div className="flex-1 w-44"></div>
                         <div className="flex-1 w-44 mr-14"></div>
                         <span className="flex-1 mx-2">unit price</span>
@@ -90,7 +60,7 @@ export const Cart3 = () => {
                     }
                     {globalState.cart.map((item, index) =>{
                         if(item.quantity){
-                            return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
+                            return (<div key={index.toString()} className="flex flex-col sm:flex-row justify-between sm:items-center items-start border-t-2 sm:py-6 sm:px-8 py-2 px-3">
                                         <Link to={{pathname:`/prodpage/${item.productId}`}}>
                                             <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" />
                                         </Link>
@@ -98,24 +68,32 @@ export const Cart3 = () => {
                                             <Link to={{pathname:`/prodpage/${item.productId}`}}>
                                                 <span className="font-semibold">{item.prodName}</span>
                                             </Link>
-                                            <span className="mx-3">{item.size}</span>
+                                            <div>
+                                                <span className="sm:hidden">size: </span>
+                                                <span className="mx-3">{item.size}</span>
+                                            </div>
                                         </div>
-                                        <span className="mx-3">${item.price}</span>
-                                        <div className="mx-3 flex items-strech ">
+                                        <div>
+                                            <span className="sm:hidden">unit price: </span>
+                                            <span className="mx-3">${item.price}</span>
+                                        </div>
+                                        <div className="sm:mx-3 flex sm:items-strech items-start">
                                             {/* <span>quantity: {item.quantity}</span> */}
-                                            <div className="flex items-strech mx-3">
+                                            <div className="flex sm:items-strech sm:mx-3">
+                                                <span className="sm:hidden mr-2">quantity:</span>
                                                 {editCart && <button onClick={()=>{globalState.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
                                                     -
                                                 </button>}
-                                                <span className="px-2 py-1 border border-1 ">
-                                                    {item.quantity}
-                                                </span>
+                                                <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
                                                 {editCart && <button onClick={()=>{globalState.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
                                                     +
                                                 </button>}
                                             </div>
                                         </div>
-                                        <span className="mx-3">${item.price * item.quantity}</span>
+                                        <div>
+                                            <span className="sm:hidden">total: </span>
+                                            <span className="mx-3">${item.price * item.quantity}</span>
+                                        </div>
                                         <div>
                                             {editCart && <button onClick={() => globalState.removeItem(item.idSize)} className="text-xs">
                                                 remove

@@ -11,9 +11,7 @@ export const Cart3 = () => {
         ]
         
     const globalState = useContext(Global);
-
     const [editCart, setEditCart] = useState(false);
-    const [couponOk, setCouponOk] = useState(false);
 
     const getItemTotal = (items) => {
         let total = 0;
@@ -60,44 +58,46 @@ export const Cart3 = () => {
                     }
                     {globalState.cart.map((item, index) =>{
                         if(item.quantity){
-                            return (<div key={index.toString()} className="flex flex-col sm:flex-row justify-between sm:items-center items-start border-t-2 sm:py-6 sm:px-8 py-2 px-3">
+                            return (<div key={index.toString()} className="flex justify-center border-t-2 sm:py-6 sm:px-8 py-2 px-3">
                                         <Link to={{pathname:`/prodpage/${item.productId}`}}>
-                                            <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" />
+                                            <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="w-16 sm:w-auto sm:h-72 mx-3" />
                                         </Link>
-                                        <div className="flex flex-col">
-                                            <Link to={{pathname:`/prodpage/${item.productId}`}}>
-                                                <span className="font-semibold">{item.prodName}</span>
-                                            </Link>
+                                        <div className="sm:flex-1 flex flex-col sm:flex-row justify-between sm:items-center items-start ">
+                                            <div className="flex flex-col">
+                                                <Link to={{pathname:`/prodpage/${item.productId}`}}>
+                                                    <span className="font-semibold">{item.prodName}</span>
+                                                </Link>
+                                                <div>
+                                                    <span className="sm:hidden">size: </span>
+                                                    <span className="mx-3">{item.size}</span>
+                                                </div>
+                                            </div>
                                             <div>
-                                                <span className="sm:hidden">size: </span>
-                                                <span className="mx-3">{item.size}</span>
+                                                <span className="sm:hidden">unit price: </span>
+                                                <span className="mx-3">${item.price}</span>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <span className="sm:hidden">unit price: </span>
-                                            <span className="mx-3">${item.price}</span>
-                                        </div>
-                                        <div className="sm:mx-3 flex sm:items-strech items-start">
-                                            {/* <span>quantity: {item.quantity}</span> */}
-                                            <div className="flex sm:items-strech sm:mx-3">
-                                                <span className="sm:hidden mr-2">quantity:</span>
-                                                {editCart && <button onClick={()=>{globalState.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
-                                                    -
-                                                </button>}
-                                                <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
-                                                {editCart && <button onClick={()=>{globalState.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
-                                                    +
+                                            <div className="sm:mx-3 flex sm:items-strech items-start">
+                                                {/* <span>quantity: {item.quantity}</span> */}
+                                                <div className="flex sm:items-strech sm:mx-3">
+                                                    <span className="sm:hidden mr-2">quantity:</span>
+                                                    {editCart && <button onClick={()=>{globalState.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
+                                                        -
+                                                    </button>}
+                                                    <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
+                                                    {editCart && <button onClick={()=>{globalState.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
+                                                        +
+                                                    </button>}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className="sm:hidden">total: </span>
+                                                <span className="mx-3">${item.price * item.quantity}</span>
+                                            </div>
+                                            <div>
+                                                {editCart && <button onClick={() => globalState.removeItem(item.idSize)} className="text-xs">
+                                                    remove
                                                 </button>}
                                             </div>
-                                        </div>
-                                        <div>
-                                            <span className="sm:hidden">total: </span>
-                                            <span className="mx-3">${item.price * item.quantity}</span>
-                                        </div>
-                                        <div>
-                                            {editCart && <button onClick={() => globalState.removeItem(item.idSize)} className="text-xs">
-                                                remove
-                                            </button>}
                                         </div>
                                 </div>)
                         }else{
@@ -111,22 +111,16 @@ export const Cart3 = () => {
                         {editCart && <div><button onClick={() => {globalState.sendCart(); setEditCart(!editCart)}} className="text-sm my-1">Apply changes</button></div>}
                     </div>
                 </div>
-                <div className="flex">
+                <div className="flex flex-col sm:flex-row items-start self-start sm:self-center ml-6 sm:ml-0">
                     <div className="flex flex-col items-start">
                         <span>Sub-total: ${globalState.total}</span>
-                        <span>Shipping: $0 </span>
-                        <span>Tax: ${(globalState.total * 0.17).toFixed(2)}</span>
-                        {couponOk && <span className="font-semibold">Coupon approved</span>}
                         <span>Total: ${(globalState.total * 1.17).toFixed(2)}</span>
+                        <span>Shipping & taxes are calculated at checkout </span>
                     </div>
-                    <div className="self-stretch flex flex-col justify-between items-end px-4">
+                    <div className="self-stretch flex flex-col justify-between items-start sm:items-end sm:px-4">
                         <Link to="/catalog">
                             <button className="border border-1 border-turq rounded px-2">back to shop</button>
                         </Link>
-                        <form onSubmit={applyCoupon}>
-                            <input placeholder="Coupon code" className="border border-1 rounded-l px-2" type="text" />
-                            <button className="border border-1 border-turq rounded-r px-2">apply</button>
-                        </form>
                         <Link to="/checkout/form1">
                             <button className="border border-1 border-turq rounded px-2">Proceed to checkout</button>
                         </Link>

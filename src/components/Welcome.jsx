@@ -34,15 +34,16 @@ class Welcome extends React.Component{
     render(){
         return(
             <div className="flex flex-col justify-center items-center bg-appbg">
-                <div className="fixed top-24 flex justify-center">
-                    <div className="h-80v w-100v">
-                        <img className="w-full overflow-hidden absolute -bottom-56" src={`${process.env.REACT_APP_API_URL}/images/wallpaper/toMuch2.jpg`} alt="" />
+                <div className="fixed top-24">
+                    <div style={{backgroundImage: `url(${process.env.REACT_APP_API_URL}/images/wallpaper/toMuch2.jpg)`}} className="bg-contain bg-no-repeat lg:bg-center lg:bg-cover">
+                        {/* <img className="w-full overflow-hidden absolute -bottom-56" src={`${process.env.REACT_APP_API_URL}/images/wallpaper/toMuch2.jpg`} alt="" /> */}
+                        <img className="opacity-0 w-100v" src={`${process.env.REACT_APP_API_URL}/images/wallpaper/toMuch2.jpg`} alt="" />
                     </div>
                 </div>
                 {/* <img className="w-full overflow-hidden fixed top-24" src="./images/toMuch2.jpg" alt="" /> */}
 
                 <div className="relative">
-                    <div className="bg-opacity-0 h-95v flex justify-center items-center">
+                    <div className="bg-opacity-0 h-100v flex justify-center items-center">
                         <div className="bg-opacity-30 bg-gray-700 mx-56 border-4 border-gray-600 rounded p-20">
                             <h1 className="text-5xl mb-14 text-green-700">Some nice words</h1>
                             <p className="text-xl text-gray-200">

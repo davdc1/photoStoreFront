@@ -22,7 +22,6 @@ class CatCard3 extends React.Component{
     componentDidMount(){
         const user = this.context.signedUser;
         this.setState({loggedUser: user})
-        console.log("user at catcard:", user);
     }
 
     addToCartAtGlobalContext = () => {
@@ -53,8 +52,6 @@ class CatCard3 extends React.Component{
     }
 
     render(){
-        console.log("user at catcard", this.context);
-        console.log("image str:", this.product.imageStr);
         return(
             <div className='flex flex-col sm:flex-row min-h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-light rounded'>
                 <div className="">

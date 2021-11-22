@@ -41,7 +41,7 @@ export const NavBar2 = () => {
 
     return(
         <div>
-            {searchRedirect && <Redirect to={`/catalog?q=${searchStr}`}/>}
+            {searchRedirect && <Redirect to={`/catalog?search=${searchStr}`}/>}
             <div  className="sm:flex hidden flex-row justify-between items-center mx-6">
                 <div>   
                     <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>

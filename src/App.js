@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProdPage from "./components/ProdPage";
 import Catalog from "./components/Catalog";
+import Catalog2 from './components/Catalog2';
 import Welcome from './components/Welcome';
 import ContactUs from './components/ContactUs';
 import About from './components/About';
@@ -106,7 +107,8 @@ componentDidMount(){
             <Welcome />
           </Route>
           
-          <Route  path="/catalog/" component={props => <Catalog updateCartPrev={this.updateCartPrev} {...props}/>} />
+          {/* <Route  path="/catalog/" component={props => <Catalog updateCartPrev={this.updateCartPrev} {...props}/>} /> */}
+          <Route  path="/catalog/" component={props => <Catalog2 updateCartPrev={this.updateCartPrev} {...props}/>} />
           
           <Route  path="/catalog/:category" component={props => <Catalog {...props}/>} />
           

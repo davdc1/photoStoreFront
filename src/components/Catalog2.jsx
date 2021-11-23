@@ -39,7 +39,7 @@ class Catalog2 extends React.Component{
             if(this.props.location.state.notFromSearch === true)
                 return "";
         }
-        console.log("search:", this.parseQuery().search);
+        console.log("search:", this.parseQuery().search || "");
         return this.parseQuery().search || "";
     }
     
@@ -111,6 +111,10 @@ class Catalog2 extends React.Component{
         this.setState({filterByArr: temp});
     }
 
+    sort = (e) => {
+        this.setState({sortBy: e.target.value}, () => this.fetchProducts());
+    }
+
     createQueryString = () => {
         if(this.state.filterByArr.length > 0){
             let str = `?filter=theme`;
@@ -120,11 +124,11 @@ class Catalog2 extends React.Component{
                 str += `&filterBy=${temp[i].value}`
             }
     
-            str += `&sort=${this.state.sortBy || ""}`
+            // str += `&sort=${this.state.sortBy || ""}`
     
-            return str + `&search=${this.getSearchQuery()}`;
+            return str + `&search=${this.getSearchQuery()}&sort=${this.state.sortBy || ""}`;
         }
-        return `?search=${this.getSearchQuery()}`;
+        return `?search=${this.getSearchQuery()}&sort=${this.state.sortBy || ""}`;
     }
 
     render(){
@@ -133,11 +137,11 @@ class Catalog2 extends React.Component{
                 <div>
                     <div className="my-2 flex flex-col sm:flex-row justify-center">
                         <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
-                        <select className="sm:mx-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sortCat}>
-                            <option value="default" defaultValue>Sort by:</option>
-                            <option value="low">price: Low to High</option>
-                            <option value="high">price: High to low</option>
-                            <option value="rank">Rank</option>
+                        <select className="sm:mx-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sort}>
+                            <option value="" defaultValue>Sort by:</option>
+                            <option value="price%201">price: Low to High</option>
+                            <option value="price%20-1">price: High to low</option>
+                            <option value="rank%20-1">Rank</option>
                         </select>
                         
                         {/* <details> displays only on small screens: */}

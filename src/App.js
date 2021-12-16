@@ -30,6 +30,7 @@ import UserContextProvider from './components/contexts/UserContext';
 import GlobalContextProvider from './components/contexts/GlobalContext'
 import { AdminRoute } from './components/AdminRoute';
 import { Cart3 } from './components/Cart3';
+import { Temp } from './components/Temp';
 
 //export const LoggedUserContext = React.createContext();
 
@@ -155,6 +156,8 @@ componentDidMount(){
           <Route path="/profile" component={props => <ProtectedRoute component={Profile2} {...props} />}/>
 
           <Route path="/orderpage/:id" component={ OrderPage } />
+          {/* <Route path="/orderpage" component={ Temp } /> */}
+
           
           {/* <Route path="/admin" component={AdminPage} /> */}
 

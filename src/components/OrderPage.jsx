@@ -10,7 +10,7 @@ export const OrderPage = (props) => {
 
     return(
         <div className="relative top-24 px-24 my-10 flex flex-col items-center justify-center">
-            <div className-="flex">
+            <div className-="flex flex-row">
                 {/* items: */}
                 <div>
                     <h1>Order Id: {order._id}</h1>

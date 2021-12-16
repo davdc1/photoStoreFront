@@ -42,7 +42,7 @@ export const NavBar2 = () => {
     return(
         <div>
             {searchRedirect && <Redirect to={`/catalog?search=${searchStr}`}/>}
-            <div  className="sm:flex hidden flex-row justify-between items-center mx-6">
+            <div  className="lg:flex hidden flex-row justify-between items-center mx-6">
                 <div>   
                     <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
                 </div>
@@ -79,7 +79,7 @@ export const NavBar2 = () => {
             </div>
 
                 {/* small navbar: */}
-            <div className="sm:hidden flex justify-between">
+            <div className="lg:hidden flex justify-between">
                 <div className="flex flex-col items-start justify-between mx-6">
                     {!showSmall && <div onClick={() => setShowSmall(!showSmall)}>
                         <p className="m-1 font-semibold text-4xl">MENU</p>

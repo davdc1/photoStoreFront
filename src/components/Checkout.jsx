@@ -70,7 +70,7 @@ class Checkout extends React.Component{
             <div className="relative top-24">
                 <span>Checkout</span>
                 <div className="flex flex-row-reverse justify-evenly mt-10">
-                    <div className="">
+                    <div className="hidden sm:inline-block">
                         <span>cart</span>
                         <div className="border border-1 mb-10">
                             <CheckoutCart
@@ -91,6 +91,7 @@ class Checkout extends React.Component{
                     </Switch>
                     </div>
                 </div>
+                <div className="h-10v"></div>
             </div>
         )
     }

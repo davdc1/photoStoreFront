@@ -23,7 +23,9 @@ module.exports = {
         'p1000': '1000px',
         'huge': '10000px',
         "10v": "10vw",
+        "15v": "15vw",
         "20v": "20vw",
+        "25v": "25vw",
         "30v": "30vw",
         "40v": "40vw",
         "50v": "50vw",
@@ -47,7 +49,9 @@ module.exports = {
         'huge': '10000px',
         'screen': '100vh',
         "10v": "10vh",
+        "15v": "15vh",
         "20v": "20vh",
+        "25v": "25vh",
         "30v": "30vh",
         "40v": "40vh",
         "50v": "50vh",
@@ -56,24 +60,30 @@ module.exports = {
         "80v": "80vh",
         "90v": "90vh",
         "95v": "95vh",
-        "100v": "100vh"
+        "100v": "100vh",
+        "10vw": "10vw",
+        "15vw": "15vw",
+        "20vw": "20vw",
+        "25vw": "25vw",
+        "30vw": "30vw",
+        "40vw": "40vw",
+        "50vw": "50vw",
+        "60vw": "60vw",
+        "70vw": "70vw",
+        "80vw": "80vw",
+        "90vw": "90vw",
+        "100vw": "100vw"
        },
        //was out of "extend":
        screens: {
          'sm': '640px',
-         // => @media (min-width: 640px) { ... }
-   
          'md': '768px',
-         // => @media (min-width: 768px) { ... }
-   
          'lg': '1024px',
-         // => @media (min-width: 1024px) { ... }
-   
          'xl': '1285px',
-         // => @media (min-width: 1280px) { ... }
-   
          '2xl': '1536px',
-         // => @media (min-width: 1536px) { ... }
+         '3xl': '2000',
+         '4xl': '2600',
+         '5xl': '3000',
        },
        minHeight: {
          '700':"700px"
@@ -84,9 +94,27 @@ module.exports = {
          '1/2': '50%',
          '3/4': '75%',
          'full': '100%',
-         '70vh': '70vh',
-         '80vh': '80vh',
-         '90vh': '90vh',
+         "10v": "10vh",
+        "20v": "20vh",
+        "30v": "30vh",
+        "40v": "40vh",
+        "50v": "50vh",
+        "60v": "60vh",
+        "70v": "70vh",
+        "80v": "80vh",
+        "90v": "90vh",
+        "95v": "95vh",
+        "100v": "100vh",
+        "10vw": "10vw",
+        "20vw": "20vw",
+        "30vw": "30vw",
+        "40vw": "40vw",
+        "50vw": "50vw",
+        "60vw": "60vw",
+        "70vw": "70vw",
+        "80vw": "80vw",
+        "90vw": "90vw",
+        "100vw": "100vw"
         },
        backgroundColor: theme => ({
          ...theme('colors'),

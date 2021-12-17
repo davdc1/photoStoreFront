@@ -4,6 +4,7 @@ import { User } from './contexts/UserContext'
 import { Global } from "./contexts/GlobalContext";
 import { EditProfile } from "./EditProfile";
 import { OrderCard } from "./OrderCard";
+import { Link } from "react-router-dom";
 
 export const Profile2 = (getUserByEmail) => {
     //const user = useContext(User).signedUser;
@@ -55,6 +56,7 @@ export const Profile2 = (getUserByEmail) => {
                 <div className="flex justify-center items-center my-16 ">
                     <div className="flex flex-col self-start justify-start items-start">
                         <p className="my-2 text-4xl" >{`Hello ${user.name.firstName} ${user.name.lastName}`}</p>
+                        <button>{user.authorization === "admin" && <Link to="/admin" >admin page</Link>}</button>
                     </div>
                     <div className="flex flex-col ml-10">
                         {!showEditProfile &&

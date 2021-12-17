@@ -56,7 +56,7 @@ export const Profile2 = (getUserByEmail) => {
                 <div className="flex justify-center items-center my-16 ">
                     <div className="flex flex-col self-start justify-start items-start">
                         <p className="my-2 text-4xl" >{`Hello ${user.name.firstName} ${user.name.lastName}`}</p>
-                        <button>{user.authorization === "admin" && <Link to="/admin" >admin page</Link>}</button>
+                        <button className="border-2 rounded border-purple-400 px-1.5 py-1">{user.authorization === "admin" && <Link to="/admin" >go to admin page</Link>}</button>
                     </div>
                     <div className="flex flex-col ml-10">
                         {!showEditProfile &&

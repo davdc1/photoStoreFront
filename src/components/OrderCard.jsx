@@ -12,7 +12,7 @@ export const OrderCard = ({order}) => {
                     {order.cart.length > 1 && <p className="font-semibold">and {order.cart.length - 1} more item(s)</p>}
                 </div>
                 <div className="mt-6 text-lg">
-                    total: {order.total}
+                    total: {order.total.toFixed(2)}
                 </div>
             </div>
         </Link>

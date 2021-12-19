@@ -60,8 +60,8 @@ export const OrderPage = (props) => {
                 <div className="self-center flex flex-col items-start">
                     <span>Sub-total: ${order.subTotal}</span>
                     <span>Shipping: ${order.shippingPrice}</span>
-                    <span>Tax collected: ${order.tax}</span>
-                    <span>Total: ${order.total}</span>
+                    <span>Tax collected: ${order.tax.toFixed(2)}</span>
+                    <span>Total: ${order.total.toFixed(2)}</span>
                 </div>
             </div>
             <div className="h-20v"></div>

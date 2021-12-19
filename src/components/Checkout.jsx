@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom';
-import Form1 from './Form1';
-import Form2 from './Form2';
-import Form3 from './Form3';
+import FormBilling from './FormBilling';
+import FormShipping from './FormShipping';
+import FormPayment from './FormPayment';
 import CreditCardDet from './CreditCardDet';
 import Paypal from './Paypal';
 import CheckoutCart from './CheckoutCart';
@@ -83,9 +83,9 @@ class Checkout extends React.Component{
                     </div>
                     <div className="flex flex-col items-center">
                     <Switch>
-                        <Route path="/checkout/form1" component={Form1} />
-                        <Route path="/checkout/form2" render={(props) => <Form2 setShipping={this.setShipping} total={this.state.total} saveFinalBill={this.saveFinalBill} {...props}/>} />
-                        <Route path="/checkout/form3" component={Form3} />
+                        <Route path="/checkout/form1" component={FormBilling} />
+                        <Route path="/checkout/form2" render={(props) => <FormShipping setShipping={this.setShipping} total={this.state.total} saveFinalBill={this.saveFinalBill} {...props}/>} />
+                        <Route path="/checkout/form3" component={FormPayment} />
                         <Route path="/checkout/CreditCardDet" component={CreditCardDet} />
                         <Route path="/checkout/Paypal" component={Paypal} />
                     </Switch>

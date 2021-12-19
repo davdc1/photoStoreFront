@@ -1,7 +1,6 @@
 import React from 'react'
-//import {  phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
 
-class Form1 extends React.Component{
+class FormBilling extends React.Component{
     constructor(props){
         super(props)
 
@@ -19,8 +18,6 @@ class Form1 extends React.Component{
             firstSubmit: false,
             fNameOk: false,
             lNameOk: false,
-            //phoneOk: false,
-            //emailOk: false,
             streetOk: false,
             buildingNumOk: false,
             cityOk: false,
@@ -143,7 +140,6 @@ class Form1 extends React.Component{
                     <span>* First name</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "fName")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {/* {this.state.firstSubmit && !this.state.fNameOk && <span>{this.state.messages.fName}</span>} */}
                         {this.state.firstSubmit && <span>{this.state.messages.fName}</span>}
                     </div>
                 </div>
@@ -151,7 +147,6 @@ class Form1 extends React.Component{
                     <span>* Last name</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "lName")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {/* {this.state.firstSubmit && !this.state.lNameOk && <span>{this.state.messages.lName}</span>} */}
                         {this.state.firstSubmit && <span>{this.state.messages.lName}</span>}
                     </div>
                 </div>
@@ -159,7 +154,6 @@ class Form1 extends React.Component{
                     <span>* Street</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "street")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                         {/* {this.state.firstSubmit && !this.state.streetOk && <span>{this.state.messages.street}</span>} */}
                          {this.state.firstSubmit && <span>{this.state.messages.street}</span>}
                     </div>
                 </div>
@@ -167,7 +161,6 @@ class Form1 extends React.Component{
                     <span>* building number</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "buildingNum")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {/* {this.state.firstSubmit && !this.state.buildingNumOk && <span>{this.state.messages.buildingNum}</span>} */}
                         {this.state.firstSubmit && <span>{this.state.messages.buildingNum}</span>}
                     </div>
                 </div>
@@ -175,7 +168,6 @@ class Form1 extends React.Component{
                     <span>* City</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "city")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {/* {this.state.firstSubmit && !this.state.cityOk && <span>{this.state.messages.city}</span>} */}
                         {this.state.firstSubmit && <span>{this.state.messages.city}</span>}
                     </div>
                 </div>
@@ -183,21 +175,18 @@ class Form1 extends React.Component{
                     <span>* Country</span>
                     <div className="flex flex-col">
                         <input onChange={(e) => this.checkField(e, "country")} className="border border-1 rounded my-2" type="text" placeholder="" />
-                        {/* {this.state.firstSubmit && !this.state.countryOk && <span>{this.state.messages.country}</span>} */}
                         {this.state.firstSubmit && <span>{this.state.messages.country}</span>}
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Phone</span>
                     <div className="flex flex-col">
-                        {/* {!this.state.phoneOk && <span>enter a valid phone number</span>} */}
                         <input onChange={this.checkPhone} className="border border-1 rounded my-2" type="text" placeholder="" />
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between">
                     <span>Email</span>
                     <div className="flex flex-col">
-                        {/* {!this.state.emailOk && <span>enter a valid Email address</span>} */}
                         <input onChange={this.checkEmail} className="border border-1 rounded my-2" type="text" placeholder="" />
                     </div>
                 </div>
@@ -213,4 +202,4 @@ class Form1 extends React.Component{
     }
 }
 
-export default Form1
+export default FormBilling

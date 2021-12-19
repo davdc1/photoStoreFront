@@ -22,7 +22,6 @@ class ProdPage extends React.Component{
     async getProduct(){
         try{
             let {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products/${this.props.match.params.id}`);
-            console.log("fetched product:", data);
             this.setState({
                 error:false,
                 loading: false,

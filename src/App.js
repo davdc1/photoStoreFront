@@ -18,7 +18,7 @@ import BlogPost from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { OrderPage } from './components/OrderPage';
 import { AdminPage } from './components/Admin/AdminPage'
-import { Profile2 } from './components/Profile2';
+import { Profile } from './components/Profile';
 import GlobalContextProvider from './components/contexts/GlobalContext'
 import { AdminRoute } from './components/AdminRoute';
 import { Cart } from './components/Cart'
@@ -66,7 +66,7 @@ class App extends React.Component{
 
           <Route path="/Checkout" component={props => <ProtectedRoute component={Checkout} {...props} />} />
 
-          <Route path="/profile" component={props => <ProtectedRoute component={Profile2} {...props} />}/>
+          <Route path="/profile" component={props => <ProtectedRoute component={Profile} {...props} />}/>
 
           <Route path="/orderpage/:id" component={ OrderPage } />
 

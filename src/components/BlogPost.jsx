@@ -20,8 +20,6 @@ class BlogPost extends React.Component{
 
     componentDidMount(){
         this.fetchComments();
-        // this.setState({loggedUser: this.context.signedUser})
-        // console.log("post at blogpost:", this.state.post)
     }
 
     async fetchComments(){
@@ -30,66 +28,26 @@ class BlogPost extends React.Component{
             this.setState({comments: data, loadingComments: false});
         }
         catch(err){
-            console.log("fetchComments error:", err.response.data.message);
-        }
-    }
-
-
-    getPostComments(){
-        let allComments = localStorage.getItem("allPostComments")?JSON.parse(localStorage.getItem("allPostComments")):[];
-        console.log("all:", allComments);
-        for(let i = 0; i < allComments.length; i++){
-            if(allComments[i].postId === this.state.postId){
-                this.setState({comments: allComments[i].comments})
-                break;
-            }
         }
     }
 
     submitComment = (e) => {
         e.preventDefault();
-        // console.log("form:", e.target[0].value, e.target[1].value);
         let comment = {
-            //commentId: 0,
             title: e.target[1].value,
             content: e.target[2].value,
             userId: this.context.signedUser._id,
             date: new Date().toDateString(),
             postId: this.state.postId,
         }
-        console.log("comment:", comment);
-        console.log("userid at comment:", this.context.signedUser._id);
       
         this.postComment(comment);
     }
 
     async postComment(comment){
-        axios.post(`${process.env.REACT_APP_API_URL}/comments`, comment).then((res)=>{
-            // console.log("post res:", res.data);
-        })
-        .catch((err) => {console.log("postError:", err.response.data)})
-        // console.log("posted?");
+        axios.post(`${process.env.REACT_APP_API_URL}/comments`, comment).then(() => this.fetchComments())
+        .catch()
     }
-
-    pushToLocalStorage(comment){
-        let allComments = localStorage.getItem("allPostComments")?JSON.parse(localStorage.getItem("allPostComments")):[];
-        let notFound = true;
-        for(let i = 0; i < allComments.length; i++){
-            if(allComments[i].postId === this.state.postId){
-                allComments[i].comments.push(comment);
-                this.setState({comments: allComments[i].comments})
-                notFound = false;
-                break;
-            }
-        }
-        if(notFound){
-            allComments.push({postId: this.state.postId, comments: [comment]});
-            this.setState({comments: [comment]});
-        }
-
-        localStorage.setItem("allPostComments", JSON.stringify(allComments));
-    }
-
 
     render(){
         return(
@@ -119,7 +77,7 @@ class BlogPost extends React.Component{
                     {!this.context.signedUser && <p><Link to="/signUp">Sign in</Link> to comment</p>}
                     {this.state.comments.length === 0 && <p>no comments</p>}
                     {this.state.comments.map((comment, index)=>{
-                        console.log("comment at blogpost", comment);
+                        
                         return (
                         <div className="flex flex-col items-start xl:mx-72 border-b-2 my-3 pb-3 px-3" key={index.toString()}>
                             <p className="font-semibold">{comment.title}</p>

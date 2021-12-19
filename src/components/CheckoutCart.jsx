@@ -1,24 +1,13 @@
 import { Link } from 'react-router-dom'
 
 function ChckoutCart({shippingPrice, taxRate, total, items}){
-    // let taxRate = 0.17;
-    // let items = localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-    // let total = 0;
-
-    // if(items){
-    //     for(let i = 0; i < items.length; i++){
-    //         total += (parseInt(items[i].price) * items[i].quantity);
-    //     }
-    // }
 
     return(
         <div className="">
             <div className="h-96 overflow-x-scroll">
                 {items.map((item, index)=>{
                     if(item.quantity){
-                        console.log("itemImage:", item.imageName);
                         return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
-                                    {/* <Link to={{pathname:`/prodpage/${item.id}`}}><img src={item.image} alt="product image" className="h-20 mx-3" /></Link> */}
                                     <Link to={{pathname:`/prodpage/${item.productId}`}}>
                                         <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="productImage" className="h-20 mx-3" />
                                     </Link>

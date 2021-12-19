@@ -2,7 +2,7 @@ import React from "react"
 import {Link} from "react-router-dom"
 import { Global } from './contexts/GlobalContext'
 
-class CatCard3 extends React.Component{
+class CatCard extends React.Component{
     
     static contextType = Global;
     
@@ -93,4 +93,4 @@ class CatCard3 extends React.Component{
 let catBtn = "mx-2 px-2 pb-1 sm:h-8 bg-turq2 rounded sm:font-medium font-lg text-gray-200"
 
 
-export default CatCard3
+export default CatCard

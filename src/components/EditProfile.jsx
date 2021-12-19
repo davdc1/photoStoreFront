@@ -20,8 +20,6 @@ export const EditProfile = ({setShow}) => {
                 phone: e.target[2].value
             }
 
-            console.log("_id:", user.signedUser._id);
-
             await axios.put(`${process.env.REACT_APP_API_URL}/users/${user.signedUser._id}`, det)
             .then((res) => {
                 user.setSignedUser(res.data);

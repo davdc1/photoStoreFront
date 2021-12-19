@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import MyMapComponent from './GoogleMap'
-
+// import MyMapComponent from './GoogleMap'
 
 class ContactUs extends React.Component{
     

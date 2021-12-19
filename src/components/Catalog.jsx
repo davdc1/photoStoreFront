@@ -1,5 +1,4 @@
 import React from "react"
-import CatCard2 from "./CatCard2";
 import QuickView from "./QuickView";
 import ItemAdded from "./ItemAdded";
 import axios from 'axios'
@@ -51,7 +50,6 @@ class Catalog extends React.Component{
 
     async fetchProducts(){
         const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products`)
-        console.log(data);
         this.setState({
             prodArray: data,
             loading: false
@@ -79,20 +77,6 @@ class Catalog extends React.Component{
             });
         }
     }
-
-    //read about this function:
-
-    // componentWillReceiveProps(prevProps){
-    //     if(prevProps.location.search !== this.props.location.search){
-    //         console.log("prop change true");
-            
-    //         let params = this.parseQuery();
-
-    //         this.setState({          
-    //             searchStr: params.q
-    //         }, console.log("state after didMount: ", this.state.searchStr));
-    //     }
-    // }
     
     showQuick = (product) => {
         this.setState({
@@ -102,7 +86,6 @@ class Catalog extends React.Component{
     }
     
     showAdded = (product, chosenProdProps) => {
-        console.log("show addd", this.state.added);
         this.setState({
             added: !this.state.added,
             addedProduct: product,
@@ -174,7 +157,6 @@ class Catalog extends React.Component{
             }
         }
         //try changing the return to true/false. then conditionally render: {this.filter2() && <CatCard...>}
-        console.log("card product:", product);
         return (
             <CatCard3
                 product={product}

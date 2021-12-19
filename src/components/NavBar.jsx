@@ -1,138 +1,122 @@
-
+import { useContext, useState } from "react";
+import { Global } from "./contexts/GlobalContext";
+import CartPrev from "./CartPrev";
+import { Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import CartPrev from './CartPrev'
-import { User } from './contexts/UserContext'
 
-class NavBar extends React.Component{
-    
-    static contextType = User;
+export const NavBar = () => {
 
-    constructor(props){
-        super(props)
-        this.str = "";
-        this.prevContext = this.context;
-        this.state = {
-            searchStr: "",
-            searchRedirect: false,
+    const globalState = useContext(Global);
 
-            //inCart: this.props.inCart,
-            //inCartNum: this.props.inCartNum,
+    const [searchStr, setSearchStr] = useState("");
+    const [searchRedirect, setSearchRedirect] = useState(false)
+    const [noMatch, setNoMatch] = useState(false);
+    const [toggle, setToggle] = useState(false);
+    const [showPrev, setShowPrev] = useState(false);
+    const [showSmall, setShowSmall] = useState(false);
 
-            //inCart: this.context.signedUser ? this.context.signedUser.cart : [],
-
-            noMatch: false,
-            toggle: false,
-            showPrev: false
-        }
-    }
-
-
-    componentDidUpdate(prevProps){
-        // if(prevProps.inCartNum !== this.props.inCartNum || prevProps.inCart !== this.props.inCart){
-        //     this.setState({inCartNum: this.props.inCartNum, inCart: this.props.inCart})
-        // }
-
-        // if(this.prevContext.signedUser !== this.context.signedUser){
-        //     this.setState({inCart: this.context.signedUser.cart})
-        // }
-    }
-
-    showCartPrev = () => {
-        this.setState({showPrev: !this.state.showPrev})
-    }
-
-    search = (e) => {
-        this.setState({noMatch: false})
+    const search = (e) => {
         e.preventDefault();
-        console.log("searchStr: ", e.target[0].value);
-        
-        //validation. propTypes?
+        setNoMatch(false);
         
         if(e.target[0].value !== ""){
-            this.setState({searchRedirect: true, searchStr: e.target[0].value, toggle: !this.state.toggle})
+            setSearchStr(e.target[0].value);
+            setSearchRedirect(true);
+            setToggle(!toggle);
         }else{
-            this.setState({noMatch: true})
+            setNoMatch(true)
         }
     }
 
-    render(){
-        console.log("this.context:", this.context);
-        return (
-            <div>
-                <div  className="sm:flex hidden flex-row justify-between items-center mx-6">
-                    {this.state.searchRedirect && <Redirect to={`/catalog?q=${this.state.searchStr}`}/>}
-                    <div>   
-                        <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
-                    </div>
-                    <div className="flex items-center">
-                        <div className="mx-2">
-                            <button className={catBtn}><Link to="/">Home</Link></button>
-                            <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
-                            <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
-                            <button className={catBtn}><Link to="/blog">Blog</Link></button>
-                            <button className={catBtn}><Link to="/about">About</Link></button>
-                        </div>
-                        <div className="flex flex-col">
-                            <form onSubmit={this.search} action="">
-                                <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
-                                <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
-                            </form>
-                            {this.state.noMatch && <span className="text-black">enter a valid term</span>}
-                        </div>
-                    </div>
-                    <div className="flex items-center">
-                        <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
-                        <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
-                        <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
-                            {this.state.inCartNum > 0 &&
-                            <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
-                                <span>{this.state.inCartNum}</span>
-                            </div>}
-                            <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
-                        </div>
-                    </div>
-                            {this.state.showPrev && <CartPrev items={this.state.inCart} />}
-                </div>
-                <div className="absolute top-0 sm:hidden flex flex-col justify-between items-center mx-6">
-                <div>   
-                        <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
-                    </div>
-                    <div className="flex flex-col items-center">
-                    <div className="flex flex-col items-center">
-                        <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>
-                        <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
-                        <div onMouseEnter={()=>{this.showCartPrev();console.log("mouseEnter");}} onMouseLeave={this.showCartPrev}>
-                            {this.state.inCartNum > 0 && <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
-                                <span>{this.state.inCartNum}</span>
-                            </div>}
-                            <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
-                        </div>
-                    </div>
-                        <div className="mx-2 flex flex-col">
-                            <button className={catBtn}><Link to="/">Home</Link></button>
-                            <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
-                            <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
-                            <button className={catBtn}><Link to="/about">About</Link></button>
-                        </div>
-                        <div className="flex flex-col">
-                            <form onSubmit={this.search} action="">
-                                <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
-                                <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
-                            </form>
-                            {this.state.noMatch && <span className="text-black">enter a valid term</span>}
-                        </div>
-                    </div>
-                            {this.state.showPrev && <CartPrev items={this.state.inCart} />}
-                </div>
-            </div>
-        )
+    const showCartPrev = () => {
+        setShowPrev(!showPrev);
     }
+
+    return(
+        <div>
+            {searchRedirect && <Redirect to={`/catalog?search=${searchStr}`}/>}
+            <div  className="lg:flex hidden flex-row justify-between items-center mx-6">
+                <div>   
+                    <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
+                </div>
+                <div className="flex items-center">
+                    <div className="mx-2">
+                        <button className={catBtn}><Link to="/">Home</Link></button>
+                        <button className={catBtn}><Link to="/gallery">Gallery</Link></button>
+                        <button className={catBtn}><Link to="/catalog">Catalog</Link></button>
+                        <button className={catBtn}><Link to="/blog">Blog</Link></button>
+                        <button className={catBtn}><Link to="/about">About</Link></button>
+                     </div>
+                     <div className="flex flex-col">
+                        <form onSubmit={search} action="">
+                            <input className="border border-light border-2 p-0.5 rounded rounded-r-none" type="text" placeholder=""></input>
+                            <button className="border border-turq border-2 p-0.5 rounded rounded-l-none bg-light"> search</button>
+                        </form>
+                        {noMatch && <span className="text-black">enter a valid term</span>}
+                     </div>
+                 </div>
+                <div className="flex items-center">
+                    {globalState.signedUser && <span>{`Hello ${globalState.signedUser.name.firstName}`}</span>}
+                    {globalState.signedUser && <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">Change user</Link></button>}
+                    {!globalState.signedUser && <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>}
+                    <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
+                    <div onMouseEnter={()=>{showCartPrev();}} onMouseLeave={showCartPrev}>
+                        {globalState.inCartNum > 0 &&
+                        <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
+                            <span>{globalState.inCartNum}</span>
+                        </div>}
+                        <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                    </div>
+                </div>
+                 {showPrev && <CartPrev />}
+            </div>
+
+                {/* small navbar: */}
+            <div className="lg:hidden flex justify-between">
+                <div className="flex flex-col items-start justify-between mx-6">
+                    {!showSmall && <div onClick={() => setShowSmall(!showSmall)}>
+                        <p className="m-1 font-semibold text-4xl">MENU</p>
+                    </div>}
+                    {showSmall &&
+                    <p onClick={() => setShowSmall(!showSmall)}>
+                         X close
+                    </p>}
+                    {showSmall && <div>
+                        <div className="flex flex-col items-start">
+                        <div className="flex flex-col items-start">
+                            <button className="mx-2 px-2"><Link to="/signUp">sign in</Link></button>
+                            <button className="mx-2 px-2"><Link to="/profile">profile</Link></button>
+                        </div>
+                        <div className="mx-2 flex flex-col items-start">
+                            <button className={smallCatBtn}><Link to="/">Home</Link></button>
+                            <button className={smallCatBtn}><Link to="/gallery">Gallery</Link></button>
+                            <button className={smallCatBtn}><Link to="/catalog">Catalog</Link></button>
+                            <button className={smallCatBtn}><Link to="/blog">Blog</Link></button>
+                            <button className={smallCatBtn}><Link to="/about">About</Link></button>
+                        </div>
+                        <div className="flex flex-col items-start">
+                            <form onSubmit={search} action="">
+                                <button>search</button>
+                                <input className="ml-2 p-0.5 bg-transparent border-b-2" type="text"></input>
+                            </form>
+                            {noMatch && <span className="text-black">enter a valid term</span>}
+                        </div>
+                        </div>
+                    </div>}
+                </div>
+                {
+                <div className="mr-4">
+                    {globalState.inCartNum > 0 &&
+                    <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">
+                        <span>{globalState.inCartNum}</span>
+                    </div>}
+                    <button className="mx-2 text-lg"><Link to="/cart"><FontAwesomeIcon icon={faShoppingCart}/></Link></button>
+                </div>}
+            </div>
+        </div>
+   )
 }
 
 let catBtn = "mx-2 px-2 pb-1 h-8 bg-turq2 border-solid rounded"
-
-
-export default NavBar
+let smallCatBtn = "mx-2 my-2 h-8 text-turq"

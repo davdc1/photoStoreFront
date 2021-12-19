@@ -2,7 +2,7 @@ import React from "react"
 import QuickView from "./QuickView";
 import ItemAdded from "./ItemAdded";
 import axios from 'axios'
-import CatCard3 from "./CatCard3";
+import CatCard from "./CatCard";
 import { ProductCardSkeleton } from './skeletons/ProductCardSkeleton'
 
 
@@ -25,7 +25,6 @@ class Catalog2 extends React.Component{
     }
 
     getUrlFilters(){
-        console.log("parse query:", this.parseQuery());
         let query = this.parseQuery().q;
         
         return query ? [{
@@ -39,7 +38,6 @@ class Catalog2 extends React.Component{
             if(this.props.location.state.notFromSearch === true)
                 return "";
         }
-        console.log("search:", this.parseQuery().search || "");
         return this.parseQuery().search || "";
     }
     
@@ -51,8 +49,7 @@ class Catalog2 extends React.Component{
     }
 
     fetchProducts = async () => {
-        this.setState({loading: true})
-        console.log("url at catalog:", `${process.env.REACT_APP_API_URL}/products/${this.createQueryString() || ""}`);
+        this.setState({loading: true});
         const {data} = await axios.get(`${process.env.REACT_APP_API_URL}/products/${this.createQueryString()}`)
         this.setState({
             prodArray: data,
@@ -136,7 +133,7 @@ class Catalog2 extends React.Component{
             <div className="relative top-24">
                 <div>
                     <div className="my-2 flex flex-col sm:flex-row justify-center">
-                        <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/>
+                        {/* <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/> */}
                         <select className="sm:mx-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sort}>
                             <option value="" defaultValue>Sort by:</option>
                             <option value="price%201">price: Low to High</option>
@@ -195,7 +192,7 @@ class Catalog2 extends React.Component{
                             {this.state.loading && [1, 2, 3, 4].map((item) => {return <ProductCardSkeleton key={item.toString()} />})}                        
                             {!this.state.loading && this.state.prodArray.length > 0 && this.state.prodArray.map((product, index) => {
                                 return (
-                                        <CatCard3
+                                        <CatCard
                                             product={product}
                                             key={index}
                                             showAdded={this.showAdded}

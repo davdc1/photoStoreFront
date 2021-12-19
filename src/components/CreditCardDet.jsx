@@ -34,7 +34,6 @@ class CreditCardDet extends React.Component{
 
     
     componentDidMount(){
-        console.log("at crditcardpage: context user:", this.context.signedUser);
         this.setState({signedUser: this.context.signedUser})
     }
 
@@ -89,6 +88,7 @@ class CreditCardDet extends React.Component{
         this.setState({firstSubmit: true});
 
         if(this.validateAll()){
+            //not used in development:
             let det = {
                 cardNumber: e.target[0].value,
                 nameOnCard: e.target[1].value,
@@ -124,30 +124,17 @@ class CreditCardDet extends React.Component{
             cart: this.context.cart
         }
 
-        // axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)
-        // .then((res)=>{
-        //     axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, {"cart": []})
-        //     .then((res) => {
-        //         console.log("res at there", res);
-        //         this.context.setSignedUser(res.data)
-        //         localStorage.setItem('cartItems', []);
-        //         //this.context.getUserByEmail(this.context.signedUser.email)
-        // });
-        // });
 
         axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)
         .then((res)=>{
-            console.log("res at there", res);
             this.context.setSignedUser(res.data)
             localStorage.setItem('cartItems', []);
-            //this.context.getUserByEmail(this.context.signedUser.email)
         });
     }
 
     async sendPaymentDet(det){
         try{
             axios.post(`${process.env.REACT_APP_API_URL}/payment`, det);
-
         }
         catch(err){
 

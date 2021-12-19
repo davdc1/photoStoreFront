@@ -2,15 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import LargeImage from "./LargeImage";
 
-const imgs = [
-    "2.jpg",
-    "bridge.jpg",
-    "city.jpg",
-    "IMG_4547.jpg",
-    "dwntwn.jpg"
-]
-
-
 function Gallery(){
     const [galleryImages, setGalleryImages] = useState([]);
     const [error, setError] = useState(false);
@@ -24,7 +15,6 @@ function Gallery(){
         try {
             await axios.get(`${process.env.REACT_APP_API_URL}/galleryImages`)
             .then((res) => {
-                console.log("gallery res:", res);
                 setGalleryImages(res.data);
                 setLoading(false)
             })
@@ -38,7 +28,6 @@ function Gallery(){
     useEffect(getGalleryImages, []);
 
     let showLarge = (img) => {
-        console.log("img:", img);
         setLargeImg(img);
         setShow(!show);
     }
@@ -57,7 +46,6 @@ function Gallery(){
                 {error && <p>an error ocoured. can't load images.</p>}
                 {loading && [1, 2, 3, 4, 5, 6].map((item, index) => {
                     return <div key={index.toString()} className="flex justify-center items-center shadow-2xl sm:h-96"><p>loading image</p></div>
-                    //<GalleryImageSkeleton />
                 })}
             </div>
         </div>

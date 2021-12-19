@@ -7,7 +7,6 @@ function QuickView({show, showQuick, product}){
     if(show === false){
         return null
     }
-    console.log("quick img:", product.imageName);
     return (
         <div className="flex justify-center items-center w-screen h-screen z-10 fixed top-0 bg-gray-500 bg-opacity-60">
             <div className=" flex flex-col justify-between items-center border border-1 rounded bg-white h-p500 w-p600 p-12 pt-6 my-auto">

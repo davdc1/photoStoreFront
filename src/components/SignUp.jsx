@@ -10,7 +10,6 @@ class SignUp extends React.Component{
 
     constructor(props){
         super(props)
-        console.log("props at signup:", props);
         this.state = {
             redirect: false,
             redirectTo: props.location.state ? props.location.state.from : null
@@ -20,9 +19,8 @@ class SignUp extends React.Component{
     /*CHECK: remove any unneccessary props*/
 
     redirect = () => {
-        console.log("at redirect");
         if(this.state.redirectTo){
-            this.setState({redirect: true}, () => {console.log("rdirect2", this.state.redirect)});
+            this.setState({redirect: true});
         }else{
             this.props.history.goBack();
         }
@@ -64,14 +62,12 @@ class SignUp extends React.Component{
     }
 
     onLogin = async (user) => {
-        console.log("onLogin:", user.user.email);
         await this.context.getUserByEmail(user.user.email)
         this.redirect();
     }
 
 
     render(){
-        console.log("at sigup:", this.context);
         return(
             <div className="relative top-24 my-8">
                 {this.state.redirect && this.state.redirectTo !== "" && <Redirect to={this.state.redirectTo}/>}

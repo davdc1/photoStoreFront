@@ -1,8 +1,6 @@
 import React from 'react'
-//import { fNameVal, phoneVal, emailVal, cityVal, postCodeVal, countryVal, streetVal, buildingNumVal } from '../functions/validation'
-//import { Link } from 'react-router-dom'
 
-class Form2 extends React.Component{
+class FormShipping extends React.Component{
     constructor(props){
         super(props)
         
@@ -174,10 +172,7 @@ class Form2 extends React.Component{
                         {this.state.firstSubmit && this.state.messages.buildingNum}
                     </div>
                 </div>
-                {/* <div className="self-stretch flex justify-between">
-                    <span></span>
-                    <input className="border border-1 rounded my-2" type="text" placeholder="" />
-                </div> */}
+                
                 <div className="self-stretch flex justify-between">
                     <span>* Post code</span>
                     <div className="flex flex-col">
@@ -195,7 +190,6 @@ class Form2 extends React.Component{
                 <div className="self-stretch flex justify-between">
                     <span>State/Province</span>
                     <div className="flex flex-col">
-                        {/* <input onChange={(e) => this.checkField(e, "state")}  className="border border-1 rounded my-2" type="text" placeholder="" /> */}
                         <input className="border border-1 rounded my-2" type="text" placeholder="" />
                         
                     </div>
@@ -241,4 +235,4 @@ class Form2 extends React.Component{
     }
 }
 
-export default Form2
+export default FormShipping

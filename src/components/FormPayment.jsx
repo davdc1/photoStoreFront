@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-class Form3 extends React.Component{
+class FormPayment extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -20,8 +20,6 @@ class Form3 extends React.Component{
                     <Link to="/checkout/paypal">
                         <button className="border border-1 border-turq rounded px-2 py-1 mx-4 my-4">paypal</button>
                     </Link>
-                   
-                    
                 </div>
                 <div className="h-10v"></div>
             </div> 
@@ -29,4 +27,4 @@ class Form3 extends React.Component{
     }
 }
 
-export default Form3
+export default FormPayment

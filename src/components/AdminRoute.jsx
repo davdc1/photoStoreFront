@@ -10,11 +10,9 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-          console.log("at protected: isAuth:", auth.isAuthenticated());
         if (auth.isAuthenticated() && context.authorization === 'admin'){
           return <Component {...props} />;
         } else {
-            console.log("from:from:", props.location);
           return (
             <Redirect
               to={{

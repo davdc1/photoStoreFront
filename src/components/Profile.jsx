@@ -1,57 +1,76 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import auth from '../firebase/firebase'
+import axios from "axios";
+import { useContext, useState } from "react"
+import { Global } from "./contexts/GlobalContext";
+import { EditProfile } from "./EditProfile";
+import { OrderCard } from "./OrderCard";
+import { Link } from "react-router-dom";
 
-import users from "./stuff/users.json"
+export const Profile = () => {
+    const user = useContext(Global).signedUser;
+    
+    const [showOrders, setShowOrders] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [ordersLoading, setOrdersLoading] = useState(true);
+    const [showEditProfile, setEditProfile] = useState(false);
+    
 
-import { LoggedUserContext } from '../App';
-
-
-class Profile extends React.Component{
-    constructor(props){
-        super(props)
-        console.log("props at profile:", props);
-        this.state = {
-            user: users[0]
-        }
+    let getOrders = async () => {
+        let {data} = await axios.get(`${process.env.REACT_APP_API_URL}/orders/user/${user._id}`);
+        setOrders(data);
+        setOrdersLoading(false);
     }
     
-    //static contextType = LoggedUserContext
 
-    componentDidMount(){
-        console.log("user:", auth.auth().currentUser);
-        console.log("this.context:", this.context);
-    }
-
-    render(){
-        return (
-            <LoggedUserContext.Consumer>
-            {(loggedUser) => {console.log('logged', loggedUser); return(<div>
-                <span>user profile</span>
-                {/* <div>
-                    <span>userName: {this.props.userLogged.userName}</span>
-                    {this.props.userLogged.logged && <span>you're logged in</span>}
-                </div> */}
-                <p>user name:</p>
-                <p>name: {this.state.user.name.firstName} {this.state.user.name.lastName}</p>
-                <div>
-                    <p>email: {this.state.user.email}</p>
-                    <p>phone: {this.state.user.phone}</p>
-                </div>
-                <div>
-                    <p>Address:</p>
-                    {Object.keys(this.state.user.addresses[0]).map((key, index) => {
-                        return <p key={index.toString()}>{key}: {this.state.user.addresses[0][key]}</p>
-                    })}
-                </div>
-                <p>
-                    <button className="mx-8" >my orders</button>
-                    {this.state.user.authorization === "admin" && <Link to="/admin" >admin page</Link>}
-                </p>
-            </div>)}}
-            </LoggedUserContext.Consumer>
+    if(!user){
+        return(
+        <div className="relative top-24">
+            <p>error</p>
+            <div className="h-10v"></div>
+        </div>
         )
     }
-}
 
-export default Profile
+    return(
+        <div className="relative top-24">
+                <div className="flex justify-center items-center my-16 ">
+                    <div className="flex flex-col self-start justify-start items-start">
+                        <p className="my-2 text-4xl" >{`Hello ${user.name.firstName} ${user.name.lastName}`}</p>
+                        <button className="border-2 rounded border-purple-400 px-1.5 py-1">{user.authorization === "admin" && <Link to="/admin" >go to admin page</Link>}</button>
+                    </div>
+                    <div className="flex flex-col ml-10">
+                        {!showEditProfile &&
+                        <p className="flex flex-col items-start">
+                            <span>Your information:</span>
+                            <span>{`Name: ${user.name.firstName} ${user.name.lastName}`}</span>
+                            <span>{`Email: ${user.email}`}</span>
+                            <span>{`Phone: ${user.phone}`}</span>
+                            <button onClick={() => setEditProfile(!showEditProfile)} className="border rounded px-1 mt-2">Edit</button>
+                        </p>}
+                        {showEditProfile && <EditProfile setShow={() => setEditProfile(!showEditProfile)} />}
+                        <div className="flex flex-col items-start mt-10">
+                            <button onClick={() => {getOrders(); setShowOrders(!showOrders)}} className="border rounded border-turq px-1.5 py-1" >
+                                Click to see your orders
+                            </button>
+                            {showOrders && <div>
+                                {!ordersLoading &&
+                                    <div>
+                                        <button onClick={() => setShowOrders(!showOrders)}>see less</button>
+                                        {orders.map((order, index) => {
+                                            return <OrderCard key={index.toString()} order={order}/>
+                                            })}
+                                    </div>
+                                }
+                                {
+                                    ordersLoading &&
+                                    <div>
+                                        Loading
+                                    </div>
+                                }
+                            </div>}
+                        </div>
+                    </div>
+                </div>
+            <div className="h-10v"></div>
+        </div>
+    )
+}

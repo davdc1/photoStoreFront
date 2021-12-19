@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useContext, useState } from "react"
-import { User } from './contexts/UserContext'
+import { Global } from './contexts/GlobalContext'
 
 
 export const EditProfile = ({setShow}) => {
     
-    const user = useContext(User)
-    console.log("user at EditProfile:", user);
+    const user = useContext(Global);
+    const [error, setError] = useState(false)
 
     const editProfile = async (e) => {
         e.preventDefault();
+        setError(false);
         if(e.target[0].value && e.target[1].value && e.target[2].value){
             let det = {
                 name: {
@@ -19,12 +20,14 @@ export const EditProfile = ({setShow}) => {
                 phone: e.target[2].value
             }
 
+            console.log("_id:", user.signedUser._id);
+
             await axios.put(`${process.env.REACT_APP_API_URL}/users/${user.signedUser._id}`, det)
             .then((res) => {
                 user.setSignedUser(res.data);
                 setShow();
             })
-            .catch((error) => {console.log("error at edit profile");})
+            .catch((error) => {setError(true)})
         }
     }
 
@@ -47,6 +50,7 @@ export const EditProfile = ({setShow}) => {
                 <button className="border rounded px-1 mt-2" onClick={(e) => {e.preventDefault(); setShow()}}>Close & Discard changes</button>
                 <button className="ml-2 border rounded px-1 mt-2" >Save changes</button>
             </form>
+            {error && <p>error: update failed</p>}
         </div>
     )
 }

@@ -22,10 +22,6 @@ function QuickView({show, showQuick, product}){
                             <p className="text-left my-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam similique Voluptatibus necessitatibus, perspiciatis quibusdam  sapien.</p>
                             <hr />
                             <span className="my-3">rank: {product.rank}</span>
-                            <div className="flex items-center justify-around">
-                                <button className="rounded border-2 border-turq py-0.5 px-1 ">Add to cart</button>
-                                <span className="mx-3 font-medium text-xl">${product.price}</span>
-                            </div>
                         </div>
                 </div>
             </div>

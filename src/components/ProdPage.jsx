@@ -118,9 +118,9 @@ class ProdPage extends React.Component{
             <div className="text-gray-600 relative top-24">
                 <LargeImage  imageName={this.state.product.imageName} largeImage={this.state.largeImage} showLarge={this.showLarge} />
                 {this.state.added && <ItemAdded product={this.state.product} chosenProdProps={this.state} show={this.state.added} showAdded={this.showAdded} />}
-                <div className="h-600 flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 md:flex-row md:p-14">
+                <div className="flex flex-col justify-center items-center mt-20 mb-32 mx-auto w-10/12 p-4 border-2 rounded md:flex-row md:p-14">
                     <div className="mx-3 flex-1 flex flex-row justify-center">
-                        <img onClick={this.showLarge} className="max-h-70vh shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.state.product.imageName} alt="productImage" />
+                        <img onClick={this.showLarge} className="max-h-70v shadow-2xl cursor-pointer" src={"http://127.0.0.1:5000/images/largeProdImgs/" + this.state.product.imageName} alt="productImage" />
                     </div>
                     <div className="flex flex-col flex-1 mx-auto">
                         <div className="flex flex-col  mx-3 text-left">
@@ -133,7 +133,7 @@ class ProdPage extends React.Component{
                             <div className="my-4"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.  perspiciatis architecto odio, reprehenderit amet maiores aliquid alias mollitia eum similique</p></div>
                             <hr />
                         </div>
-                        <div className=" h-24  mx-3 my-4">   
+                        <div className="h-24  mx-3 my-4">   
                             <div className="mb-4 flex flex-row items-center">
                                 <span className="mr-3">Print size</span>
                                 <select className="mr-3 p-0.5 border-2 rounded" onChange={this.setPrice}>

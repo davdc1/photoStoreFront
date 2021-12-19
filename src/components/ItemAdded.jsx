@@ -17,7 +17,7 @@ function ItemAdded({show, showAdded, product, chosenProdProps}){
                     </div>
                     <div className="flex justify-evenly items-center w-full my-4">
                         <div>
-                            <img className="w-16" src={product.imageStr} alt="" />
+                            <img className="w-16" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${product.imageName}`} alt="" />
                         </div>
                         <div className="flex flex-col">
                             <span>{product.prodName}</span>

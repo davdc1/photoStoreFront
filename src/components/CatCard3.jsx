@@ -75,15 +75,14 @@ class CatCard3 extends React.Component{
                                 <div className="mb-4 sm:mb-0 flex flex-row justify-start items-center">
                                     <button onClick={()=>{
                                         this.addToCartAtGlobalContext();
-                                        //this.props.updateCartPrev();
-                                        //this.props.showAdded(this.product, this.state)
+                                        this.props.showAdded(this.product, this.state)
                                         }} className={catBtn}>
                                             Add to basket
                                     </button>
                                     <input onChange={this.getQuant} className="border-2 w-10 h-8 rounded pl-1 mr-4 sm:mr-0" type="number" min="1" value={this.state.quant} name="" id="" />
                                 </div>
                             </div>
-                            <button className="hidden sm:inline" onClick={() => this.props.showQuick(this.product)}>Quick view</button>
+                            <button className="hidden sm:inline border border-1 rounded px-1 py-0.5 text-red-500" onClick={() => this.props.showQuick(this.product)}>Quick view</button>
                         </div>
                     </div>
             </div>

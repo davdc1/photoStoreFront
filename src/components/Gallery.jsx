@@ -50,7 +50,7 @@ function Gallery(){
                 {!error && !loading && galleryImages.map((img, index) => {
                     return (
                         <div key={index.toString()}>
-                            <img onClick={()=>showLarge(img.imageName)} className="sm:h-96 mx-4 my-4 shadow-2xl" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${img.imageName}`} alt=""/>
+                            <img onClick={()=>showLarge(img.imageName)} className="sm:h-96 mx-4 my-4 shadow-2xl cursor-pointer" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${img.imageName}`} alt=""/>
                         </div>
                     )
                 })}

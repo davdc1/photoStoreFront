@@ -62,15 +62,16 @@ class ContactUs extends React.Component{
                 <div className="h-44 flex items-center justify-center">
                     <span className="text-xl">Message submitted</span>
                 </div>}
-                <div className="mx-auto w-2/6 mt-4 mb-14">
-                <MyMapComponent
-                    isMarkerShown
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                />
-                </div>
+                {/* <div className="w-50v h-30v">
+                    <MyMapComponent
+                        isMarkerShown
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                        loadingElement={<div style={{ height: `100%` }} />}
+                        containerElement={<div style={{ height: `400px` }} />}
+                        mapElement={<div style={{ height: `100%` }} />}
+                    />
+                </div> */}
+                <div className="h-20v"></div>
             </div>
     )
     }

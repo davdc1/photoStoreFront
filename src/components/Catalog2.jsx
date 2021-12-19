@@ -191,7 +191,7 @@ class Catalog2 extends React.Component{
                             </div>
                         </div>
                         <div className="flex-1 flex flex-wrap justify-around 2xl:mx-48">
-                            {this.state.prodArray.length === 0 && !this.state.loading && <p className="my-24">no items _______ selection</p>}
+                            {this.state.prodArray.length === 0 && !this.state.loading && <p className="my-24">No matching items</p>}
                             {this.state.loading && [1, 2, 3, 4].map((item) => {return <ProductCardSkeleton key={item.toString()} />})}                        
                             {!this.state.loading && this.state.prodArray.length > 0 && this.state.prodArray.map((product, index) => {
                                 return (

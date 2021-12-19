@@ -1,90 +1,25 @@
 
-import React from "react"
+import React, { useContext, useState } from "react"
 import { Link } from 'react-router-dom'
-import axios from "axios"
-import { User } from "./contexts/UserContext"
+import { Global } from './contexts/GlobalContext'
 
-class Cart extends React.Component{
-    static contextType = User;
-    constructor(props){
-        super(props)
+export const Cart = () => { 
 
-        this.coupon = [
-            {code: "10off", dis: "10-percent"}
-        ]
+    let coupon = [
+        {code: "10off", dis: "10-percent"}
+    ]
         
-        this.state = {
-            userId: this.context?this.context.signedUser._id:"",
-            items: [],
-            total: 0,
-            couponOk: false,
-            dis: "",
-            editCart: false
-        }
-    }
+    const globalState = useContext(Global);
+    const [editCart, setEditCart] = useState(false);
 
-    componentDidMount(){
-        console.log("context at cart", this.context);
-        let items = this.context.signedUser ?
-            this.context.signedUser.cart :
-            this.getItemsFromLocalStrorage();
-        
-        this.setState({
-            items: items,
-            total: this.getItemTotal(items)
-        })
-
-    }
-
-    componentDidUpdate(){
-        console.log("state.userId:", this.state.userId);
-        console.log("context at did update*****:", this.context);
-        if(this.context.signedUser._id !== this.state.userId){
-            console.log("is different");
-            this.setState({
-                userId: this.context.signedUser._id,
-                items: this.context.signedUser ? this.context.signedUser.cart : []
-            })
-        }
-        // this.setState({
-        //     items: this.context.signedUser.cart,
-        //     total: this.getItemTotal(this.context.signedUser.cart)
-        // })
-        
-        // if(prevProps.data !== this.props.data){
-        //     let items = this.context.signedUser ?
-        //     this.context.signedUser.cart :
-        //     this.getItemsFromLocalStrorage();
-        
-        // this.setState({
-        //     items: items,
-        //     total: this.getItemTotal(items)
-        // })
-        // }
-    }
-
-    getItemTotal(items){
-        let total = 0;
-        if(items){
-            for(let i = 0; i < items.length; i++){
-                total += (parseInt(items[i].price) * items[i].quantity);
-            }
-        }
-        return total;
-    }
-    
-    getItemsFromLocalStrorage(){
-        return localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[];
-    }
-
-    applyCoupon = (event) => {
+    const applyCoupon = (event) => {
         event.preventDefault();
         let disStr;
-        for(let i = 0; i < this.coupon.length; i++){
-            if(event.target[0].value === this.coupon[i].code){
-                disStr = this.coupon[i].dis;
+        for(let i = 0; i < coupon.length; i++){
+            if(event.target[0].value === coupon[i].code){
+                disStr = coupon[i].dis;
                 if(disStr.split("-")[1] === "percent"){
-                    this.setState({couponOk: true, total: this.state.total * (1 - (1 / parseInt(disStr.split("-")[0])))})
+                    //this.setState({couponOk: true, total: this.state.total * (1 - (1 / parseInt(disStr.split("-")[0])))})
                 }
                 break
             }
@@ -92,95 +27,12 @@ class Cart extends React.Component{
         
     }
 
-    setEditCart = () => {
-        this.setState({editCart: !this.state.editCart})
-    }
-    
-    plusQuant(idSize){
-        let items =  this.state.items;
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === idSize){
-                if(items[i].quantity < 10){
-                    items[i].quantity += 1;
-                }
-                break;
-            }
-        }
-        localStorage.setItem("cartItems", JSON.stringify(items));
-        this.setState({items: items, total: this.getItemTotal(items)})
-        this.props.updateCartPrev();
-    }
-
-    minusQuant(idSize){
-        let items = this.state.items;
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === idSize){
-                if(items[i].quantity <= 1){
-                    items.splice(i, 1);
-                }else{
-                    items[i].quantity -= 1;
-                }
-                break;
-            }
-        }
-        localStorage.setItem("cartItems", JSON.stringify(items));
-        this.setState({items: items, total: this.getItemTotal(items)})
-        this.props.updateCartPrev();
-    }
-
-    removeItem = (idSize) => {
-        let items = this.state.items
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === idSize){
-                items.splice(i, 1)
-                break;
-            }
-        }
-        this.setState({items: items, total: this.getItemTotal(items)});
-        localStorage.setItem("cartItems", JSON.stringify(items));
-        this.props.updateCartPrev();
-    }
-
-    emptyCart = () => {
-        this.setState({items: [], total: 0});
-        localStorage.setItem("cartItems", '[]');
-        this.props.updateCartPrev();
-    }
-
-    async sendCart(cart){
-        try{
-            await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.context.signedUser._id}`, cart)
-            .then((res) => console.log("put to cart res:", res));
-        }
-        catch(err){
-            console.log("put to cart error:", err.message);
-        }
-    }
-
-    async updateCart(){
-        await this.sendCart(this.state.items)
-        this.context.getUserByEmail(this.context.signedUser.email)
-    }
-
-    applyCartChanges = (items) => {
-        this.setEditCart();
-        this.sendCart(items);
-        this.context.signedUser.cart = items;
-        this.context.setSignedUser(this.context.signedUser)
-    }
-
-    componentWillUnmount(){
-        if(this.context.signedUser)
-            this.sendCart(this.state.items);
-    }
-
-    render(){
         return (
             <div className="flex flex-col justify-center items-center my-14 relative top-24">
                 <h1>Cart</h1>
-                <div className="flex flex-col justify-center border border-2 rounded m-10 ">
-                {this.state.items.length > 0 &&  
-                    <div className="flex justify-around">
+                <div className="flex flex-col sm:justify-center items-stretch border border-2 rounded sm:m-10 w-90v sm:w-auto">
+                {globalState.cart.length > 0 &&  
+                    <div className="hidden sm:flex justify-around">
                         <div className="flex-1 w-44"></div>
                         <div className="flex-1 w-44 mr-14"></div>
                         <span className="flex-1 mx-2">unit price</span>
@@ -189,67 +41,71 @@ class Cart extends React.Component{
                         <span className="flex-1 w-44"></span>
                     </div>
                     }
-                    {this.state.items.map((item, index) =>{
+                    {globalState.cart.map((item, index) =>{
                         if(item.quantity){
-                            return (<div key={index.toString()} className="flex justify-between items-center border-t-2 py-6 px-8">
-                                        <Link to={{pathname:`/prodpage/${item.productId}`, state:{product: item}}}>
-                                            <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="h-20 mx-3" />
+                            return (<div key={index.toString()} className="flex justify-center border-t-2 sm:py-6 sm:px-8 py-2 px-3">
+                                        <Link to={{pathname:`/prodpage/${item.productId}`}}>
+                                            <img src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${item.imageName}`} alt="" className="w-16 sm:w-auto sm:h-72 mx-3" />
                                         </Link>
-                                        <div className="flex flex-col">
-                                            <Link to={{pathname:`/prodpage/${item.productId}`}}>
-                                                <span className="font-semibold">{item.prodName}</span>
-                                            </Link>
-                                            <span className="mx-3">{item.size}</span>
-                                        </div>
-                                        <span className="mx-3">${item.price}</span>
-                                        <div className="mx-3 flex items-strech ">
-                                            {/* <span>quantity: {item.quantity}</span> */}
-                                            <div className="flex items-strech mx-3">
-                                                {this.state.editCart && <button onClick={()=>{this.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
-                                                    -
-                                                </button>}
-                                                <span className="px-2 py-1 border border-1 ">
-                                                    {item.quantity}
-                                                </span>
-                                                {this.state.editCart && <button onClick={()=>{this.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
-                                                    +
+                                        <div className="sm:flex-1 flex flex-col sm:flex-row justify-between sm:items-center items-start ">
+                                            <div className="flex flex-col">
+                                                <Link to={{pathname:`/prodpage/${item.productId}`}}>
+                                                    <span className="font-semibold">{item.prodName}</span>
+                                                </Link>
+                                                <div>
+                                                    <span className="sm:hidden">size: </span>
+                                                    <span className="mx-3">{item.size}</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className="sm:hidden">unit price: </span>
+                                                <span className="mx-3">${item.price}</span>
+                                            </div>
+                                            <div className="sm:mx-3 flex sm:items-strech items-start">
+                                                {/* <span>quantity: {item.quantity}</span> */}
+                                                <div className="flex sm:items-strech sm:mx-3">
+                                                    <span className="sm:hidden mr-2">quantity:</span>
+                                                    {editCart && <button onClick={()=>{globalState.minusQuant(item.idSize)}} className="w-6 border border-1 rounded-l">
+                                                        -
+                                                    </button>}
+                                                    <span className="px-2 py-1 border border-1 ">{item.quantity}</span>
+                                                    {editCart && <button onClick={()=>{globalState.plusQuant(item.idSize)}} className="w-6 border border-1 rounded-r">
+                                                        +
+                                                    </button>}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className="sm:hidden">total: </span>
+                                                <span className="mx-3">${item.price * item.quantity}</span>
+                                            </div>
+                                            <div>
+                                                {editCart && <button onClick={() => globalState.removeItem(item.idSize)} className="text-xs">
+                                                    remove
                                                 </button>}
                                             </div>
-                                        </div>
-                                        <span className="mx-3">${item.price * item.quantity}</span>
-                                        <div>
-                                            {this.state.editCart && <button onClick={() => this.removeItem(item.idSize)} className="text-xs">
-                                                remove
-                                            </button>}
                                         </div>
                                 </div>)
                         }else{
                             return null
                         }
                     })}
-                     {this.state.items.length === 0 && <div className="border-t-2 py-6 px-8"><span>your cart is empty</span></div>}
+                     {globalState.cart.length === 0 && <div className="border-t-2 py-6 px-8"><span>your cart is empty</span></div>}
                     <div className="border border-b-0 border-r-0 border-l-0 border-t-2">
-                        {!this.state.editCart && <button onClick={this.setEditCart} className="text-sm my-1">Edit cart</button>}
-                        {this.state.editCart && this.state.items.length > 0 && <button onClick={this.emptyCart} className="text-sm my-1">empty cart</button>}
-                        {this.state.editCart && <div><button onClick={() => this.applyCartChanges(this.state.items)} className="text-sm my-1">Apply changes</button></div>}
+                        {!editCart && <button onClick={() => setEditCart(!editCart)} className="text-sm my-1">Edit cart</button>}
+                        {editCart && globalState.cart.length > 0 && <button onClick={globalState.emptyCart} className="text-sm my-1">empty cart</button>}
+                        {editCart && <div><button onClick={() => {globalState.sendCart(); setEditCart(!editCart)}} className="text-sm my-1">Apply changes</button></div>}
                     </div>
                 </div>
-                <div className="flex">
+                <div className="flex flex-col sm:flex-row items-start self-start sm:self-center ml-6 sm:ml-0">
                     <div className="flex flex-col items-start">
-                        <span>Sub-total: ${this.state.total}</span>
-                        <span>Shipping: $0 </span>
-                        <span>Tax: ${(this.state.total * 0.17).toFixed(2)}</span>
-                        {this.state.couponOk && <span className="font-semibold">Coupon approved</span>}
-                        <span>Total: ${(this.state.total * 1.17).toFixed(2)}</span>
+                        <span>Sub-total: ${globalState.total}</span>
+                        <span>Total: ${(globalState.total * 1.17).toFixed(2)}</span>
+                        <span>Shipping & taxes are calculated at checkout </span>
                     </div>
-                    <div className="self-stretch flex flex-col justify-between items-end px-4">
+                    <div className="self-stretch flex flex-col justify-between items-start sm:items-end sm:px-4">
                         <Link to="/catalog">
                             <button className="border border-1 border-turq rounded px-2">back to shop</button>
                         </Link>
-                        <form onSubmit={this.applyCoupon}>
-                            <input placeholder="Coupon code" className="border border-1 rounded-l px-2" type="text" />
-                            <button className="border border-1 border-turq rounded-r px-2">apply</button>
-                        </form>
                         <Link to="/checkout/form1">
                             <button className="border border-1 border-turq rounded px-2">Proceed to checkout</button>
                         </Link>
@@ -259,7 +115,5 @@ class Cart extends React.Component{
                 <div className="h-10v"></div>
             </div>
         )
-    }
+    
 }
-
-export default Cart

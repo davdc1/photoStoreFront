@@ -1,29 +1,26 @@
 import { useContext, useState } from "react";
 import { Global } from "./contexts/GlobalContext";
 import CartPrev from "./CartPrev";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from "react-router-dom";
 
 export const NavBar = () => {
 
     const globalState = useContext(Global);
 
-    const [searchStr, setSearchStr] = useState("");
-    const [searchRedirect, setSearchRedirect] = useState(false)
     const [noMatch, setNoMatch] = useState(false);
-    const [toggle, setToggle] = useState(false);
     const [showPrev, setShowPrev] = useState(false);
     const [showSmall, setShowSmall] = useState(false);
+
+    const history = useHistory();
 
     const search = (e) => {
         e.preventDefault();
         setNoMatch(false);
-        
         if(e.target[0].value !== ""){
-            setSearchStr(e.target[0].value);
-            setSearchRedirect(true);
-            setToggle(!toggle);
+            history.push(`/catalog?search=${e.target[0].value}`)
         }else{
             setNoMatch(true)
         }
@@ -35,8 +32,7 @@ export const NavBar = () => {
 
     return(
         <div>
-            {searchRedirect && <Redirect to={`/catalog?search=${searchStr}`}/>}
-            <div  className="lg:flex hidden flex-row justify-between items-center mx-6">
+            <div className="lg:flex hidden flex-row justify-between items-center mx-6">
                 <div>   
                     <Link to="/"><img className="w-16 my-2" src="/images/logo.png" alt="Logo" /></Link>
                 </div>
@@ -76,32 +72,32 @@ export const NavBar = () => {
             <div className="lg:hidden flex justify-between">
                 <div className="flex flex-col items-start justify-between mx-6">
                     {!showSmall && <div onClick={() => setShowSmall(!showSmall)}>
-                        <p className="m-1 font-semibold text-4xl">MENU</p>
+                        <p className="m-1 font-semibold text-2xl">Menu</p>
                     </div>}
+                    
                     {showSmall &&
-                    <p onClick={() => setShowSmall(!showSmall)}>
-                         X close
-                    </p>}
-                    {showSmall && <div>
-                        <div className="flex flex-col items-start">
-                        <div className="flex flex-col items-start">
-                            <button className="mx-2 px-2"><Link to="/signUp">sign in</Link></button>
-                            <button className="mx-2 px-2"><Link to="/profile">profile</Link></button>
-                        </div>
-                        <div className="mx-2 flex flex-col items-start">
-                            <button className={smallCatBtn}><Link to="/">Home</Link></button>
-                            <button className={smallCatBtn}><Link to="/gallery">Gallery</Link></button>
-                            <button className={smallCatBtn}><Link to="/catalog">Catalog</Link></button>
-                            <button className={smallCatBtn}><Link to="/blog">Blog</Link></button>
-                            <button className={smallCatBtn}><Link to="/about">About</Link></button>
-                        </div>
-                        <div className="flex flex-col items-start">
-                            <form onSubmit={search} action="">
-                                <button>search</button>
-                                <input className="ml-2 p-0.5 bg-transparent border-b-2" type="text"></input>
-                            </form>
-                            {noMatch && <span className="text-black">enter a valid term</span>}
-                        </div>
+                    <div>
+                        <div className="sm:h-64 xs:h36"></div>
+                        <div className="flex flex-col items-start bg-light py-4 px-2">
+                            <button onClick={() => setShowSmall(!showSmall)}> X close</button>
+                            <div className="flex flex-col items-start">
+                                <button className="mx-2 px-2"><Link to="/signUp">sign in</Link></button>
+                                <button className="mx-2 px-2"><Link to="/profile">profile</Link></button>
+                            </div>
+                            <div className="mx-2 flex flex-col items-start">
+                                <button className={smallCatBtn}><Link to="/">Home</Link></button>
+                                <button className={smallCatBtn}><Link to="/gallery">Gallery</Link></button>
+                                <button className={smallCatBtn}><Link to="/catalog">Catalog</Link></button>
+                                <button className={smallCatBtn}><Link to="/blog">Blog</Link></button>
+                                <button className={smallCatBtn}><Link to="/about">About</Link></button>
+                            </div>
+                            <div className="flex flex-col items-start">
+                                <form onSubmit={search} action="">
+                                    <input className="ml-2 p-0.5 bg-transparent border-b-2" type="text"></input>
+                                    <button className="border rounded px-1 py-0.5">search</button>
+                                </form>
+                                {noMatch && <span className="text-black">enter a valid term</span>}
+                            </div>
                         </div>
                     </div>}
                 </div>

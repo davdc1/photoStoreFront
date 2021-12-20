@@ -10,7 +10,6 @@ class Catalog2 extends React.Component{
     
     constructor(props){
         super(props);
-        
         this.state = {
             loading: true,
             prodArray: [],
@@ -68,12 +67,10 @@ class Catalog2 extends React.Component{
 
     componentDidUpdate(prevProps){
         if(prevProps.location.search !== this.props.location.search){
-           
             let params = this.parseQuery();
-
             this.setState({          
-                searchStr: params.q
-            });
+                searchStr: params.search
+            }, () => this.fetchProducts());
         }
     }
     
@@ -187,7 +184,7 @@ class Catalog2 extends React.Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="flex-1 flex flex-wrap justify-around 2xl:mx-48">
+                        <div className="flex-1 flex flex-wrap justify-around 3xl:mx-48">
                             {this.state.prodArray.length === 0 && !this.state.loading && <p className="my-24">No matching items</p>}
                             {this.state.loading && [1, 2, 3, 4].map((item) => {return <ProductCardSkeleton key={item.toString()} />})}                        
                             {!this.state.loading && this.state.prodArray.length > 0 && this.state.prodArray.map((product, index) => {

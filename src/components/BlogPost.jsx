@@ -64,15 +64,13 @@ class BlogPost extends React.Component{
                     <p className="mb-5 font-semibold">comments</p>
                     {this.context.signedUser && <form onSubmit={this.submitComment} className="mx-auto flex flex-col justify-center items-center w-96">
                         <div className="flex self-stretch">
-                            <input className="px-2 border rounded mx-2 flex-1" placeholder="name" type="text" />
-                        </div>
-                        <div className="flex self-stretch">
                             <input className="px-2 border rounded mx-2 flex-1" placeholder="title" type="text" />
                         </div>
                         <div className="flex self-stretch">
                             <textarea className="px-2 border rounded mx-2 flex-1" placeholder="comment" name="" id="" cols="30" rows="2"></textarea>
                         </div>
                             <button>submit</button>
+                            
                     </form>}
                     {!this.context.signedUser && <p><Link to="/signUp">Sign in</Link> to comment</p>}
                     {this.state.comments.length === 0 && <p>no comments</p>}

@@ -13,7 +13,7 @@ function QuickView({show, showQuick, product}){
                 <button onClick={showQuick} className="border border-1 rounded px-1.5 mb-4 self-end">X</button>
                 <div className="flex justify-between items-center w-full">
                     <div className="">
-                        <Link to={{pathname:`/prodpage/${product.id}`}}><img className="w-p250 shadow-xl" src={`http://localhost:5000/images/largeProdImgs/${product.imageName}`} alt="ProdImage" /></Link>
+                        <Link to={{pathname:`/prodpage/${product.id}`}}><img className="w-p250 shadow-xl" src={`${process.env.REACT_APP_API_URL}/images/largeProdImgs/${product.imageName}`} alt="ProdImage" /></Link>
                     </div>
                         <div className="flex flex-col justify-between self-stretch w-p200">
                             <span className="mx-3 font-medium text-xl mb-12"><Link to={{pathname:`/prodpage/${product.id}`}}>product name: {product.prodName}</Link></span>

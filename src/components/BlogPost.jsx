@@ -34,8 +34,8 @@ class BlogPost extends React.Component{
     submitComment = (e) => {
         e.preventDefault();
         let comment = {
-            title: e.target[1].value,
-            content: e.target[2].value,
+            title: e.target[0].value,
+            content: e.target[1].value,
             userId: this.context.signedUser._id,
             date: new Date().toDateString(),
             postId: this.state.postId,
@@ -52,17 +52,15 @@ class BlogPost extends React.Component{
     render(){
         return(
             <div className="relative top-24">
-                <div className="flex p-5">
-                    <p>blogPost: {this.state.postId}</p>
-                </div>
                 <div className="mb-20 px-20 xl:px-96 text-left">
-                    <p className="text-2xl ">{this.state.post.title}</p>
+                    <p className="text-2xl my-10">{this.state.post.title}</p>
                     <img src={`${process.env.REACT_APP_API_URL}/images/blogImages/${this.state.post.imageName}`} alt="" />
                     <p className="my-5">{this.state.post.content}</p>
                 </div>
                 <div className="border-t-2 my-10 py-5">
                     <p className="mb-5 font-semibold">comments</p>
-                    {this.context.signedUser && <form onSubmit={this.submitComment} className="mx-auto flex flex-col justify-center items-center w-96">
+                    {this.context.signedUser &&
+                    <form onSubmit={this.submitComment} className="mx-auto flex flex-col justify-center items-center w-96">
                         <div className="flex self-stretch">
                             <input className="px-2 border rounded mx-2 flex-1" placeholder="title" type="text" />
                         </div>

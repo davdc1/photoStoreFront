@@ -29,7 +29,6 @@ class SignUp extends React.Component{
 
     createAcount = (e) => {
         e.preventDefault();
-        //validate email and then:
         if(e.target[3].value === e.target[4].value){
             this.newUser = {
                 firstName: e.target[0].value,
@@ -42,6 +41,7 @@ class SignUp extends React.Component{
     onCreateAcount = (user) => {
         this.postNewUser(user)
         .then(() => {this.context.getUserByEmail(user.email)})
+        .then(() => this.redirect())
     }
 
     async postNewUser(user){

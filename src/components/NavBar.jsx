@@ -71,12 +71,12 @@ export const NavBar = () => {
                 {/* small navbar: */}
             <div className="lg:hidden flex justify-between">
                 <div className="flex flex-col items-start justify-between mx-6">
-                    {!showSmall && <div onClick={() => setShowSmall(!showSmall)}>
-                        <p className="m-1 font-semibold text-2xl">Menu</p>
+                    {!showSmall && <div onMouseEnter={() => setShowSmall(!showSmall)}>
+                        <p className="m-1 font-semibold text-2xl cursor-pointer">Menu</p>
                     </div>}
                     
                     {showSmall &&
-                    <div>
+                    <div  onMouseLeave={() => setShowSmall(false)}>
                         <div className="sm:h-64 xs:h36"></div>
                         <div className="flex flex-col items-start bg-light py-4 px-2">
                             <button onClick={() => setShowSmall(!showSmall)}> X close</button>

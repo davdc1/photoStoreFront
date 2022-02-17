@@ -35,7 +35,7 @@ export const Profile = () => {
                 <div className="flex justify-center items-center my-16 ">
                     <div className="flex flex-col self-start justify-start items-start">
                         <p className="my-2 text-4xl" >{`Hello ${user.name.firstName} ${user.name.lastName}`}</p>
-                        <button className="border-2 rounded border-purple-400 px-1.5 py-1">{user.authorization === "admin" && <Link to="/admin" >go to admin page</Link>}</button>
+                        {user.authorization === "admin" && <button className="border-2 rounded border-purple-400 px-1.5 py-1"><Link to="/admin" >go to admin page</Link></button>}
                     </div>
                     <div className="flex flex-col ml-10">
                         {!showEditProfile &&
@@ -43,7 +43,7 @@ export const Profile = () => {
                             <span>Your information:</span>
                             <span>{`Name: ${user.name.firstName} ${user.name.lastName}`}</span>
                             <span>{`Email: ${user.email}`}</span>
-                            <span>{`Phone: ${user.phone}`}</span>
+                            <span>{`Phone: ${user.phone || "not added"}`}</span>
                             <button onClick={() => setEditProfile(!showEditProfile)} className="border rounded px-1 mt-2">Edit</button>
                         </p>}
                         {showEditProfile && <EditProfile setShow={() => setEditProfile(!showEditProfile)} />}

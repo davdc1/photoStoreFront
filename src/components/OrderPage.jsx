@@ -9,6 +9,7 @@ export const OrderPage = (props) => {
     return(
         <div className="relative top-36">
             <div className="flex flex-col">
+                <h2>order placed at {order.date} {order.time && <span>({order.time})</span>}</h2>
                 <div className="flex flex-col sm:flex-row sm:items-center items-center justify-center sm:justify-between sm:mx-36">
                     <div className="flex-1 sm:mr-10">
                         {order.cart.map((item, index) => {

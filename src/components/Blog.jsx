@@ -49,7 +49,6 @@ class Blog extends React.Component{
                     <Link className="flex justify-center" to={{pathname: `/blogpost/${this.state.blogs[0].id}`, state:{blog: this.state.blogs[0]}}} >
                         <RecentPost blog={this.state.blogs[0]} />
                     </Link>
-                    {/* <RecentPost blog={this.state.blogs[0]} /> */}
                     </div>
                 </div>}
                 <p>other posts</p>

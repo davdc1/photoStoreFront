@@ -191,8 +191,8 @@ class FormBilling extends React.Component{
                     </div>
                 </div>
                 <div className="self-stretch flex justify-between items-center">
-                    <label htmlFor="subscribe">i wish to recieve... </label>
-                    <input onChange={this.getSubscribe} className="border border-1 rounded my-2" type="checkbox" name="subscribe" id="" />
+                    <label htmlFor="subscribe">i would like to recieve news and promotions</label>
+                    <input className="border border-1 rounded my-2" type="checkbox" name="subscribe" id="" />
                 </div>
                 <button className="border border-turq border-1 rounded px-2 py-1 my-2">next</button>
             </form>

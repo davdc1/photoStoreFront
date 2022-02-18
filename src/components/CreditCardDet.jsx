@@ -34,7 +34,7 @@ class CreditCardDet extends React.Component{
 
     
     componentDidMount(){
-        this.setState({signedUser: this.context.signedUser})
+        this.setState({signedUser: this.context.signedUser});
     }
 
     nameOnCardVal(a){
@@ -113,20 +113,21 @@ class CreditCardDet extends React.Component{
         let order = {
             userId:this.state.signedUser._id,
             date: new Date().toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
             status: "",
             paied: false,
             shippingAddress: shippingAddress,
             billingAddress: billingAddress,
             subTotal: finalBill.subTotal,
             shippingPrice: finalBill.shippingPrice,
-            tax: (finalBill.total * (finalBill.taxRate + 1)),
+            tax: (finalBill.total - (finalBill.total / (finalBill.taxRate + 1))),
             total: finalBill.total,
             cart: this.context.cart
         }
 
-
         axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)
         .then((res)=>{
+            console.log("res at saveOrder:", res.data)
             this.context.setSignedUser(res.data)
             localStorage.setItem('cartItems', []);
         });

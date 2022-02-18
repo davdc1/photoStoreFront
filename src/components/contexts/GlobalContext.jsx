@@ -16,7 +16,6 @@ class GlobalContextProvider extends React.Component{
     }
 
     componentDidMount(){
-        console.log("is it running???? if so, renove contsructor, like in UserContext. maybe.");
         let items = this.state.signedUser ? this.state.signedUser.cart : this.getCartFromLocalStorage()
         this.setCart(items);
     }
@@ -39,7 +38,6 @@ class GlobalContextProvider extends React.Component{
                 inCartNum: this.getInCartNum(res.data.cart),
                 total: this.getCartTotal(res.data.cart)
             })
-            console.log("res at globalContext", res);
         })
     }
 
@@ -76,6 +74,8 @@ class GlobalContextProvider extends React.Component{
     setSignedUser = (user) => {
         this.setState({
             signedUser: user,
+            cart: user.cart,
+            total: this.getCartTotal(user.cart),
             inCartNum: this.getInCartNum(user.cart)
         });
     }
@@ -91,8 +91,6 @@ class GlobalContextProvider extends React.Component{
     
     addToCart = async (item) => {
         
-        console.log("item added:", item);
-
         let items = this.state.cart;
 
         //handle duplicates:
@@ -114,18 +112,14 @@ class GlobalContextProvider extends React.Component{
     }
 
     sendCart = async () => {
-        console.log("send send send send send send send send send");
-        console.log("state at sendCArt:", this.state);
         if(this.state.signedUser){
             try{
                 await axios.put(`${process.env.REACT_APP_API_URL}/users/updatecart/${this.state.signedUser._id}`, this.state.cart)
                 .then((res) => {
-                    console.log("updateCart res at GlobalContext:", res);
                     //this.setSignedUser(res.data);
                 });
             }
             catch(err){
-                console.log("put to cart error:", err.message);
             }
         }
     }
@@ -196,7 +190,7 @@ class GlobalContextProvider extends React.Component{
 
     setCart = (items) => {
         if(this.state.signedUser){
-            let user = this.state.signedUser
+            let user = {...this.state.signedUser}
             user.cart = items;
             this.setState({
                 signedUser: user,

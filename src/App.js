@@ -1,27 +1,28 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ProdPage from "./components/ProdPage";
-import Catalog2 from './components/Catalog2';
-import Welcome from './components/Welcome';
-import ContactUs from './components/ContactUs';
-import About from './components/About';
-import Blog from './components/Blog';
-import SignUp from './components/SignUp';
-import Gallery from './components/Gallery';
-import NotFound from './components/NotFound';
-import Checkout from './components/Checkout';
-import BlogPost from './components/BlogPost';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { OrderPage } from './components/OrderPage';
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import ProdPage from "./components/catalog/ProdPage";
+import Catalog2 from './components/catalog/Catalog2';
+import Welcome from './components/home page/Welcome';
+import ContactUs from './components/general/ContactUs';
+import About from './components/general/About';
+import Blog from './components/blog/Blog';
+import SignUp from './components/general/SignUp';
+import Gallery from './components/gallery/Gallery';
+import { NotFound } from './components/general/NotFound';
+import Checkout from './components/checkout/Checkout';
+import BlogPost from './components/blog/BlogPost';
+import { ProtectedRoute } from './components/route Hoc/ProtectedRoute';
+import { OrderPage } from './components/profile/OrderPage';
 import { AdminPage } from './components/Admin/AdminPage'
-import { Profile } from './components/Profile';
+import { Profile } from './components/profile/Profile';
 import GlobalContextProvider from './components/contexts/GlobalContext'
-import { AdminRoute } from './components/AdminRoute';
-import { Cart } from './components/Cart'
+import { AdminRoute } from './components/route Hoc/AdminRoute';
+import { Cart } from './components/cart/Cart'
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends React.Component{
 
@@ -32,23 +33,15 @@ class App extends React.Component{
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/">
-            <Welcome />
-          </Route>
+          <Route exact path="/" component={Welcome} />
           
           <Route  path="/catalog/" component={props => <Catalog2 updateCartPrev={this.updateCartPrev} {...props}/>} />
           
-          <Route  path="/contactUs">
-            <ContactUs />
-          </Route>
+          <Route  path="/contactUs" component={ContactUs} />
           
-          <Route  path="/about">
-            <About />
-          </Route>
+          <Route  path="/about" component={About} />
           
-          <Route  path="/blog">
-            <Blog />
-          </Route>
+          <Route  path="/blog" component={Blog} />
 
           <Route path="/blogpost/:id" component={BlogPost} />
           
@@ -56,13 +49,9 @@ class App extends React.Component{
 
           <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
          
-          <Route  path="/Cart">
-            <Cart />
-          </Route>
+          <Route  path="/Cart" component={Cart} />
 
-          <Route  path="/Gallery">
-            <Gallery />
-          </Route>
+          <Route  path="/Gallery" component={Gallery} />
 
           <Route path="/Checkout" component={props => <ProtectedRoute component={Checkout} {...props} />} />
 
@@ -72,9 +61,9 @@ class App extends React.Component{
 
           <Route path="/admin" component={props => <AdminRoute component={AdminPage} {...props} />} />
 
-          <Route  path="">
-            <NotFound />
-          </Route>
+          <Route  path="/notFound" component={NotFound} />
+          
+          <Route  path="" component={NotFound} />
 
         </Switch>
         <Footer />

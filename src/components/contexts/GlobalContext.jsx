@@ -11,7 +11,8 @@ class GlobalContextProvider extends React.Component{
             signedUser: "",
             cart: [],
             inCartNum: "",
-            total: 0
+            total: 0,
+            orderSent: false
         }
     }
 
@@ -209,6 +210,10 @@ class GlobalContextProvider extends React.Component{
         }
     }
 
+    setOrderSent = (bool) => {
+        this.setState({orderSent: bool});
+    }
+
     render(){
         return(
             <Global.Provider value={{
@@ -220,6 +225,7 @@ class GlobalContextProvider extends React.Component{
                 removeItem:this.removeItem,
                 emptyCart: this.emptyCart,
                 sendCart: this.sendCart,
+                setOrderSent: this.setOrderSent,
                 ...this.state}}>
                 {this.props.children}
             </Global.Provider>

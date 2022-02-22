@@ -18,7 +18,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
                 pathname: "/signup",
                 state: {
                   redirectTo: props.location.pathname,
-                  from: props.location.state.from
+                  from: props.location.state?.from
                 }
               }}
             />

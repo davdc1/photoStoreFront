@@ -35,15 +35,15 @@ class App extends React.Component{
         <Switch>
           <Route exact path="/" component={Welcome} />
           
-          <Route  path="/catalog/" component={props => <Catalog2 updateCartPrev={this.updateCartPrev} {...props}/>} />
+          <Route  path="/catalog/" component={props => <Catalog2 {...props}/>} />
           
           <Route  path="/contactUs" component={ContactUs} />
           
           <Route  path="/about" component={About} />
           
-          <Route  path="/blog" component={Blog} />
+          <Route exact path="/blog" component={Blog} />
 
-          <Route path="/blogpost/:id" component={BlogPost} />
+          <Route path="/blog/blogpost/:id" component={BlogPost} />
           
           <Route  path="/signUp" component={props => <SignUp getUserByEmail={this.getUserByEmail} {...props} />} />
 

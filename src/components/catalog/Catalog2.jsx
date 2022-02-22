@@ -1,7 +1,7 @@
 import React from "react"
+import ProductCard from "./ProductCard";
 import QuickView from "./QuickView";
 import ItemAdded from "./ItemAdded";
-import CatCard from "./CatCard";
 import { ProductCardSkeleton } from '../skeletons/ProductCardSkeleton'
 import axios from 'axios'
 
@@ -33,10 +33,8 @@ class Catalog2 extends React.Component{
     }
 
     getSearchQuery(){
-        if(this.props.location.state){
-            if(this.props.location.state.notFromSearch === true)
-                return "";
-        }
+        if(this.props.location.state?.notFromSearch === true)
+            return "";
         return this.parseQuery().search || "";
     }
     
@@ -114,7 +112,7 @@ class Catalog2 extends React.Component{
             let str = `?filter=theme`;
             let temp = this.state.filterByArr;
             
-            for(let i = 0;i < temp.length; i++){
+            for(let i = 0; i < temp.length; i++){
                 str += `&filterBy=${temp[i].value}`
             }
     
@@ -130,7 +128,6 @@ class Catalog2 extends React.Component{
             <div className="relative top-24">
                 <div>
                     <div className="my-2 flex flex-col sm:flex-row justify-center">
-                        {/* <input className="sm:mx-1 border-light border-2 rounded p-0.5" type="text" placeholder="Search" onChange={this.searchCat}/> */}
                         <select className="sm:mx-1 p-0.5 border-light border-2 rounded" name="" id="" onChange={this.sort}>
                             <option value="" defaultValue>Sort by:</option>
                             <option value="price%201">price: Low to High</option>
@@ -189,12 +186,11 @@ class Catalog2 extends React.Component{
                             {this.state.loading && [1, 2, 3, 4].map((item) => {return <ProductCardSkeleton key={item.toString()} />})}                        
                             {!this.state.loading && this.state.prodArray.length > 0 && this.state.prodArray.map((product, index) => {
                                 return (
-                                        <CatCard
+                                        <ProductCard
                                             product={product}
                                             key={index}
                                             showAdded={this.showAdded}
                                             showQuick={this.showQuick}
-                                            updateCartPrev={this.props.updateCartPrev}
                                         />
                                         )
                             })}

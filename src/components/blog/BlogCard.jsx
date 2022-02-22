@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 function BlogCard({blog}){
     return(
-        <Link className="" to={{pathname: `/blogpost/${blog.id}`, state:{blog: blog}}} >
-            <div className="flex flex  w-96 my-10 mx-5 p-5 border justify-between text-left">
+        <Link className="" to={{pathname: `/blog/blogpost/${blog.id}`, state:{ blog }}} >
+            <div className="flex w-96 my-10 mx-5 p-5 border justify-between text-left">
                 <div className="flex flex-col">
                     <span className="text-lg font-semibold">{blog.title}</span>
                     <span>{blog.date}</span>

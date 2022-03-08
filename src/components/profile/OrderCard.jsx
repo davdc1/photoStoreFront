@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom"
 
 export const OrderCard = ({order}) => {
-    console.log("order at OrderCard:", order)
     return(
-
         <Link to={{pathname: `/orderpage/${order._id}`, state: {order: order}}}>
             <div className="flex flex-col items-center border my-10 px-14 py-10">
                 <p className="mx-4 text-xl" >{order.date}</p>

@@ -54,19 +54,19 @@ class GlobalContextProvider extends React.Component{
 
         let largerCartObj = {};
 
-        for(let i = 0; i < largerCart.length; i++){
-            largerCartObj[largerCart[i].idSize] = largerCart[i];
-        }
+        largerCart.forEach((item) => {
+            largerCartObj[item.idSize] = item
+        })
 
-        for(let i = 0; i < smallerCart.length; i++){
-            if(largerCartObj[smallerCart[i].idSize]){
-                if(largerCartObj[smallerCart[i].idSize].quantity < smallerCart[i].quantity){
-                    largerCartObj[smallerCart[i].idSize] = smallerCart[i];
+        smallerCart.forEach((item) => {
+            if(largerCartObj[item.idSize]){
+                if(largerCartObj[item.idSize].quantity < item.quantity){
+                    largerCartObj[item.idSize] = item;
                 }
             }else{
-                largerCartObj[smallerCart[i].idSize] = smallerCart[i];
+                largerCartObj[item.idSize] = item;
             }
-        }
+        })
 
         localStorage.setItem('cartItems', '[]');
         return Object.values(largerCartObj);
@@ -81,32 +81,22 @@ class GlobalContextProvider extends React.Component{
         });
     }
 
-    getInCartNum = (items) => {
-        let sum = 0;
-        for(let i = 0; i < items.length; i++){
-            sum += items[i].quantity;
-        }
-        return sum;
-    }
-
-    
-    addToCart = async (item) => {
+    addToCart = async (newItem) => {
         
-        let items = this.state.cart;
+        let items = [...this.state.cart];
 
         //handle duplicates:
         let sum = 0;
         for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === item.idSize){
-                
+            if(items[i].idSize === newItem.idSize){
                 sum += parseInt(items[i].quantity);
                 items.splice(i, 1);
                 i--;
             }
         }
-        
-        item.quantity = (parseInt(item.quantity) + sum) <= 10 ? (parseInt(item.quantity) + sum) : 10;
-        items.push(item);
+
+        newItem.quantity = (parseInt(newItem.quantity) + sum) <= 10 ? (parseInt(newItem.quantity) + sum) : 10;
+        items.push(newItem);
         
         this.setCart(items);
         this.sendCart();
@@ -130,22 +120,17 @@ class GlobalContextProvider extends React.Component{
         this.setCart(items);
     }
 
-    plusQuant = (idSize) => {
-        let items =  this.state.cart;
-        for(let i = 0; i < items.length; i++){
-            if(items[i].idSize === idSize){
-                if(items[i].quantity < 10){
-                    items[i].quantity += 1;
-                }
-                break;
-            }
+    plusQuant = (itemIdSize) => {
+        let items =  [...this.state.cart];
+        let itemFound = items.find(({idSize}) => idSize === itemIdSize);
+        if(itemFound.quantity < 10){
+            itemFound.quantity++;
         }
-        
         this.setCart(items);
     }
 
     minusQuant = (idSize) => {
-        let items = this.state.cart;
+        let items = [...this.state.cart];
         for(let i = 0; i < items.length; i++){
             if(items[i].idSize === idSize){
                 if(items[i].quantity <= 1){
@@ -161,7 +146,7 @@ class GlobalContextProvider extends React.Component{
     }
 
     removeItem = (idSize) => {
-        let items = this.state.cart
+        let items = [...this.state.cart]
         for(let i = 0; i < items.length; i++){
             if(items[i].idSize === idSize){
                 items.splice(i, 1)
@@ -173,26 +158,24 @@ class GlobalContextProvider extends React.Component{
     }
 
     getCartTotal = (items) => {
-        let total = 0;
-
-        for(let i = 0; i < items.length; i++){
-            total += parseInt(items[i].price) * parseInt(items[i].quantity);
-        }
+        let total = items.reduce((prev, cur) => {
+            return prev + parseInt(cur.price) * parseInt(cur.quantity);
+        },0)
         return total;
     }
 
+
     getInCartNum(items){
-        let sum = 0;
-        for(let i = 0; i < items.length; i++){
-            sum += items[i].quantity;
-        }
+        let sum =  items.reduce((prev, cur) => {
+            return prev + cur.quantity
+        },0)
         return sum;
     }
 
     setCart = (items) => {
         if(this.state.signedUser){
             let user = {...this.state.signedUser}
-            user.cart = items;
+            user.cart = [...items];
             this.setState({
                 signedUser: user,
                 cart: items,

@@ -5,7 +5,7 @@ export const OrderPage = (props) => {
     const [showShipping, setShowShipping] = useState(false);
     const [showBilling, setShowBilling] = useState(false);
 
-    let order = props.location.state.order;
+    let order = props.location?.state?.order;
     
     return(
         <div className="relative top-36">

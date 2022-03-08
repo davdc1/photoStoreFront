@@ -44,7 +44,7 @@ class FormBilling extends React.Component{
     }
 
     checkField = (e, str) => {
-        let messages = this.state.messages;
+        let messages = {...this.state.messages};
         if(!e.target.value){
             messages[str] = "required field";
             this.setState({[str + "Ok"]: false, messages: messages})

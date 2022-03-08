@@ -42,7 +42,7 @@ class CreditCardDet extends React.Component{
     }
 
     validate = (e, str) => {
-        let messages = this.state.messages;
+        let messages = {...this.state.messages};
         if(!e.target.value){
             messages[str] = "this field is required"
             this.setState({[str + "Ok"]: false, messages: messages});
@@ -105,7 +105,7 @@ class CreditCardDet extends React.Component{
             shippingPrice: finalBill.shippingPrice,
             tax: (finalBill.total - (finalBill.total / (finalBill.taxRate + 1))),
             total: finalBill.total,
-            cart: this.context.cart
+            cart: [...this.context.cart]
         }
 
         axios.post(`${process.env.REACT_APP_API_URL}/orders`, order)

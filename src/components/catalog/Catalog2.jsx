@@ -88,7 +88,7 @@ class Catalog2 extends React.Component{
     }
 
     getFilters = (event) => {
-        let temp = JSON.parse(JSON.stringify(this.state.filterByArr));
+        let temp = [...this.state.filterByArr];
         if(event.target.checked === true){
             temp.push({key: event.target.id.split(" ")[0], value: event.target.id.split(" ")[1]})
         }else{  

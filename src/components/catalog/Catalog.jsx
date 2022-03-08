@@ -98,7 +98,7 @@ class Catalog extends React.Component{
     }
 
     sortCat = (event) => {
-        let array = this.state.prodArray;
+        let array = [...this.state.prodArray];
         if(event.target.value === "low"){
             array.sort((a, b) => {
                 if(a.price > b.price){
@@ -134,7 +134,7 @@ class Catalog extends React.Component{
     }
 
     getFilters = (event) => {
-        let temp = JSON.parse(JSON.stringify(this.state.filterByArr));
+        let temp = [...this.state.filterByArr];
         if(event.target.checked === true){
             temp.push({key: event.target.id.split(" ")[0], value: event.target.id.split(" ")[1]})
         }else{  
@@ -150,7 +150,7 @@ class Catalog extends React.Component{
     }
 
     filter2(product, index){
-        let temp = this.state.filterByArr
+        let temp = [...this.state.filterByArr]
         for(let i = 0; i < temp.length; i++){
             if(product[temp[i].key] !== temp[i].value){
                 return null

@@ -34,37 +34,21 @@ class App extends React.Component{
         <Header />
         <Switch>
           <Route exact path="/" component={Welcome} />
-          
           <Route  path="/catalog/" component={props => <Catalog2 {...props}/>} />
-          
           <Route  path="/contactUs" component={ContactUs} />
-          
           <Route  path="/about" component={About} />
-          
           <Route exact path="/blog" component={Blog} />
-
-          <Route path="/blog/blogpost/:id" component={BlogPost} />
-          
+          <Route path="/blog/blogpost/:id" component={BlogPost} />          
           <Route  path="/signUp" component={props => <SignUp getUserByEmail={this.getUserByEmail} {...props} />} />
-
-          <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>
-         
+          <Route  path ="/prodPage/:id" component={props => <ProdPage  updateCartPrev={this.updateCartPrev} {...props} />}/>        
           <Route  path="/Cart" component={Cart} />
-
           <Route  path="/Gallery" component={Gallery} />
-
           <Route path="/Checkout" component={props => <ProtectedRoute component={Checkout} {...props} />} />
-
           <Route path="/profile" component={props => <ProtectedRoute component={Profile} {...props} />}/>
-
           <Route path="/orderpage/:id" component={ OrderPage } />
-
           <Route path="/admin" component={props => <AdminRoute component={AdminPage} {...props} />} />
-
-          <Route  path="/notFound" component={NotFound} />
-          
+          <Route  path="/notFound" component={NotFound} />        
           <Route  path="" component={NotFound} />
-
         </Switch>
         <Footer />
       </div>

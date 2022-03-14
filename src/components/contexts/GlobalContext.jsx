@@ -32,6 +32,7 @@ class GlobalContextProvider extends React.Component{
             let mergedCart = this.compareCarts(JSON.parse(localStorage.getItem("cartItems")), res.data.cart);
             res.data.cart = mergedCart;
             //localStorage.setItem('cartItems', JSON.stringify(mergedCart));
+            console.log("cart at get user:", res.data.cart);
             
             this.setState({
                 signedUser: res.data,
@@ -98,8 +99,9 @@ class GlobalContextProvider extends React.Component{
         newItem.quantity = (parseInt(newItem.quantity) + sum) <= 10 ? (parseInt(newItem.quantity) + sum) : 10;
         items.push(newItem);
         
-        this.setCart(items);
-        this.sendCart();
+        //console.log("items at setcart:", items);
+        this.setCart(items, this.sendCart);
+        //this.sendCart();
     }
 
     sendCart = async () => {
@@ -172,7 +174,7 @@ class GlobalContextProvider extends React.Component{
         return sum;
     }
 
-    setCart = (items) => {
+    setCart = (items, sendCartCb) => {
         if(this.state.signedUser){
             let user = {...this.state.signedUser}
             user.cart = [...items];
@@ -181,7 +183,11 @@ class GlobalContextProvider extends React.Component{
                 cart: items,
                 total: this.getCartTotal(items),
                 inCartNum: this.getInCartNum(items)
-            })
+            }, () => {
+                if(sendCartCb){
+                    sendCartCb();
+                }
+            });
             
         }else{
             localStorage.setItem("cartItems", JSON.stringify(items));

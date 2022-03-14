@@ -27,7 +27,7 @@ function CartTable(){
                             <div className="sm:flex-1 flex flex-col sm:flex-row justify-between sm:items-center items-start ">
                                 <div className="flex flex-col">
                                     <Link to={{pathname:`/prodpage/${item.productId}`}}>
-                                        <span className="font-semibold">{item.prodName}</span>
+                                        <span className="font-semibold">{item.prodName || "name!"}</span>
                                     </Link>
                                     <div>
                                         <span className="sm:hidden">size: </span>

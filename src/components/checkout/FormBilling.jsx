@@ -1,6 +1,6 @@
 import React from 'react'
-import { Global } from '../contexts/GlobalContext'
-import { validators } from '../functions/validators'
+import { Global } from '../../contexts/GlobalContext'
+import { validators } from '../../functions/validators'
 import { OrderAlreadySent } from './OrderAlreadySent';
 
 class FormBilling extends React.Component{

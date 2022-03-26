@@ -6,7 +6,7 @@ import CreditCardDet from './CreditCardDet';
 import Paypal from './Paypal';
 import CheckoutCart from './CheckoutCart';
 import { OrderSubmitted } from './OrderSubmitted';
-import { Global } from '../contexts/GlobalContext'
+import { Global } from '../../contexts/GlobalContext'
 import { Route, Switch } from 'react-router-dom';
 
 class Checkout extends React.Component{

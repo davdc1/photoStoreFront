@@ -18,7 +18,7 @@ import { ProtectedRoute } from './components/route Hoc/ProtectedRoute';
 import { OrderPage } from './components/profile/OrderPage';
 import { AdminPage } from './components/Admin/AdminPage'
 import { Profile } from './components/profile/Profile';
-import GlobalContextProvider from './components/contexts/GlobalContext'
+import GlobalContextProvider from './contexts/GlobalContext'
 import { AdminRoute } from './components/route Hoc/AdminRoute';
 import { Cart } from './components/cart/Cart'
 

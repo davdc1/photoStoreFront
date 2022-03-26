@@ -1,7 +1,7 @@
 
 import React, { useContext } from "react";
-import auth from "../firebase/auth";
-import { Global } from '../contexts/GlobalContext'
+import auth from "../../firebase/auth";
+import { Global } from '../../contexts/GlobalContext'
 import { Route, Redirect } from "react-router-dom";
 
 export const AdminRoute = ({ component: Component, ...rest }) => {

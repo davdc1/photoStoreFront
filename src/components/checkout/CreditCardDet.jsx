@@ -1,6 +1,6 @@
 import React from "react";
-import { Global } from '../contexts/GlobalContext';
-import { creditValidators } from "../functions/validators";
+import { Global } from '../../contexts/GlobalContext';
+import { creditValidators } from "../../functions/validators";
 import { OrderAlreadySent } from './OrderAlreadySent';
 import axios from "axios";
 

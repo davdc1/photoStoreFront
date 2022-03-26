@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import { Global } from '../contexts/GlobalContext';
+import { Global } from '../../contexts/GlobalContext';
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { OrderAlreadySent } from './OrderAlreadySent';
 

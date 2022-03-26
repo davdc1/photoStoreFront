@@ -1,7 +1,7 @@
 import React from "react";
 import LargeImage from "../gallery/LargeImage";
 import ItemAdded from "./ItemAdded";
-import { Global } from '../contexts/GlobalContext'
+import { Global } from '../../contexts/GlobalContext'
 import axios from "axios";
 
 class ProdPage extends React.Component{

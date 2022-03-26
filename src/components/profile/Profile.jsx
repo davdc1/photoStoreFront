@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { Global } from "../contexts/GlobalContext";
+import { Global } from "../../contexts/GlobalContext";
 import { EditProfile } from "./EditProfile";
 import { OrderCard } from "./OrderCard";
 import { Link } from "react-router-dom";

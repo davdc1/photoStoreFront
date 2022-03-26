@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Global } from "../contexts/GlobalContext";
+import { Global } from "../../contexts/GlobalContext"
 import CartPrev from "../cart/CartPrev";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

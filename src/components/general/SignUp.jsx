@@ -1,7 +1,7 @@
 import React from "react"
-import auth from "../firebase/auth"
+import auth from "../../firebase/auth"
 import { Redirect } from 'react-router-dom'
-import { Global } from '../contexts/GlobalContext'
+import { Global } from '../../contexts/GlobalContext'
 import axios from "axios"
 
 class SignUp extends React.Component{

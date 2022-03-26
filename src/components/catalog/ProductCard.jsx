@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useContext } from "react";
-import { Global } from '../contexts/GlobalContext'
+import { Global } from '../../contexts/GlobalContext'
 import {Link} from "react-router-dom"
 
 function ProductCard({product, showAdded, showQuick}){

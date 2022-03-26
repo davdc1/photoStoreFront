@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Global } from "../contexts/GlobalContext"
+import { Global } from "../../contexts/GlobalContext"
 import axios from "axios";
 
 export const OrderSubmitted = () => {

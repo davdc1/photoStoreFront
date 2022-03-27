@@ -56,7 +56,7 @@ export const NavBar = () => {
                     {globalState.signedUser && <span>{`Hello ${globalState.signedUser.name.firstName}`}</span>}
                     {globalState.signedUser && <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">Change user</Link></button>}
                     {!globalState.signedUser && <button className="mx-2 border border-1 rounded px-2"><Link to="/signUp">sign in</Link></button>}
-                    <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>
+                    {globalState.signedUser && <button className="mx-2 border border-1 rounded px-2"><Link to="/profile">profile</Link></button>}
                     <div onMouseEnter={()=>{showCartPrev();}} onMouseLeave={showCartPrev}>
                         {globalState.inCartNum > 0 &&
                         <div className="w-6 h-6 border border-2 border-turq rounded relative top-3 left-6 bg-light">

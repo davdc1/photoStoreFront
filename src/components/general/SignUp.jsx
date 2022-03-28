@@ -74,8 +74,8 @@ class SignUp extends React.Component{
                     state: {from: this.props.location.state.from}
                     }}/>}
                 <h1>sign up \ sign in</h1>
-                <div className="flex justify-center items-stretch my-8">
-                    <form onSubmit={this.handleLogIn} className="flex flex-col border border-light border-1 rounded mx-8">
+                <div className="flex flex-col md:flex-row justify-center items-stretch my-8">
+                    <form onSubmit={this.handleLogIn} className="flex flex-col border border-light border-1 rounded mx-8 mb-4">
                         <span>Log in</span>
                         <div className="flex justify-between my-4">
                             <span className="mx-2">Email</span>
@@ -90,12 +90,12 @@ class SignUp extends React.Component{
                     </form>
                     <form onSubmit={this.createAcount} className="border border-light border-1 rounded mx-8">
                         <span>Create account</span>
-                        <div className="flex justify-between my-4">
-                            <div>
+                        <div className="flex flex-col md:flex-row justify-between my-4">
+                            <div className="md:inline-block flex justify-between md:my-0 my-4">
                                 <span className="mx-2">First name</span>
                                 <input className="border border-light border-1 rounded mx-2" type="text" />
                             </div>
-                            <div>
+                            <div className="md:inline-block flex justify-between md:my-0 my-4">
                                 <span className="mx-2">Last name</span>
                                 <input className="border border-light border-1 rounded mx-2" type="text" />
                             </div>

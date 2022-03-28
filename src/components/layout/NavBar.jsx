@@ -77,12 +77,12 @@ export const NavBar = () => {
                     
                     {showSmall &&
                     <div  onMouseLeave={() => setShowSmall(false)}>
-                        <div className="sm:h-64 xs:h36"></div>
+                        <div className="md:h-96 sm:h-64 xs:h36"></div>
                         <div className="flex flex-col items-start border border-purple-500 bg-light py-6 px-4">
-                            <button className="m-2 px-2 border" onClick={() => setShowSmall(!showSmall)}> X close</button>
+                            <button className="m-2 my-2 px-2 border" onClick={() => setShowSmall(!showSmall)}> X close</button>
                             <div className="flex flex-col items-start">
-                                <button className="mx-2 px-2"><Link to="/signUp">sign in</Link></button>
-                                <button className="mx-2 px-2"><Link to="/profile">profile</Link></button>
+                                <button className="mx-2 my-2 px-2"><Link to="/signUp">sign in</Link></button>
+                                <button className="mx-2 my-2 px-2"><Link to="/profile">profile</Link></button>
                             </div>
                             <div className="mx-2 flex flex-col items-start">
                                 <button className={smallCatBtn}><Link to="/">Home</Link></button>

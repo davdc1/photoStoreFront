@@ -10,7 +10,7 @@ export const ProductCreate = (props) => {
                 <TextInput source='rank' />
                 <TextInput source='theme' />
                 <TextInput source='imageName' />
-                <ArrayInput source="sizes">
+                <ArrayInput  source="sizes">
                     <SimpleFormIterator>
                         <TextInput source="size" />
                         <TextInput source="price" />

@@ -21,13 +21,16 @@ require('dotenv').config()
 
 export const AdminPage = () => {
     return(
-        <Admin dataProvider={simpleRestProvider(process.env.REACT_APP_API_URL)}>
+        <>
+         <div className="h-24"></div>
+         <Admin dataProvider={simpleRestProvider(process.env.REACT_APP_API_URL)}>
             <Resource  name="users" list={UserList} create={UserCreate} edit={UserEdit} />
             <Resource name="products" list={ProductList} create={ProductCreate} edit={ProductEdit} />
             <Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} />
             <Resource name="comments" list={CommentList} create={CommentCreate} edit={CommentEdit} />
             <Resource name="tickets" list={TicketList} create={TicketCreate} edit={TicketEdit} />
             <Resource name="charts" list={Charts} />
-        </Admin>
+         </Admin>
+        </>
     )
 }

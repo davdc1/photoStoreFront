@@ -29,7 +29,7 @@ export const BlogAtHomePage = () => {
     return(
         <div className="flex justify-center bg-appbg">
             {!loading && !error &&
-            <div className="my-8">
+            <div className="my-8 border border-black rounded p-6">
                 <h1 className="text-2xl mb-4">Latest article</h1>
                 <hr className="pb-4"/>
                 <div className="flex justify-center flex-col md:flex-row items-center 4xl:w-50v 2xl:w-60v w-90v md:max-h-40vw overflow-hidden">

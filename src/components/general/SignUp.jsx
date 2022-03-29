@@ -16,8 +16,6 @@ class SignUp extends React.Component{
         }
     }
 
-    /*CHECK: remove any unneccessary props*/
-
     redirect = () => {
         if(this.state.redirectTo){
             this.setState({redirect: true});
@@ -56,7 +54,6 @@ class SignUp extends React.Component{
 
     handleLogIn = (e) => {
         e.preventDefault();
-        //validation required
         auth.login(e.target[0].value, e.target[1].value, this.onLogin)
     }
 

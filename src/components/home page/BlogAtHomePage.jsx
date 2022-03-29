@@ -9,22 +9,22 @@ export const BlogAtHomePage = () => {
     const [blog, setBlog] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
     
-    const getBlog = async () => {
-        try{
-            const { data }  = await axios.get(`${process.env.REACT_APP_API_URL}/posts/latest`)
-            setBlog(data);
-            setLoading(false);
-            setError(false);
+    useEffect(() => {
+        async function getBlog(){
+            try{
+                const { data }  = await axios.get(`${process.env.REACT_APP_API_URL}/posts/latest`)
+                setBlog(data);
+                setLoading(false);
+                setError(false);
+            }
+            catch(error){
+                setError(true);
+                setLoading(false);
+            }
         }
-        catch(error){
-            setError(true);
-            setLoading(false);
-        }
-    }
-    
-    useEffect(getBlog, []);
+        getBlog();
+    }, []);
     
     return(
         <div className="flex justify-center bg-appbg">
@@ -41,7 +41,7 @@ export const BlogAtHomePage = () => {
                         <img src={`${process.env.REACT_APP_API_URL}/images/blogImages/${blog.imageName}`} alt="" />
                     </div>
                 </div>
-                <Link to={{pathname: `/blogPost/${blog._id}`, state:{blog}}}>
+                <Link to={{pathname: `/blog/blogPost/${blog._id}`, state:{blog}}}>
                     <button className="border rounded mt-4 px-2 py-1.5">Read article</button>
                 </Link>
             </div>}

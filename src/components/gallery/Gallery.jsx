@@ -9,8 +9,9 @@ function Gallery(){
     const [show, setShow] = useState(false);
     const [largeImg, setLargeImg] = useState(null);
 
-    const getGalleryImages = async () => {
-        setError(false)
+    useEffect(() => {
+        async function getGalleryImages(){
+            setError(false)
         setLoading(true)
         try {
             await axios.get(`${process.env.REACT_APP_API_URL}/galleryImages`)
@@ -18,14 +19,14 @@ function Gallery(){
                 setGalleryImages(res.data);
                 setLoading(false)
             })
-
-        } catch (error) {
+        }
+        catch (error) {
             setError(true);
             setLoading(false);
+            }
         }
-    }
-
-    useEffect(getGalleryImages, []);
+        getGalleryImages();
+    }, []);
 
     let showLarge = (img) => {
         setLargeImg(img);
@@ -33,7 +34,6 @@ function Gallery(){
     }
     return (
         <div className="flex flex-row justify-center relative top-24 my-24">
-            {/* {show && <p onClick={()=>showLarge()}>{`only shown when true. (img is ${largeImg}) click to hide`}</p>} */}
             <LargeImage largeImage={show} showLarge={showLarge} imageName={largeImg} />
             <div className="flex flex-wrap justify-center mb-24">
                 {!error && !loading && galleryImages.map((img, index) => {

@@ -42,7 +42,7 @@ function ProductCard({product, showAdded, showQuick}){
         <div className='flex flex-col sm:flex-row min-h-96 my-14 mx-4 items-center px-8 py-8 border-2 border-red-50 rounded shadow-lg'>
             <div className="">
                 <Link to={{pathname:`/prodpage/${product.id}`, state: {product: product}}}>
-                    <img className="w-full sm:w-52 shadow-xl" src={`${process.env.REACT_APP_API_URL}/images/largeProdImgs/${product.imageName}`} alt="ProdImage" />
+                    <img className="w-full sm:w-52 shadow-xl" src={`${process.env.REACT_APP_API_URL}/images/smallProdImgs/${product.imageName}`} alt="ProdImage" />
                 </Link>
             </div>
                 <div className="flex flex-col justify-between sm:ml-4 self-stretch mt-10 sm:mt-0">

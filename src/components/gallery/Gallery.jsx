@@ -12,7 +12,7 @@ function Gallery(){
     useEffect(() => {
         async function getGalleryImages(){
             setError(false)
-        setLoading(true)
+            setLoading(true)
         try {
             await axios.get(`${process.env.REACT_APP_API_URL}/galleryImages`)
             .then((res) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useContext, useState, useEffect } from "react";
 import { Global } from '../../contexts/GlobalContext'
 import { Link } from "react-router-dom";
@@ -13,11 +13,7 @@ function BlogPost(props){
     const [loadingComments, setLoadingComments] = useState(true);
     const [error, setError] = useState(false);
 
-    useEffect(() => {
-        fetchComments();
-    }, [])
-
-    let fetchComments= async () => {
+    let fetchComments = useCallback(async () => {
         try{
             const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/comments/forPost/${post._id}`)
             setComments(data);
@@ -27,7 +23,12 @@ function BlogPost(props){
             setError(true);
             setLoadingComments(false);
         }
-    }
+    },[post._id]);
+    
+    useEffect(() => {
+        fetchComments();
+    }, [fetchComments])
+
 
     let submitComment = (e) => {
         e.preventDefault();
